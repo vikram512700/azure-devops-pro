@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  name            String?
+  entraId         String?
+  experienceYears Int?
+  currentRole     String?
+  targetRole      String?
+  location        String?  @default("Hyderabad")
+  createdAt       DateTime @default(now())
+
+  progress          UserProgress[]
+  interviewSessions InterviewSession[]
+  jdAnalyses        JdAnalysis[]
+}
+
+model Track {
+  id          String   @id @default(uuid())
+  number      Int      @unique
+  title       String
+  description String?
+  difficulty  String?
+
+  modules     Module[]
+}
+
+model Module {
+  id                 String   @id @default(uuid())
+  trackId            String
+  title              String
+  slug               String   @unique
+  theory             Json?
+  realWorld          Json?
+  productionArch     Json?
+  handsOnLab         Json?
+  troubleshooting    Json?
+  interviewQuestions Json?
+  orderIndex         Int?
+  difficulty         String?
+
+  track             Track              @relation(fields: [trackId], references: [id])
+  userProgress      UserProgress[]
+  interviewSessions InterviewSession[]
+}
+
+model UserProgress {
+  id               String    @id @default(uuid())
+  userId           String
+  moduleId         String
+  sectionCompleted Json?     @default("[]")
+  quizScore        Int?
+  labCompleted     Boolean?  @default(false)
+  completedAt      DateTime?
+  xpEarned         Int?      @default(0)
+
+  user   User   @relation(fields: [userId], references: [id])
+  module Module @relation(fields: [moduleId], references: [id])
+
+  @@unique([userId, moduleId])
+}
+
+model JobListing {
+  id              String   @id @default(uuid())
+  source          String
+  title           String?
+  company         String?
+  location        String?
+  experienceMin   Int?
+  experienceMax   Int?
+  salaryMin       BigInt?
+  salaryMax       BigInt?
+  skills          Json?    @default("[]")
+  certifications  Json?    @default("[]")
+  rawDescription  String?
+  url             String?
+  postedAt        DateTime?
+  crawledAt       DateTime @default(now())
+}
+
+model InterviewSession {
+  id          String    @id @default(uuid())
+  userId      String
+  moduleId    String
+  level       Int
+  transcript  Json?     @default("[]")
+  score       Int?
+  feedback    String?
+  completedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id])
+  module Module @relation(fields: [moduleId], references: [id])
+}
+
+model JdAnalysis {
+  id              String   @id @default(uuid())
+  userId          String
+  rawJd           String?
+  extractedSkills Json?    @default("[]")
+  userSkills      Json?    @default("[]")
+  gapSkills       Json?    @default("[]")
+  matchScore      Int?
+  learningPlan    Json?    @default("[]")
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
