@@ -343,4 +343,626 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   }
+,
+
+  "11": {
+    id: "11",
+    title: "Azure Functions",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Azure Functions.",
+    theory: {
+      title: "Azure Functions Theory",
+      description: "Core principles of Azure Functions.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Azure Functions." },
+        { label: "Concept B", desc: "Architecture of Azure Functions." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Azure Functions is used at scale",
+      intro: "In a massive GCC, Azure Functions is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Azure Functions"
+    },
+    interview: [
+      {
+        q: "How do you secure Azure Functions?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "12": {
+    id: "12",
+    title: "App Service",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into App Service.",
+    theory: {
+      title: "App Service Theory",
+      description: "Core principles of App Service.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of App Service." },
+        { label: "Concept B", desc: "Architecture of App Service." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How App Service is used at scale",
+      intro: "In a massive GCC, App Service is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure App Service"
+    },
+    interview: [
+      {
+        q: "How do you secure App Service?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "13": {
+    id: "13",
+    title: "Container Instances",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Container Instances.",
+    theory: {
+      title: "Container Instances Theory",
+      description: "Core principles of Container Instances.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Container Instances." },
+        { label: "Concept B", desc: "Architecture of Container Instances." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Container Instances is used at scale",
+      intro: "In a massive GCC, Container Instances is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Container Instances"
+    },
+    interview: [
+      {
+        q: "How do you secure Container Instances?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "14": {
+    id: "14",
+    title: "Docker Fundamentals",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Docker Fundamentals.",
+    theory: {
+      title: "Docker Fundamentals Theory",
+      description: "Core principles of Docker Fundamentals.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Docker Fundamentals." },
+        { label: "Concept B", desc: "Architecture of Docker Fundamentals." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Docker Fundamentals is used at scale",
+      intro: "In a massive GCC, Docker Fundamentals is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Docker Fundamentals"
+    },
+    interview: [
+      {
+        q: "How do you secure Docker Fundamentals?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "15": {
+    id: "15",
+    title: "Multi-Stage Builds",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Multi-Stage Builds.",
+    theory: {
+      title: "Multi-Stage Builds Theory",
+      description: "Core principles of Multi-Stage Builds.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Multi-Stage Builds." },
+        { label: "Concept B", desc: "Architecture of Multi-Stage Builds." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Multi-Stage Builds is used at scale",
+      intro: "In a massive GCC, Multi-Stage Builds is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Multi-Stage Builds"
+    },
+    interview: [
+      {
+        q: "How do you secure Multi-Stage Builds?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "16": {
+    id: "16",
+    title: "Image Security",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Image Security.",
+    theory: {
+      title: "Image Security Theory",
+      description: "Core principles of Image Security.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Image Security." },
+        { label: "Concept B", desc: "Architecture of Image Security." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Image Security is used at scale",
+      intro: "In a massive GCC, Image Security is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Image Security"
+    },
+    interview: [
+      {
+        q: "How do you secure Image Security?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "17": {
+    id: "17",
+    title: "ACR (Azure Container Registry)",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into ACR (Azure Container Registry).",
+    theory: {
+      title: "ACR (Azure Container Registry) Theory",
+      description: "Core principles of ACR (Azure Container Registry).",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of ACR (Azure Container Registry)." },
+        { label: "Concept B", desc: "Architecture of ACR (Azure Container Registry)." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How ACR (Azure Container Registry) is used at scale",
+      intro: "In a massive GCC, ACR (Azure Container Registry) is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure ACR (Azure Container Registry)"
+    },
+    interview: [
+      {
+        q: "How do you secure ACR (Azure Container Registry)?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "18": {
+    id: "18",
+    title: "Container Networking",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Container Networking.",
+    theory: {
+      title: "Container Networking Theory",
+      description: "Core principles of Container Networking.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Container Networking." },
+        { label: "Concept B", desc: "Architecture of Container Networking." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Container Networking is used at scale",
+      intro: "In a massive GCC, Container Networking is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Container Networking"
+    },
+    interview: [
+      {
+        q: "How do you secure Container Networking?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "19": {
+    id: "19",
+    title: "Volumes & Storage",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Volumes & Storage.",
+    theory: {
+      title: "Volumes & Storage Theory",
+      description: "Core principles of Volumes & Storage.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Volumes & Storage." },
+        { label: "Concept B", desc: "Architecture of Volumes & Storage." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Volumes & Storage is used at scale",
+      intro: "In a massive GCC, Volumes & Storage is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Volumes & Storage"
+    },
+    interview: [
+      {
+        q: "How do you secure Volumes & Storage?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "20": {
+    id: "20",
+    title: "Secrets in Containers",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Secrets in Containers.",
+    theory: {
+      title: "Secrets in Containers Theory",
+      description: "Core principles of Secrets in Containers.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Secrets in Containers." },
+        { label: "Concept B", desc: "Architecture of Secrets in Containers." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Secrets in Containers is used at scale",
+      intro: "In a massive GCC, Secrets in Containers is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Secrets in Containers"
+    },
+    interview: [
+      {
+        q: "How do you secure Secrets in Containers?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "21": {
+    id: "21",
+    title: "Git Fundamentals",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Git Fundamentals.",
+    theory: {
+      title: "Git Fundamentals Theory",
+      description: "Core principles of Git Fundamentals.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Git Fundamentals." },
+        { label: "Concept B", desc: "Architecture of Git Fundamentals." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Git Fundamentals is used at scale",
+      intro: "In a massive GCC, Git Fundamentals is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Git Fundamentals"
+    },
+    interview: [
+      {
+        q: "How do you secure Git Fundamentals?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "22": {
+    id: "22",
+    title: "Gitflow vs Trunk-Based",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Gitflow vs Trunk-Based.",
+    theory: {
+      title: "Gitflow vs Trunk-Based Theory",
+      description: "Core principles of Gitflow vs Trunk-Based.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Gitflow vs Trunk-Based." },
+        { label: "Concept B", desc: "Architecture of Gitflow vs Trunk-Based." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Gitflow vs Trunk-Based is used at scale",
+      intro: "In a massive GCC, Gitflow vs Trunk-Based is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Gitflow vs Trunk-Based"
+    },
+    interview: [
+      {
+        q: "How do you secure Gitflow vs Trunk-Based?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "23": {
+    id: "23",
+    title: "GitHub Actions",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into GitHub Actions.",
+    theory: {
+      title: "GitHub Actions Theory",
+      description: "Core principles of GitHub Actions.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of GitHub Actions." },
+        { label: "Concept B", desc: "Architecture of GitHub Actions." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How GitHub Actions is used at scale",
+      intro: "In a massive GCC, GitHub Actions is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure GitHub Actions"
+    },
+    interview: [
+      {
+        q: "How do you secure GitHub Actions?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "24": {
+    id: "24",
+    title: "Azure Repos",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Azure Repos.",
+    theory: {
+      title: "Azure Repos Theory",
+      description: "Core principles of Azure Repos.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Azure Repos." },
+        { label: "Concept B", desc: "Architecture of Azure Repos." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Azure Repos is used at scale",
+      intro: "In a massive GCC, Azure Repos is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Azure Repos"
+    },
+    interview: [
+      {
+        q: "How do you secure Azure Repos?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "25": {
+    id: "25",
+    title: "Azure Pipelines",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Azure Pipelines.",
+    theory: {
+      title: "Azure Pipelines Theory",
+      description: "Core principles of Azure Pipelines.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Azure Pipelines." },
+        { label: "Concept B", desc: "Architecture of Azure Pipelines." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Azure Pipelines is used at scale",
+      intro: "In a massive GCC, Azure Pipelines is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Azure Pipelines"
+    },
+    interview: [
+      {
+        q: "How do you secure Azure Pipelines?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "26": {
+    id: "26",
+    title: "Release Management",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Release Management.",
+    theory: {
+      title: "Release Management Theory",
+      description: "Core principles of Release Management.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Release Management." },
+        { label: "Concept B", desc: "Architecture of Release Management." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Release Management is used at scale",
+      intro: "In a massive GCC, Release Management is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Release Management"
+    },
+    interview: [
+      {
+        q: "How do you secure Release Management?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "27": {
+    id: "27",
+    title: "GitOps",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into GitOps.",
+    theory: {
+      title: "GitOps Theory",
+      description: "Core principles of GitOps.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of GitOps." },
+        { label: "Concept B", desc: "Architecture of GitOps." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How GitOps is used at scale",
+      intro: "In a massive GCC, GitOps is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure GitOps"
+    },
+    interview: [
+      {
+        q: "How do you secure GitOps?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "28": {
+    id: "28",
+    title: "Helm",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Helm.",
+    theory: {
+      title: "Helm Theory",
+      description: "Core principles of Helm.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Helm." },
+        { label: "Concept B", desc: "Architecture of Helm." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Helm is used at scale",
+      intro: "In a massive GCC, Helm is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Helm"
+    },
+    interview: [
+      {
+        q: "How do you secure Helm?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "29": {
+    id: "29",
+    title: "ArgoCD",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into ArgoCD.",
+    theory: {
+      title: "ArgoCD Theory",
+      description: "Core principles of ArgoCD.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of ArgoCD." },
+        { label: "Concept B", desc: "Architecture of ArgoCD." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How ArgoCD is used at scale",
+      intro: "In a massive GCC, ArgoCD is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure ArgoCD"
+    },
+    interview: [
+      {
+        q: "How do you secure ArgoCD?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "30": {
+    id: "30",
+    title: "Chaos Mesh",
+    subtitle: "Advanced Azure Topic",
+    description: "Deep dive into Chaos Mesh.",
+    theory: {
+      title: "Chaos Mesh Theory",
+      description: "Core principles of Chaos Mesh.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Chaos Mesh." },
+        { label: "Concept B", desc: "Architecture of Chaos Mesh." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Chaos Mesh is used at scale",
+      intro: "In a massive GCC, Chaos Mesh is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Chaos Mesh"
+    },
+    interview: [
+      {
+        q: "How do you secure Chaos Mesh?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
 };

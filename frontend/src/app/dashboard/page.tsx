@@ -28,7 +28,7 @@ export default function Dashboard() {
         {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <StatCard icon={<Trophy className="w-5 h-5 text-yellow-500"/>} title="Total XP" value={isLoaded ? progress.xp.toString() : "..."} />
-          <StatCard icon={<BookOpen className="w-5 h-5 text-blue-500"/>} title="Modules Done" value={isLoaded ? `${progress.completedModules.length} / 10` : "..."} />
+          <StatCard icon={<BookOpen className="w-5 h-5 text-blue-500"/>} title="Modules Done" value={isLoaded ? `${progress.completedModules.length} / 30` : "..."} />
           <StatCard icon={<Activity className="w-5 h-5 text-emerald-500"/>} title="Labs Finished" value="0" />
           <StatCard icon={<Target className="w-5 h-5 text-purple-500"/>} title="Current Track" value="Networking" />
         </div>
