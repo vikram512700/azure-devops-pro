@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mic, Send, Bot, User, StopCircle } from "lucide-react";
+import { useSettings } from "@/hooks/useSettings";
+import { getGeminiClient, INTERVIEW_SYSTEM_PROMPT } from "@/lib/gemini";
 
 export default function InterviewPage() {
   const [messages, setMessages] = useState<{ role: 'ai' | 'user', text: string }[]>([
@@ -13,6 +15,7 @@ export default function InterviewPage() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { apiKey } = useSettings();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -20,7 +23,7 @@ export default function InterviewPage() {
     }
   }, [messages, isTyping]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
     
     // Add user message
@@ -28,14 +31,31 @@ export default function InterviewPage() {
     setInput("");
     setIsTyping(true);
 
-    // Simulate AI delay
-    setTimeout(() => {
-      setMessages(prev => [...prev, { 
-        role: 'ai', 
-        text: "That's a solid approach using a private AKS cluster with Azure Private Link. However, how would your CI/CD pipeline (e.g., Azure DevOps Hosted Agents) deploy to this private cluster if it doesn't have public access?" 
-      }]);
+    try {
+      if (!apiKey) {
+        throw new Error("Please enter your Gemini API Key in the Dashboard Settings first.");
+      }
+      const client = getGeminiClient(apiKey);
+      const model = client.getGenerativeModel({ 
+        model: "gemini-1.5-flash",
+        systemInstruction: INTERVIEW_SYSTEM_PROMPT
+      });
+      
+      const history = messages.map(m => ({
+        role: m.role === 'ai' ? 'model' : 'user',
+        parts: [{ text: m.text }]
+      }));
+
+      const chat = model.startChat({ history });
+      const result = await chat.sendMessage(input);
+      const responseText = result.response.text();
+
+      setMessages(prev => [...prev, { role: 'ai', text: responseText }]);
+    } catch (e: any) {
+      setMessages(prev => [...prev, { role: 'ai', text: "Error: " + e.message }]);
+    } finally {
       setIsTyping(false);
-    }, 2000);
+    }
   };
 
   return (

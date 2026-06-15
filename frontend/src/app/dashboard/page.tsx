@@ -3,11 +3,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Trophy, Target, Activity } from "lucide-react";
+import { BookOpen, Trophy, Target, Activity, Settings2, Key } from "lucide-react";
 import { useProgress } from "@/hooks/useProgress";
+import { useSettings } from "@/hooks/useSettings";
 
 export default function Dashboard() {
   const { progress, isLoaded } = useProgress();
+  const { apiKey, saveApiKey, isLoaded: settingsLoaded } = useSettings();
   return (
     <div className="min-h-screen p-8 pt-24 bg-background">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -68,8 +70,37 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Right Column - Skills Gap & AI Mentor */}
+          {/* Right Column - Skills Gap & AI Mentor & Settings */}
           <div className="space-y-6">
+            
+            <Card className="bg-white/[0.02] border-white/[0.05]">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Settings2 className="w-5 h-5 text-gray-400" />
+                  AI Settings
+                </CardTitle>
+                <CardDescription>Bring Your Own AI (Gemini)</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-xs text-muted-foreground">
+                  Paste your free Google Gemini API Key to unlock the AI Interviewer and JD Analyzer. Your key is securely stored in your browser's local storage.
+                </p>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Key className="absolute left-3 top-2.5 h-4 w-4 text-gray-500" />
+                    <input
+                      type="password"
+                      placeholder="AIzaSy..."
+                      className="w-full bg-black/40 border border-white/10 rounded-md pl-9 pr-4 py-2 text-sm text-gray-300 focus:outline-none focus:border-blue-500"
+                      value={settingsLoaded ? apiKey : ""}
+                      onChange={(e) => saveApiKey(e.target.value)}
+                    />
+                  </div>
+                </div>
+                {apiKey && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">API Key Saved</Badge>}
+              </CardContent>
+            </Card>
+
             <h2 className="text-xl font-semibold text-white">Market Intel</h2>
             <Card className="bg-white/[0.02] border-white/[0.05]">
               <CardHeader>

@@ -6,36 +6,48 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2, Briefcase, FileText, Target, Crosshair } from "lucide-react";
+import { useSettings } from "@/hooks/useSettings";
+import { getGeminiClient, JD_ANALYZER_PROMPT } from "@/lib/gemini";
 
 export default function JDAnalyzerPage() {
   const [jdText, setJdText] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState<any>(null);
+  const { apiKey } = useSettings();
 
   const handleAnalyze = async () => {
     if (!jdText) return;
     setIsAnalyzing(true);
     
-    // Simulating API call to ai-mentor
-    setTimeout(() => {
-      setResults({
-        match_score: 75,
-        summary: "Match score: 75%. You have 12 matching skills. Critical gaps: ArgoCD, SRE design. Estimated time to reach 90% match: 2 weeks.",
-        learning_plan: [
-          {
-            week: 1,
-            focus: "ArgoCD + GitOps",
-            milestone: "Can explain GitOps principles + demo ArgoCD App of Apps in interview"
-          },
-          {
-            week: 2,
-            focus: "SRE & Chaos Engineering",
-            milestone: "Deploy chaos mesh to AKS and document SLA/SLO for an application"
-          }
-        ]
+    try {
+      if (!apiKey) {
+        throw new Error("Please enter your Gemini API Key in the Dashboard Settings first.");
+      }
+      
+      const client = getGeminiClient(apiKey);
+      const model = client.getGenerativeModel({ 
+        model: "gemini-1.5-flash",
+        systemInstruction: JD_ANALYZER_PROMPT
       });
+
+      const result = await model.generateContent(jdText);
+      const responseText = result.response.text();
+      
+      // Extract JSON in case of markdown formatting
+      let jsonStr = responseText;
+      if (jsonStr.includes('```json')) {
+         jsonStr = jsonStr.split('```json')[1].split('```')[0].trim();
+      } else if (jsonStr.includes('```')) {
+         jsonStr = jsonStr.split('```')[1].split('```')[0].trim();
+      }
+
+      const parsedResults = JSON.parse(jsonStr);
+      setResults(parsedResults);
+    } catch (e: any) {
+      alert("AI Analysis Error: " + e.message);
+    } finally {
       setIsAnalyzing(false);
-    }, 2000);
+    }
   };
 
   return (
