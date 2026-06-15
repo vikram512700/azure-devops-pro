@@ -1,90 +1,67 @@
 "use client";
 
+import { useMemo } from 'react';
 import ReactFlow, {
-  Background, 
-  Controls, 
+  Background,
+  Controls,
   MiniMap,
   Node,
   Edge
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-const initialNodes: Node[] = [
-  {
-    id: 'internet',
-    type: 'input',
-    data: { label: '🌐 Internet' },
-    position: { x: 250, y: 0 },
-    style: { background: '#1e293b', color: '#f8fafc', border: '1px solid #334155', borderRadius: '8px', padding: '10px' }
-  },
-  {
-    id: 'app-gw',
-    data: { label: '🛡️ Application Gateway (WAF)' },
-    position: { x: 250, y: 100 },
-    style: { background: '#0369a1', color: '#f0f9ff', border: 'none', borderRadius: '8px', padding: '10px' }
-  },
-  {
-    id: 'hub-vnet',
-    data: { label: 'Hub VNET (10.0.0.0/16)' },
-    position: { x: 250, y: 200 },
-    style: { background: '#0f172a', color: '#cbd5e1', border: '2px dashed #334155', width: 200, height: 100 }
-  },
-  {
-    id: 'firewall',
-    data: { label: '🔥 Azure Firewall' },
-    position: { x: 280, y: 240 },
-    style: { background: '#b91c1c', color: '#fef2f2', border: 'none', borderRadius: '4px' },
-    parentNode: 'hub-vnet',
-    extent: 'parent',
-  },
-  {
-    id: 'spoke-vnet',
-    data: { label: 'Spoke VNET (10.1.0.0/16)' },
-    position: { x: 250, y: 380 },
-    style: { background: '#0f172a', color: '#cbd5e1', border: '2px dashed #0284c7', width: 300, height: 150 }
-  },
-  {
-    id: 'aks',
-    data: { label: '☸️ AKS Cluster (Private)' },
-    position: { x: 300, y: 430 },
-    style: { background: '#0284c7', color: '#f0f9ff', border: 'none', borderRadius: '4px', width: 180 },
-    parentNode: 'spoke-vnet',
-    extent: 'parent',
-  },
-  {
-    id: 'peering',
-    data: { label: 'VNET Peering' },
-    position: { x: 480, y: 310 },
-    style: { background: 'transparent', border: 'none', color: '#94a3b8', fontSize: '10px' }
-  }
-];
+// Topic-specific production flows, keyed by the module's subtitle (category).
+const CATEGORY_FLOWS: Record<string, string[]> = {
+  "Azure Fundamentals": ["🏢 Management Group", "📦 Subscription (billing/quota)", "🗂️ Resource Group", "🔧 Tagged Resources"],
+  "Azure Networking": ["🌐 Internet", "🛡️ App Gateway (WAF)", "🔥 Azure Firewall — Hub VNet", "🔗 VNet Peering", "☸️ Spoke VNet / Workloads"],
+  "Azure Compute": ["🌐 Load Balancer", "⚖️ VMSS (autoscale)", "💻 VM Instances", "💾 Premium SSD Disks"],
+  "Containers": ["👩‍💻 Dockerfile (multi-stage)", "🔨 docker build", "🔍 Trivy scan (gate)", "📦 ACR — private registry"],
+  "Kubernetes / AKS": ["🌐 Ingress (NGINX/AGIC)", "🔀 Service (ClusterIP)", "📦 Deployment / ReplicaSet", "☸️ Pods across AZs", "🧠 Managed Control Plane"],
+  "CI/CD & Automation": ["📥 Git Push / PR", "🔨 Build + Test", "🔍 Security Scan", "🚦 Staging (auto)", "✅ Manual Approval", "🚀 Production"],
+  "Infrastructure as Code": ["📝 HCL / Bicep Code", "🔍 plan / what-if", "🔒 Remote State (locked)", "☁️ Azure Resources"],
+  "Security & Identity": ["👤 User / Workload", "🔐 Entra ID (authn)", "🎫 RBAC Role + Scope", "🔑 Key Vault (secrets)", "🔧 Target Resource"],
+  "Observability & SRE": ["📊 Metrics + 📜 Logs", "🔭 Azure Monitor", "📈 Log Analytics (KQL)", "🚨 Alert Rule", "📟 Action Group → On-call"],
+};
 
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: 'internet', target: 'app-gw', animated: true, style: { stroke: '#94a3b8' } },
-  { id: 'e2-3', source: 'app-gw', target: 'firewall', animated: true, style: { stroke: '#94a3b8' } },
-  { id: 'e3-4', source: 'firewall', target: 'aks', animated: true, style: { stroke: '#0284c7', strokeWidth: 2 } },
-];
+const FALLBACK = CATEGORY_FLOWS["Azure Networking"];
 
-export function ArchitectureVisualizer() {
+const PALETTE = ["#0369a1", "#0284c7", "#0ea5e9", "#6366f1", "#8b5cf6", "#a855f7"];
+
+export function ArchitectureVisualizer({ subtitle }: { subtitle?: string }) {
+  const { nodes, edges } = useMemo(() => {
+    const flow = (subtitle && CATEGORY_FLOWS[subtitle]) || FALLBACK;
+    const nodes: Node[] = flow.map((label, i) => ({
+      id: `n${i}`,
+      type: i === 0 ? 'input' : i === flow.length - 1 ? 'output' : 'default',
+      data: { label },
+      position: { x: 220, y: i * 110 },
+      style: {
+        background: i === 0 ? '#1e293b' : PALETTE[Math.min(i - 1, PALETTE.length - 1)],
+        color: '#f0f9ff',
+        border: '1px solid #334155',
+        borderRadius: '10px',
+        padding: '12px 16px',
+        width: 260,
+        fontSize: '13px',
+        fontWeight: 500,
+      },
+    }));
+    const edges: Edge[] = flow.slice(1).map((_, i) => ({
+      id: `e${i}`,
+      source: `n${i}`,
+      target: `n${i + 1}`,
+      animated: true,
+      style: { stroke: '#64748b', strokeWidth: 2 },
+    }));
+    return { nodes, edges };
+  }, [subtitle]);
+
   return (
     <div className="w-full h-[600px] border border-white/10 rounded-xl overflow-hidden bg-black/40">
-      <ReactFlow 
-        nodes={initialNodes} 
-        edges={initialEdges}
-        fitView
-        className="dark"
-      >
+      <ReactFlow nodes={nodes} edges={edges} fitView className="dark">
         <Background color="#334155" gap={16} />
         <Controls className="bg-white/5 border-white/10 fill-white" />
-        <MiniMap 
-          nodeColor={(n) => {
-            if (n.id === 'firewall') return '#b91c1c';
-            if (n.id === 'aks') return '#0284c7';
-            return '#1e293b';
-          }}
-          maskColor="rgba(0,0,0, 0.7)"
-          className="bg-black/50 border-white/10"
-        />
+        <MiniMap maskColor="rgba(0,0,0,0.7)" className="bg-black/50 border-white/10" />
       </ReactFlow>
     </div>
   );

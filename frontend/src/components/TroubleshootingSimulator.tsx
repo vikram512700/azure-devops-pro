@@ -4,119 +4,19 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { AlertTriangle, Terminal, CheckCircle2, ChevronRight, Trophy } from "lucide-react";
+import { AlertTriangle, Terminal, ChevronRight, Trophy } from "lucide-react";
 import { useProgress } from "@/hooks/useProgress";
 import confetti from "canvas-confetti";
+import { scenariosForSubtitle, TStep as Step } from "@/data/troubleshooting";
 
-type Step = {
-  id: string;
-  command: string;
-  output: string;
-  isFix: boolean;
-};
-
-type Scenario = {
-  id: string;
-  title: string;
-  description: string;
-  successMessage: string;
-  steps: Step[];
-};
-
-const SCENARIOS: Scenario[] = [
-  {
-    id: "s1",
-    title: "AKS OOMKilled",
-    description: "Alert: Checkout service is flapping and restarting continuously in production.",
-    successMessage: "You identified the OOMKilled status and increased memory limits. +50 XP",
-    steps: [
-      {
-        id: "check-nodes",
-        command: "kubectl get nodes",
-        output: "NAME                 STATUS   ROLES   AGE   VERSION\naks-nodepool1-1234   Ready    agent   12d   v1.28.3\naks-nodepool1-5678   Ready    agent   12d   v1.28.3",
-        isFix: false
-      },
-      {
-        id: "check-pods",
-        command: "kubectl get pods -n production",
-        output: "NAME                             READY   STATUS      RESTARTS      AGE\ncheckout-service-7f89b4c-xyz     0/1     OOMKilled   12 (2m ago)   1h\npayment-service-8b54f9d-abc      1/1     Running     0             1h",
-        isFix: false
-      },
-      {
-        id: "describe-pod",
-        command: "kubectl describe pod checkout-service-7f89b4c-xyz -n production",
-        output: "Name:             checkout-service-7f89b4c-xyz\nNamespace:        production\n...\nState:          Waiting\nReason:         CrashLoopBackOff\nLast State:     Terminated\nReason:         OOMKilled\nExit Code:      137\n...\nLimits:\n  cpu:     500m\n  memory:  256Mi\nRequests:\n  cpu:     250m\n  memory:  128Mi",
-        isFix: false
-      },
-      {
-        id: "fix-memory",
-        command: "kubectl set resources deployment checkout-service -n production --limits=memory=512Mi",
-        output: "deployment.apps/checkout-service resource requirements updated",
-        isFix: true
-      }
-    ]
-  },
-  {
-    id: "s2",
-    title: "NSG Port Block",
-    description: "Alert: Cannot reach the production VM on port 443 via public IP.",
-    successMessage: "You identified the Deny rule and added an Allow rule for 443. +50 XP",
-    steps: [
-      { 
-        id: "c1", 
-        command: "nc -vz 203.0.113.5 443", 
-        output: "nc: connect to 203.0.113.5 port 443 (tcp) failed: Connection timed out", 
-        isFix: false 
-      },
-      { 
-        id: "c2", 
-        command: "az network nsg rule list -g prod-rg --nsg-name prod-nsg", 
-        output: "[\n  {\n    \"name\": \"DenyAllInbound\",\n    \"access\": \"Deny\",\n    \"destinationPortRange\": \"*\"\n  }\n]", 
-        isFix: false 
-      },
-      { 
-        id: "c3", 
-        command: "az network nsg rule create -g prod-rg --nsg-name prod-nsg -n Allow443 --priority 100 --destination-port-ranges 443 --access Allow", 
-        output: "{\n  \"provisioningState\": \"Succeeded\"\n}", 
-        isFix: true 
-      }
-    ]
-  },
-  {
-    id: "s3",
-    title: "ACR Image Pull Error",
-    description: "Alert: New deployment of payment-service is stuck in ImagePullBackOff.",
-    successMessage: "You identified the unauthorized error and attached the AcrPull role to the AKS managed identity. +50 XP",
-    steps: [
-      { 
-        id: "c1", 
-        command: "kubectl get pods -n production", 
-        output: "NAME                             READY   STATUS             RESTARTS   AGE\npayment-service-1a2b3c4-def      0/1     ImagePullBackOff   0          5m", 
-        isFix: false 
-      },
-      { 
-        id: "c2", 
-        command: "kubectl describe pod payment-service-1a2b3c4-def -n production", 
-        output: "Failed to pull image \"prodacr.azurecr.io/payment:v2\": rpc error: code = Unknown desc = Error response from daemon: Get https://prodacr.azurecr.io/v2/: unauthorized: authentication required", 
-        isFix: false 
-      },
-      { 
-        id: "c3", 
-        command: "az role assignment create --assignee <aks-identity> --role AcrPull --scope <acr-id>", 
-        output: "Role assignment created successfully.", 
-        isFix: true 
-      }
-    ]
-  }
-];
-
-export function TroubleshootingSimulator() {
-  const [activeScenarioId, setActiveScenarioId] = useState("s1");
+export function TroubleshootingSimulator({ subtitle }: { subtitle?: string }) {
+  const SCENARIOS = scenariosForSubtitle(subtitle);
+  const [activeScenarioId, setActiveScenarioId] = useState(SCENARIOS[0].id);
   const [history, setHistory] = useState<Step[]>([]);
   const [solved, setSolved] = useState(false);
   const { addXP } = useProgress();
 
-  const activeScenario = SCENARIOS.find(s => s.id === activeScenarioId)!;
+  const activeScenario = SCENARIOS.find(s => s.id === activeScenarioId) ?? SCENARIOS[0];
 
   const switchScenario = (id: string) => {
     setActiveScenarioId(id);

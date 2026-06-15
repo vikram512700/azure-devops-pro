@@ -137,7 +137,7 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
 
           <TabsContent value="architecture" className="mt-0 space-y-4">
             <h2 className="text-xl font-bold text-white mb-2">Production Architecture Explorer</h2>
-            <ArchitectureVisualizer />
+            <ArchitectureVisualizer subtitle={moduleData.subtitle} />
           </TabsContent>
 
           <TabsContent value="lab" className="mt-0">
@@ -146,7 +146,7 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
 
           <TabsContent value="troubleshoot" className="mt-0 space-y-4">
             <h2 className="text-xl font-bold text-white mb-2">Troubleshooting Simulator</h2>
-            <TroubleshootingSimulator />
+            <TroubleshootingSimulator subtitle={moduleData.subtitle} />
           </TabsContent>
 
           <TabsContent value="interview" className="mt-0 space-y-4">
