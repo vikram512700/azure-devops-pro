@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, MapPin, Briefcase, Zap, Building2, BarChart3 } from "lucide-react";
+import { TrendingUp, Briefcase, Zap, Building2, BarChart3 } from "lucide-react";
 
 // Mock Data from Implementation Plan
 const SALARY_DATA = [

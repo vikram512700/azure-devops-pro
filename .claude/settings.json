@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(cat next.config.*)",
+      "Bash(cat ../.github/workflows/*.yml)",
+      "Bash(cd \"/c/Users/vikra/OneDrive/Documents/Mastering DevOps and AI Infrastructure/frontend\" && wc -l src/data/modules.ts src/components/ModuleClient.tsx src/components/LabPanel.tsx src/components/TroubleshootingSimulator.tsx src/components/ArchitectureVisualizer.tsx src/components/QuizEngine.tsx 2>/dev/null)",
+      "Read(//c/c/Users/vikra/OneDrive/Documents/Mastering DevOps and AI Infrastructure/frontend/src/data/**)"
+    ]
+  }
+}

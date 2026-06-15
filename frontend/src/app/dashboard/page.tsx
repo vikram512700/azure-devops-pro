@@ -25,7 +25,7 @@ export default function Dashboard() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-white">Welcome back, Engineer</h1>
-            <p className="text-muted-foreground mt-1">Here's your progress on the Azure DevOps journey.</p>
+            <p className="text-muted-foreground mt-1">Here&apos;s your progress on the Azure DevOps journey.</p>
           </div>
           <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
             Level 5 Explorer
@@ -108,7 +108,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-xs text-muted-foreground">
-                  Paste your free Google Gemini API Key to unlock the AI Interviewer and JD Analyzer. Your key is securely stored in your browser's local storage.
+                  Paste your free Google Gemini API Key to unlock the AI Interviewer and JD Analyzer. Your key is securely stored in your browser&apos;s local storage.
                 </p>
                 <div className="flex gap-2">
                   <div className="relative flex-1">

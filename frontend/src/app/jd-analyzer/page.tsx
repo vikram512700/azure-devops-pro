@@ -4,15 +4,20 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2, Briefcase, FileText, Target, Crosshair } from "lucide-react";
 import { useSettings } from "@/hooks/useSettings";
 import { getGeminiClient, JD_ANALYZER_PROMPT } from "@/lib/gemini";
 
+interface JDAnalysisResult {
+  match_score: number;
+  summary: string;
+  learning_plan: { week: number; focus: string; milestone: string }[];
+}
+
 export default function JDAnalyzerPage() {
   const [jdText, setJdText] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<JDAnalysisResult | null>(null);
   const { apiKey } = useSettings();
 
   const handleAnalyze = async () => {
@@ -43,8 +48,9 @@ export default function JDAnalyzerPage() {
 
       const parsedResults = JSON.parse(jsonStr);
       setResults(parsedResults);
-    } catch (e: any) {
-      alert("AI Analysis Error: " + e.message);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      alert("AI Analysis Error: " + message);
     } finally {
       setIsAnalyzing(false);
     }
@@ -120,7 +126,7 @@ export default function JDAnalyzerPage() {
                     Targeted Learning Plan
                   </h4>
                   <div className="space-y-4">
-                    {results.learning_plan.map((plan: any, i: number) => (
+                    {results.learning_plan.map((plan, i: number) => (
                       <div key={i} className="p-4 rounded-lg bg-black/40 border border-white/5 border-l-2 border-l-blue-500 relative pl-6">
                         <div className="absolute -left-2.5 top-5 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-[10px] font-bold text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                           W{plan.week}

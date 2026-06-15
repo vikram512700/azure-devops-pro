@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mic, Send, Bot, User, StopCircle } from "lucide-react";
@@ -51,8 +51,9 @@ export default function InterviewPage() {
       const responseText = result.response.text();
 
       setMessages(prev => [...prev, { role: 'ai', text: responseText }]);
-    } catch (e: any) {
-      setMessages(prev => [...prev, { role: 'ai', text: "Error: " + e.message }]);
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      setMessages(prev => [...prev, { role: 'ai', text: "Error: " + message }]);
     } finally {
       setIsTyping(false);
     }

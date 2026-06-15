@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowRight, Cloud, Terminal, BrainCircuit, Rocket } from "lucide-react";
 
@@ -27,7 +27,7 @@ export default function Home() {
 
         <p className="max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed">
           From fundamentals to SRE. Learn real-world implementations, practice with hands-on labs, 
-          and prepare for Hyderabad's top GCC interviews with our AI mentor.
+          and prepare for Hyderabad&apos;s top GCC interviews with our AI mentor.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">

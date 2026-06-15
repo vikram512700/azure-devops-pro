@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Lock, Unlock, PlayCircle } from "lucide-react";
+import { Lock, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 
