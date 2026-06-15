@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +12,7 @@ import { TroubleshootingSimulator } from "@/components/TroubleshootingSimulator"
 
 export default function ModulePage({ params }: { params: { id: string } }) {
   const moduleId = params.id;
+  const [activeTab, setActiveTab] = useState("lab");
 
   const SECTIONS = [
     { id: "theory", title: "1. Theory", icon: <BookOpen className="w-5 h-5 text-blue-400" />, status: "completed" },
@@ -32,13 +36,14 @@ export default function ModulePage({ params }: { params: { id: string } }) {
             {SECTIONS.map((section) => (
               <button 
                 key={section.id} 
+                onClick={() => setActiveTab(section.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                  ${section.status === 'current' ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' : 
-                    section.status === 'completed' ? 'text-gray-300 hover:bg-white/5' : 
-                    'text-gray-600 cursor-not-allowed'}`}
+                  ${activeTab === section.id ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' : 
+                    'text-gray-300 hover:bg-white/5'}`}
               >
-                {section.status === 'completed' ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : 
-                 section.status === 'current' ? section.icon : <Circle className="w-5 h-5 text-gray-700" />}
+                {activeTab === section.id ? <CheckCircle2 className="w-5 h-5 text-blue-500" /> : 
+                 section.status === 'completed' ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : 
+                 <Circle className="w-5 h-5 text-gray-700" />}
                 <span className="flex-1 text-left">{section.title}</span>
               </button>
             ))}
@@ -48,7 +53,7 @@ export default function ModulePage({ params }: { params: { id: string } }) {
 
       {/* Main Content Area */}
       <main className="flex-1 p-6 md:p-12 pt-20 md:pt-24 max-w-6xl w-full">
-        <Tabs defaultValue="lab" className="w-full space-y-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-extrabold text-white tracking-tight">VNet Implementation</h1>
@@ -56,9 +61,11 @@ export default function ModulePage({ params }: { params: { id: string } }) {
             </div>
             <TabsList className="bg-white/5 border border-white/10 flex-wrap h-auto">
               <TabsTrigger value="theory" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Theory</TabsTrigger>
+              <TabsTrigger value="real-world" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Real World</TabsTrigger>
               <TabsTrigger value="architecture" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Architecture</TabsTrigger>
               <TabsTrigger value="lab" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">Interactive Lab</TabsTrigger>
               <TabsTrigger value="troubleshoot" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">Troubleshoot</TabsTrigger>
+              <TabsTrigger value="interview" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Interview Prep</TabsTrigger>
               <TabsTrigger value="quiz" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Knowledge Check</TabsTrigger>
             </TabsList>
           </div>
@@ -66,18 +73,46 @@ export default function ModulePage({ params }: { params: { id: string } }) {
           <TabsContent value="theory" className="mt-0">
             <Card className="bg-white/[0.02] border-white/5 border border-l-4 border-l-blue-500">
               <CardHeader>
-                <CardTitle className="text-xl text-white">Hub-Spoke Topology Recap</CardTitle>
-                <CardDescription>Industry standard architecture for enterprise scale</CardDescription>
+                <CardTitle className="text-xl text-white">Azure Virtual Networks (VNet)</CardTitle>
+                <CardDescription>Core networking component in Azure</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="aspect-video w-full max-w-3xl rounded-lg bg-white/5 border border-white/10 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-grid-white/[0.02] bg-[length:30px_30px]" />
-                  <p className="text-muted-foreground font-mono text-sm z-10">Architecture_Diagram_Placeholder.png</p>
-                </div>
-                <p className="text-gray-300 leading-relaxed">
-                  The hub is a virtual network (VNet) in Azure that acts as a central point of connectivity to your on-premises network. 
-                  The spokes are VNets that peer with the hub, and can be used to isolate workloads.
+              <CardContent className="space-y-4 text-gray-300">
+                <p>
+                  <strong className="text-white">What is a VNet?</strong><br />
+                  A Virtual Network (VNet) is the fundamental building block for your private network in Azure. It enables many types of Azure resources, such as Azure Virtual Machines (VM), to securely communicate with each other, the internet, and on-premises networks.
                 </p>
+                <p>
+                  <strong className="text-white">Key Concepts:</strong>
+                </p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li><strong className="text-blue-400">Address Space:</strong> The CIDR block for the VNet (e.g. 10.0.0.0/16).</li>
+                  <li><strong className="text-blue-400">Subnets:</strong> Smaller logical partitions of your VNet (e.g. 10.0.1.0/24).</li>
+                  <li><strong className="text-blue-400">Network Security Groups (NSG):</strong> Firewalls containing security rules that allow or deny inbound/outbound network traffic.</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="real-world" className="mt-0">
+            <Card className="bg-white/[0.02] border-white/5 border border-l-4 border-l-emerald-500">
+              <CardHeader>
+                <CardTitle className="text-xl text-white">Jio/Reliance Enterprise Use Case</CardTitle>
+                <CardDescription>How VNets are used in production at scale</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 text-gray-300">
+                <p>
+                  In a massive GCC like Jio Platforms, you don't just create isolated networks. You use a <strong className="text-emerald-400">Hub-Spoke Topology</strong> to manage hundreds of microservices.
+                </p>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li><strong className="text-white">Hub VNet:</strong> Acts as the central point of connectivity to the on-premises Jio Data Center via ExpressRoute. It houses shared services like Azure Firewall, Bastion, and Private DNS Resolvers.</li>
+                  <li><strong className="text-white">Spoke VNets:</strong> Each product team (e.g., JioMart, JioCinema) gets their own isolated Spoke VNet. This Spoke VNet is peered directly to the Hub VNet.</li>
+                </ul>
+                <div className="p-4 bg-black/40 rounded border border-white/10 font-mono text-sm mt-4 text-gray-400">
+                  <strong className="text-purple-400"># Vikram's AWS-to-Azure Shortcut:</strong><br />
+                  AWS VPC == Azure VNet<br />
+                  AWS Subnet == Azure Subnet<br />
+                  AWS Security Group == Azure NSG
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -94,6 +129,28 @@ export default function ModulePage({ params }: { params: { id: string } }) {
           <TabsContent value="troubleshoot" className="mt-0 space-y-4">
             <h2 className="text-xl font-bold text-white mb-2">Troubleshooting Simulator</h2>
             <TroubleshootingSimulator />
+          </TabsContent>
+
+          <TabsContent value="interview" className="mt-0 space-y-4">
+            <h2 className="text-xl font-bold text-white mb-2">Level 1 - 4 Interview Questions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card className="bg-white/[0.02] border-white/10">
+                <CardHeader>
+                  <CardTitle className="text-md text-white">Q: What is the difference between an NSG and Azure Firewall?</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-gray-400 leading-relaxed">
+                  <strong className="text-indigo-400">Answer:</strong> An NSG operates at Layer 3/4 and allows/denies traffic based on simple 5-tuple rules (Source/Dest IP, Port, Protocol). Azure Firewall is a managed network security service operating at Layer 7 with threat intelligence and deep packet inspection.
+                </CardContent>
+              </Card>
+              <Card className="bg-white/[0.02] border-white/10">
+                <CardHeader>
+                  <CardTitle className="text-md text-white">Q: How do you connect two VNets in different regions?</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-gray-400 leading-relaxed">
+                  <strong className="text-indigo-400">Answer:</strong> By using Global VNet Peering. It securely routes traffic through the Microsoft backbone infrastructure without needing a public internet connection or VPN gateway.
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="quiz" className="mt-0">
