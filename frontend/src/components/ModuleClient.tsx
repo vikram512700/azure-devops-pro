@@ -135,7 +135,7 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
           </TabsContent>
 
           <TabsContent value="lab" className="mt-0">
-            <LabPanel />
+            <LabPanel moduleId={moduleId} />
           </TabsContent>
 
           <TabsContent value="troubleshoot" className="mt-0 space-y-4">

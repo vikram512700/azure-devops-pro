@@ -5,30 +5,22 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Terminal, Copy, Check, PlayCircle } from "lucide-react";
+import { moduleLabs } from "@/data/labs";
 
-export function LabPanel() {
+const FALLBACK_LAB = {
+  intro: "Follow these steps to complete the lab.",
+  steps: [
+    { id: 1, title: "Log into Azure CLI", desc: "Authenticate your local terminal with your Azure Sandbox environment.", code: "az login" },
+    { id: 2, title: "Create Resource Group", desc: "Create a resource group in an allowed sandbox region.", code: "az group create --name rg-roadmap-dev-cin --location centralindia" },
+    { id: 3, title: "Verify access", desc: "Confirm the resource group was created.", code: "az group show -n rg-roadmap-dev-cin" },
+  ],
+};
+
+export function LabPanel({ moduleId }: { moduleId?: string }) {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const steps = [
-    {
-      id: 1,
-      title: "Log into Azure CLI",
-      desc: "Authenticate your local terminal with your Azure Sandbox environment.",
-      code: "az login"
-    },
-    {
-      id: 2,
-      title: "Create Resource Group",
-      desc: "Create a resource group named 'DevOps-Sandbox' in the 'eastus' region.",
-      code: "az group create --name DevOps-Sandbox --location eastus"
-    },
-    {
-      id: 3,
-      title: "Create Virtual Network",
-      desc: "Deploy a VNet with a 10.0.0.0/16 address space.",
-      code: "az network vnet create -g DevOps-Sandbox -n CoreVNet --address-prefix 10.0.0.0/16"
-    }
-  ];
+  const lab = (moduleId && moduleLabs[moduleId]) || FALLBACK_LAB;
+  const steps = lab.steps;
 
   const handleCopy = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -47,7 +39,7 @@ export function LabPanel() {
             Sandbox Instructions
           </CardTitle>
           <CardDescription>
-            Follow these steps to complete the VNet Lab.
+            {lab.intro}
           </CardDescription>
         </CardHeader>
         <ScrollArea className="flex-1 p-4">
