@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Trophy, Target, Activity, Settings2, Key, Shield, Medal, Crown } from "lucide-react";
+import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 import { useSettings } from "@/hooks/useSettings";
 
@@ -58,12 +59,12 @@ export default function Dashboard() {
                 </div>
                 <Progress value={60} className="h-2 bg-white/5" />
                 <div className="mt-6 flex gap-4">
-                  <button className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5">
+                  <Link href="/module/3" className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5">
                     Resume Module
-                  </button>
-                  <button className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium text-sm border border-white/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-                    View Lab
-                  </button>
+                  </Link>
+                  <Link href="/roadmap" className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium text-sm border border-white/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                    View Roadmap
+                  </Link>
                 </div>
               </CardContent>
             </Card>

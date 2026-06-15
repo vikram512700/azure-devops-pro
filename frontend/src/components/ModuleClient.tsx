@@ -11,8 +11,14 @@ import { ArchitectureVisualizer } from "@/components/ArchitectureVisualizer";
 import { TroubleshootingSimulator } from "@/components/TroubleshootingSimulator";
 import { modulesData } from "@/data/modules";
 
+const TAB_ORDER = ["theory", "real-world", "architecture", "lab", "troubleshoot", "interview", "quiz"];
+
 export function ModuleClient({ moduleId }: { moduleId: string }) {
-  const [activeTab, setActiveTab] = useState("lab");
+  const [activeTab, setActiveTab] = useState("theory");
+
+  const currentIndex = TAB_ORDER.indexOf(activeTab);
+  const goPrev = () => { if (currentIndex > 0) setActiveTab(TAB_ORDER[currentIndex - 1]); };
+  const goNext = () => { if (currentIndex < TAB_ORDER.length - 1) setActiveTab(TAB_ORDER[currentIndex + 1]); };
 
   const SECTIONS = [
     { id: "theory", title: "1. Theory", icon: <BookOpen className="w-5 h-5 text-blue-400" />, status: "completed" },
@@ -164,11 +170,19 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
           </TabsContent>
           
           <div className="flex justify-between items-center pt-8 border-t border-white/5 mt-8">
-            <button className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg border border-white/10">
+            <button
+              onClick={goPrev}
+              disabled={currentIndex === 0}
+              className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg border border-white/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            >
               Previous Section
             </button>
-            <button className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
-              Mark Complete & Next Section
+            <button
+              onClick={goNext}
+              disabled={currentIndex === TAB_ORDER.length - 1}
+              className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            >
+              {currentIndex === TAB_ORDER.length - 1 ? "All Sections Done" : "Next Section"}
             </button>
           </div>
         </Tabs>
