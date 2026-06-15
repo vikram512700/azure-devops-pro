@@ -1,0 +1,252 @@
+# Azure DevOps Roadmap Pro — Azure Pipelines
+# 4 stages: build → test → staging → prod (manual gate before prod)
+# Mirrors SevaFirst pipeline pattern from your existing work
+
+trigger:
+  branches:
+    include: [main, develop]
+  paths:
+    exclude: ['docs/**', '*.md']
+
+pr:
+  branches:
+    include: [main, develop]
+
+variables:
+  - group: azure-devops-roadmap-secrets  # Key Vault linked variable group
+  - name: ACR_NAME
+    value: adrpacr  # Azure Container Registry name
+  - name: AKS_CLUSTER
+    value: adrp-aks
+  - name: AKS_RESOURCE_GROUP
+    value: rg-adrp-prod
+  - name: IMAGE_TAG
+    value: $(Build.BuildId)
+  - name: NAMESPACE_STAGING
+    value: adrp-staging
+  - name: NAMESPACE_PROD
+    value: adrp-prod
+
+stages:
+  # ─── Stage 1: Build & Security Scan ───────────────────────────────────────
+  - stage: Build
+    displayName: 'Build & Scan'
+    jobs:
+      - job: BuildFrontend
+        displayName: 'Build Frontend (Next.js)'
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+
+          - script: cd frontend && npm ci
+            displayName: 'Install frontend deps'
+
+          - script: cd frontend && npm run lint
+            displayName: 'Lint frontend'
+
+          - script: cd frontend && npm run type-check
+            displayName: 'TypeScript check'
+
+          - script: cd frontend && npm run build
+            displayName: 'Build Next.js'
+
+          - task: Docker@2
+            displayName: 'Build frontend image'
+            inputs:
+              command: buildAndPush
+              dockerfile: frontend/Dockerfile
+              containerRegistry: acrServiceConnection
+              repository: $(ACR_NAME)/frontend
+              tags: |
+                $(IMAGE_TAG)
+                latest
+
+          - script: |
+              docker pull $(ACR_NAME).azurecr.io/frontend:$(IMAGE_TAG)
+              trivy image --exit-code 1 --severity HIGH,CRITICAL \
+                $(ACR_NAME).azurecr.io/frontend:$(IMAGE_TAG)
+            displayName: 'Trivy security scan — frontend'
+
+      - job: BuildBackend
+        displayName: 'Build Backend (NestJS)'
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+
+          - script: cd backend && npm ci
+            displayName: 'Install backend deps'
+
+          - script: cd backend && npm run lint && npm run test:unit
+            displayName: 'Lint + unit tests'
+
+          - task: Docker@2
+            displayName: 'Build backend image'
+            inputs:
+              command: buildAndPush
+              dockerfile: backend/Dockerfile
+              containerRegistry: acrServiceConnection
+              repository: $(ACR_NAME)/backend
+              tags: |
+                $(IMAGE_TAG)
+                latest
+
+          - script: |
+              trivy image --exit-code 1 --severity HIGH,CRITICAL \
+                $(ACR_NAME).azurecr.io/backend:$(IMAGE_TAG)
+            displayName: 'Trivy security scan — backend'
+
+      - job: TerraformValidate
+        displayName: 'Terraform Validate & tfsec'
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - script: |
+              cd infra/terraform
+              terraform init -backend=false
+              terraform validate
+            displayName: 'Terraform validate'
+
+          - script: |
+              docker run --rm -v $(pwd)/infra/terraform:/src \
+                aquasec/tfsec:latest /src --minimum-severity HIGH
+            displayName: 'tfsec scan'
+
+  # ─── Stage 2: Integration Tests ───────────────────────────────────────────
+  - stage: Test
+    displayName: 'Integration Tests'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: IntegrationTests
+        pool:
+          vmImage: ubuntu-latest
+        services:
+          postgres:
+            image: postgres:16
+            env:
+              POSTGRES_DB: adrp_test
+              POSTGRES_USER: adrp
+              POSTGRES_PASSWORD: testpass123
+            ports: ['5432:5432']
+          redis:
+            image: redis:7-alpine
+            ports: ['6379:6379']
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+
+          - script: |
+              cd backend
+              npm ci
+              npm run migration:run
+              npm run test:integration
+            displayName: 'Backend integration tests'
+            env:
+              DATABASE_URL: postgresql://adrp:testpass123@localhost:5432/adrp_test
+              REDIS_URL: redis://localhost:6379
+
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: 'backend/test-results/*.xml'
+
+  # ─── Stage 3: Staging Deploy ───────────────────────────────────────────────
+  - stage: Staging
+    displayName: 'Deploy to Staging'
+    dependsOn: Test
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployStaging
+        displayName: 'Deploy to AKS staging namespace'
+        pool:
+          vmImage: ubuntu-latest
+        environment: staging
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Get AKS credentials'
+                  inputs:
+                    azureSubscription: azureServiceConnection
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      az aks get-credentials \
+                        --resource-group $(AKS_RESOURCE_GROUP) \
+                        --name $(AKS_CLUSTER) \
+                        --overwrite-existing
+
+                - script: |
+                    sed -i "s|IMAGE_TAG|$(IMAGE_TAG)|g" infra/k8s/staging/*.yaml
+                    kubectl apply -n $(NAMESPACE_STAGING) -f infra/k8s/staging/
+                    kubectl rollout status deployment/frontend -n $(NAMESPACE_STAGING) --timeout=5m
+                    kubectl rollout status deployment/backend -n $(NAMESPACE_STAGING) --timeout=5m
+                  displayName: 'Apply K8s manifests — staging'
+
+                - script: |
+                    cd frontend && npm run test:e2e:staging
+                  displayName: 'E2E smoke tests'
+                  env:
+                    TEST_BASE_URL: https://staging.azure-devops-roadmap.pro
+
+  # ─── Stage 4: Production Deploy (manual approval gate) ────────────────────
+  - stage: Production
+    displayName: 'Deploy to Production'
+    dependsOn: Staging
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: ManualApproval
+        displayName: 'Manual Approval Gate'
+        pool: server
+        steps:
+          - task: ManualValidation@0
+            timeoutInMinutes: 60
+            inputs:
+              notifyUsers: |
+                vikram@jioplatforms.com
+              instructions: |
+                Build $(Build.BuildId) is ready for production.
+                Staging URL: https://staging.azure-devops-roadmap.pro
+                Review and approve to deploy.
+
+      - deployment: DeployProduction
+        displayName: 'Blue-Green deploy to AKS prod'
+        dependsOn: ManualApproval
+        pool:
+          vmImage: ubuntu-latest
+        environment: production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Get AKS credentials'
+                  inputs:
+                    azureSubscription: azureServiceConnection
+                    scriptType: bash
+                    scriptLocation: inlineScript
+                    inlineScript: |
+                      az aks get-credentials \
+                        --resource-group $(AKS_RESOURCE_GROUP) \
+                        --name $(AKS_CLUSTER) \
+                        --overwrite-existing
+
+                - script: |
+                    sed -i "s|IMAGE_TAG|$(IMAGE_TAG)|g" infra/k8s/prod/*.yaml
+                    kubectl apply -n $(NAMESPACE_PROD) -f infra/k8s/prod/
+                    kubectl rollout status deployment/frontend -n $(NAMESPACE_PROD) --timeout=10m
+                    kubectl rollout status deployment/backend -n $(NAMESPACE_PROD) --timeout=10m
+                  displayName: 'Deploy to production namespace'
+
+                - script: |
+                    echo "Deployed build $(IMAGE_TAG) to production"
+                    echo "URL: https://azure-devops-roadmap.pro"
+                  displayName: 'Post-deploy summary'

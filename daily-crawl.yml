@@ -1,0 +1,116 @@
+name: Daily JD Crawler — Hyderabad Azure Jobs
+
+on:
+  schedule:
+    # 06:00 IST = 00:30 UTC
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Which crawler to run'
+        required: false
+        default: 'all'
+        type: choice
+        options: [all, linkedin, naukri, foundit, indeed]
+
+env:
+  NODE_VERSION: '20'
+  AZURE_OPENAI_DEPLOYMENT: gpt-4o
+
+jobs:
+  crawl-jobs:
+    name: Crawl Hyderabad JDs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: crawlers/package-lock.json
+
+      - name: Install dependencies
+        working-directory: crawlers
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: crawlers
+        run: npx playwright install chromium --with-deps
+
+      - name: Run LinkedIn crawler
+        if: ${{ github.event.inputs.source == 'all' || github.event.inputs.source == 'linkedin' || github.event_name == 'schedule' }}
+        working-directory: crawlers
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+        run: npx ts-node linkedin/crawler.ts
+        continue-on-error: true  # LinkedIn blocks aggressively; don't fail the whole run
+
+      - name: Run Naukri crawler
+        if: ${{ github.event.inputs.source == 'all' || github.event.inputs.source == 'naukri' || github.event_name == 'schedule' }}
+        working-directory: crawlers
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+        run: npx ts-node naukri/crawler.ts
+
+      - name: Run Foundit crawler
+        if: ${{ github.event.inputs.source == 'all' || github.event.inputs.source == 'foundit' || github.event_name == 'schedule' }}
+        working-directory: crawlers
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+        run: npx ts-node foundit/crawler.ts
+
+      - name: Refresh market intelligence views
+        working-directory: crawlers
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npx ts-node shared/refresh-views.ts
+
+      - name: Generate weekly trends digest
+        if: ${{ github.event_name == 'schedule' && fromJSON('{"0":true}')[toJSON(env.DAY_OF_WEEK)] }}
+        working-directory: crawlers
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_KEY: ${{ secrets.AZURE_OPENAI_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          DIGEST_RECIPIENT: ${{ secrets.DIGEST_RECIPIENT_EMAIL }}
+        run: npx ts-node shared/weekly-digest.ts
+
+      - name: Upload crawl logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crawl-logs-${{ github.run_id }}
+          path: crawlers/logs/
+          retention-days: 7
+
+  notify-on-failure:
+    name: Notify on crawler failure
+    needs: crawl-jobs
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure notification
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          curl -X POST https://api.sendgrid.com/v3/mail/send \
+            -H "Authorization: Bearer $SENDGRID_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "personalizations": [{"to": [{"email": "${{ secrets.DIGEST_RECIPIENT_EMAIL }}"}]}],
+              "from": {"email": "alerts@azure-devops-roadmap.pro"},
+              "subject": "⚠️ Daily JD Crawler Failed — ${{ github.run_id }}",
+              "content": [{"type": "text/plain", "value": "Crawler failed. Check: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}]
+            }'
