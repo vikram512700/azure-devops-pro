@@ -57,11 +57,11 @@ export default function Dashboard() {
                   <span className="text-blue-400 font-medium">60%</span>
                 </div>
                 <Progress value={60} className="h-2 bg-white/5" />
-                <div className="mt-6 flex gap-3">
-                  <button className="px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm transition-colors shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+                <div className="mt-6 flex gap-4">
+                  <button className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5">
                     Resume Module
                   </button>
-                  <button className="px-4 py-2 rounded-md bg-white/5 hover:bg-white/10 text-white font-medium text-sm border border-white/10 transition-colors">
+                  <button className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium text-sm border border-white/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                     View Lab
                   </button>
                 </div>
@@ -149,7 +149,7 @@ export default function Dashboard() {
                 <p className="text-sm text-indigo-100/80 mb-4">
                   Schedule a Level 2 mock interview focusing on Networking scenarios.
                 </p>
-                <button className="w-full px-4 py-2 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white font-medium text-sm transition-colors">
+                <button className="w-full h-12 rounded-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold text-sm transition-all duration-300 shadow-[0_0_15px_rgba(99,102,241,0.4)] hover:shadow-[0_0_25px_rgba(99,102,241,0.6)] hover:-translate-y-0.5">
                   Start Mock Interview
                 </button>
               </CardContent>

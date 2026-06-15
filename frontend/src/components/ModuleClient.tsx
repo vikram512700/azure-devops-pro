@@ -47,9 +47,9 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
               <button 
                 key={section.id} 
                 onClick={() => setActiveTab(section.id)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                  ${activeTab === section.id ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' : 
-                    'text-gray-300 hover:bg-white/5'}`}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-[1.02] hover:translate-x-1
+                  ${activeTab === section.id ? 'bg-blue-600/10 text-blue-400 border border-blue-500/30 shadow-[0_0_15px_rgba(37,99,235,0.1)]' : 
+                    'text-gray-300 hover:bg-white/5 border border-transparent hover:border-white/10'}`}
               >
                 {activeTab === section.id ? <CheckCircle2 className="w-5 h-5 text-blue-500" /> : 
                  section.status === 'completed' ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : 
@@ -69,14 +69,14 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
               <h1 className="text-3xl font-extrabold text-white tracking-tight">{moduleData.subtitle}</h1>
               <p className="text-muted-foreground mt-2 text-lg">{moduleData.description}</p>
             </div>
-            <TabsList className="bg-white/5 border border-white/10 flex-wrap h-auto">
-              <TabsTrigger value="theory" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Theory</TabsTrigger>
-              <TabsTrigger value="real-world" className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white">Real World</TabsTrigger>
-              <TabsTrigger value="architecture" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Architecture</TabsTrigger>
-              <TabsTrigger value="lab" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">Interactive Lab</TabsTrigger>
-              <TabsTrigger value="troubleshoot" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">Troubleshoot</TabsTrigger>
-              <TabsTrigger value="interview" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Interview Prep</TabsTrigger>
-              <TabsTrigger value="quiz" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Knowledge Check</TabsTrigger>
+            <TabsList className="bg-transparent border-none flex-wrap h-auto gap-2">
+              <TabsTrigger value="theory" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all">Theory</TabsTrigger>
+              <TabsTrigger value="real-world" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all">Real World</TabsTrigger>
+              <TabsTrigger value="architecture" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-indigo-600 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(79,70,229,0.4)] transition-all">Architecture</TabsTrigger>
+              <TabsTrigger value="lab" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-orange-500 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all">Interactive Lab</TabsTrigger>
+              <TabsTrigger value="troubleshoot" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-red-600 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(220,38,38,0.4)] transition-all">Troubleshoot</TabsTrigger>
+              <TabsTrigger value="interview" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all">Interview Prep</TabsTrigger>
+              <TabsTrigger value="quiz" className="px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 data-[state=active]:bg-purple-600 data-[state=active]:text-white data-[state=active]:shadow-[0_0_15px_rgba(147,51,234,0.4)] transition-all">Knowledge Check</TabsTrigger>
             </TabsList>
           </div>
 
@@ -164,11 +164,11 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
           </TabsContent>
           
           <div className="flex justify-between items-center pt-8 border-t border-white/5 mt-8">
-            <button className="px-6 py-2 rounded-md bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10">
+            <button className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg border border-white/10">
               Previous Section
             </button>
-            <button className="px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors shadow-lg shadow-blue-900/20">
-              Next Section
+            <button className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+              Mark Complete & Next Section
             </button>
           </div>
         </Tabs>

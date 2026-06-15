@@ -124,7 +124,7 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
           <RadioGroup value={selectedAnswer} onValueChange={setSelectedAnswer} disabled={isAnswerSubmitted}>
             {currentQuestion.options.map((opt) => {
               const isSelected = selectedAnswer === opt.id;
-              let optionClass = "flex items-center space-x-3 space-y-0 rounded-lg border border-white/10 p-4 transition-colors hover:bg-white/[0.04]";
+              let optionClass = "flex items-center space-x-3 space-y-0 rounded-xl border border-white/10 p-4 transition-all duration-300 cursor-pointer hover:scale-[1.02] hover:bg-white/[0.06] hover:shadow-lg";
               
               if (isAnswerSubmitted) {
                 if (opt.id === currentQuestion.correctOptionId) {
@@ -161,7 +161,8 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
           <Button 
             onClick={handleSubmit} 
             disabled={!selectedAnswer}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+            size="lg"
+            className="w-full h-14 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg rounded-xl transition-all duration-300 hover:shadow-[0_0_25px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
           >
             {isAnswerSubmitted ? "Next Question" : "Submit Answer"}
           </Button>

@@ -151,7 +151,7 @@ export function TroubleshootingSimulator() {
             key={s.id}
             variant={activeScenarioId === s.id ? "default" : "outline"}
             onClick={() => switchScenario(s.id)}
-            className={activeScenarioId === s.id ? "bg-red-600 hover:bg-red-700" : "bg-white/5 border-white/10"}
+            className={activeScenarioId === s.id ? "bg-red-600 hover:bg-red-700 rounded-full transition-all duration-300 shadow-[0_0_15px_rgba(220,38,38,0.4)] hover:scale-105" : "bg-white/5 border-white/10 rounded-full hover:bg-white/10 transition-all duration-300 hover:scale-105"}
           >
             {s.title}
           </Button>
@@ -182,7 +182,7 @@ export function TroubleshootingSimulator() {
                     variant="outline"
                     onClick={() => runCommand(step)}
                     disabled={hasRun || solved}
-                    className={`w-full justify-start font-mono text-xs border-white/10 ${hasRun ? 'bg-white/5 opacity-50' : 'bg-black/40 hover:bg-white/10'} ${step.isFix && !hasRun ? 'border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-400' : ''}`}
+                    className={`w-full justify-start font-mono text-xs border-white/10 transition-all duration-300 rounded-lg py-6 ${hasRun ? 'bg-white/5 opacity-50' : 'bg-black/40 hover:bg-white/10 hover:translate-x-2 hover:shadow-lg hover:border-white/20'} ${step.isFix && !hasRun ? 'border-emerald-500/30 hover:bg-emerald-500/10 hover:text-emerald-400' : ''}`}
                   >
                     <ChevronRight className="w-3 h-3 mr-2" />
                     {step.command}

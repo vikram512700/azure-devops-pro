@@ -91,8 +91,8 @@ export default function Roadmap() {
                       </div>
                     ) : (
                       <Link href={`/module/${track.id}`}>
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-lg shadow-blue-900/20">
-                          <PlayCircle className="w-4 h-4" /> 
+                        <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-0.5">
+                          <PlayCircle className="w-5 h-5" /> 
                           {status === 'completed' ? 'Review Track' : 'Continue'}
                         </button>
                       </Link>
