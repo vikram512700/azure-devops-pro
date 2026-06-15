@@ -25,517 +25,257 @@ export interface ModuleContent {
 export const modulesData: Record<string, ModuleContent> = {
   "1": {
     id: "1",
-    title: "Azure Virtual Networks",
-    subtitle: "VNet Implementation",
-    description: "Deploy a secure Hub-Spoke network topology.",
+    title: "Azure Regions & Resource Groups",
+    subtitle: "Azure Fundamentals",
+    description: "Geography, latency, HA design, and tagging strategy.",
     theory: {
-      title: "Azure Virtual Networks (VNet)",
-      description: "Core networking component in Azure",
-      whatIsIt: "A Virtual Network (VNet) is the fundamental building block for your private network in Azure. It enables many types of Azure resources, such as VMs, to securely communicate.",
+      title: "Azure Regions & Resource Groups Theory",
+      description: "Core principles of Azure Regions & Resource Groups.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Address Space", desc: "The CIDR block for the VNet (e.g. 10.0.0.0/16)." },
-        { label: "Subnets", desc: "Smaller logical partitions of your VNet (e.g. 10.0.1.0/24)." },
-        { label: "Network Security Groups", desc: "Firewalls containing security rules that allow or deny traffic." }
+        { label: "Concept A", desc: "Fundamentals of Azure Regions & Resource Groups." },
+        { label: "Concept B", desc: "Architecture of Azure Regions & Resource Groups." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How VNets are used in production at scale",
-      intro: "In a massive GCC like Jio Platforms, you use a Hub-Spoke Topology to manage hundreds of microservices.",
+      description: "How Azure Regions & Resource Groups is used at scale",
+      intro: "In a massive GCC, Azure Regions & Resource Groups is critical.",
       points: [
-        "Hub VNet: Acts as the central point of connectivity to the on-premises Data Center.",
-        "Spoke VNets: Each product team gets their own isolated Spoke VNet peered to the Hub."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS VPC == Azure VNet\nAWS Subnet == Azure Subnet\nAWS Security Group == Azure NSG"
+      shortcut: "AWS equivalent == Azure Azure Regions & Resource Groups"
     },
     interview: [
       {
-        q: "What is the difference between an NSG and Azure Firewall?",
-        a: "An NSG operates at Layer 3/4 based on 5-tuple rules. Azure Firewall operates at Layer 7 with threat intelligence."
+        q: "How do you secure Azure Regions & Resource Groups?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "2": {
     id: "2",
-    title: "Azure Compute & AKS",
-    subtitle: "Kubernetes Cluster Architecture",
-    description: "Architect and scale highly available microservices.",
+    title: "Subscriptions, CLI & Portal",
+    subtitle: "Azure Fundamentals",
+    description: "Management Groups, billing scope, and az commands.",
     theory: {
-      title: "Azure Kubernetes Service (AKS)",
-      description: "Managed Kubernetes by Microsoft",
-      whatIsIt: "AKS simplifies deploying a managed Kubernetes cluster in Azure by offloading the operational overhead to Azure.",
+      title: "Subscriptions, CLI & Portal Theory",
+      description: "Core principles of Subscriptions, CLI & Portal.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Control Plane", desc: "Managed by Azure. You don't pay for this." },
-        { label: "Node Pools", desc: "Groups of VMs running your workloads." },
-        { label: "Azure CNI", desc: "Advanced networking where every pod gets a unique IP from the VNet." }
+        { label: "Concept A", desc: "Fundamentals of Subscriptions, CLI & Portal." },
+        { label: "Concept B", desc: "Architecture of Subscriptions, CLI & Portal." }
       ]
     },
     realWorld: {
-      title: "High Traffic Telecommunications",
-      description: "Handling Jio scale traffic spikes",
-      intro: "During events like IPL streams, traffic spikes unpredictably.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Subscriptions, CLI & Portal is used at scale",
+      intro: "In a massive GCC, Subscriptions, CLI & Portal is critical.",
       points: [
-        "KEDA: Used to scale pods instantly based on queue length.",
-        "Spot Node Pools: Used for background transcoding jobs to save 90% cost."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS EKS == Azure AKS\nAWS EC2 Auto Scaling == VM Scale Sets"
+      shortcut: "AWS equivalent == Azure Subscriptions, CLI & Portal"
     },
     interview: [
       {
-        q: "What happens if the AKS Control Plane goes down?",
-        a: "Your existing pods continue to run, but you cannot deploy new pods."
+        q: "How do you secure Subscriptions, CLI & Portal?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "3": {
     id: "3",
-    title: "Infrastructure as Code",
-    subtitle: "Terraform & Bicep",
-    description: "Automate your infrastructure deployments.",
+    title: "VNETs, Subnets & Peering",
+    subtitle: "Azure Networking",
+    description: "Address space, logical partitions, and VNet Peering.",
     theory: {
-      title: "Terraform in Azure",
-      description: "Declarative Infrastructure Automation",
-      whatIsIt: "Terraform allows you to define your Azure infrastructure in HashiCorp Configuration Language (HCL). It maintains a state file to understand the current configuration of your resources.",
+      title: "VNETs, Subnets & Peering Theory",
+      description: "Core principles of VNETs, Subnets & Peering.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "State File (terraform.tfstate)", desc: "JSON file mapping your code to real Azure resources." },
-        { label: "AzureRM Provider", desc: "The plugin used to interact with the Azure API." },
-        { label: "Remote Backend", desc: "Storing state in an Azure Storage Account for team collaboration." }
+        { label: "Concept A", desc: "Fundamentals of VNETs, Subnets & Peering." },
+        { label: "Concept B", desc: "Architecture of VNETs, Subnets & Peering." }
       ]
     },
     realWorld: {
-      title: "Multi-Environment Consistency",
-      description: "Managing Jio Platforms Infrastructure",
-      intro: "We deploy the exact same architecture to Dev, QA, Staging, and Production by using parameterized Terraform modules.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How VNETs, Subnets & Peering is used at scale",
+      intro: "In a massive GCC, VNETs, Subnets & Peering is critical.",
       points: [
-        "State Locking: We use Azure Blob Storage leasing to lock the state file so two pipelines don't overwrite each other.",
-        "Module Registry: Custom modules for secure-by-default AKS clusters are shared across the company."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS CloudFormation == Azure ARM Templates\nAWS CDK == Azure Bicep"
+      shortcut: "AWS equivalent == Azure VNETs, Subnets & Peering"
     },
     interview: [
       {
-        q: "How do you securely pass a database password into Terraform?",
-        a: "We never hardcode it. We use the Azure Key Vault data source (`data \"azurerm_key_vault_secret\"`) to fetch it dynamically during `terraform apply`."
+        q: "How do you secure VNETs, Subnets & Peering?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "4": {
     id: "4",
-    title: "CI/CD Pipelines",
-    subtitle: "Azure DevOps & GitHub Actions",
-    description: "Build and release software at DevOps speed.",
+    title: "NSGs, Route Tables & Firewalls",
+    subtitle: "Azure Networking",
+    description: "Traffic filtering, UDRs, and Azure Firewall DNAT.",
     theory: {
-      title: "Azure Pipelines",
-      description: "Continuous Integration & Delivery",
-      whatIsIt: "A service that automatically builds, tests, and deploys your code using YAML-defined workflows.",
+      title: "NSGs, Route Tables & Firewalls Theory",
+      description: "Core principles of NSGs, Route Tables & Firewalls.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Agents (Runners)", desc: "The VMs or containers that actually run your pipeline jobs." },
-        { label: "Artifacts", desc: "The compiled output of a build pipeline (e.g. a Docker image or a .zip file) passed to the release pipeline." },
-        { label: "Service Connections", desc: "Securely connecting Azure DevOps to your Azure Subscription using a Service Principal." }
+        { label: "Concept A", desc: "Fundamentals of NSGs, Route Tables & Firewalls." },
+        { label: "Concept B", desc: "Architecture of NSGs, Route Tables & Firewalls." }
       ]
     },
     realWorld: {
-      title: "Zero-Downtime Deployments",
-      description: "Releasing telco software safely",
-      intro: "We use Blue/Green deployments for our microservices to ensure users never experience a dropped call during updates.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How NSGs, Route Tables & Firewalls is used at scale",
+      intro: "In a massive GCC, NSGs, Route Tables & Firewalls is critical.",
       points: [
-        "Approval Gates: Production deployments require manual sign-off from QA via Teams integration.",
-        "Self-Hosted Agents: We run our build agents inside our private VNet so they can securely access internal SonarQube servers."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS CodePipeline == Azure Pipelines\nAWS CodeBuild == Azure Build Pipeline"
+      shortcut: "AWS equivalent == Azure NSGs, Route Tables & Firewalls"
     },
     interview: [
       {
-        q: "What is the difference between a Microsoft-hosted and Self-hosted agent?",
-        a: "Microsoft-hosted agents are fresh, ephemeral VMs provided by Azure per job. Self-hosted agents are VMs you manage, allowing caching, private VNet access, and custom software."
+        q: "How do you secure NSGs, Route Tables & Firewalls?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "5": {
     id: "5",
-    title: "Monitoring & Observability",
-    subtitle: "Azure Monitor & Log Analytics",
-    description: "Achieve SRE excellence through proactive alerting.",
+    title: "Virtual Machines & VMSS",
+    subtitle: "Azure Compute",
+    description: "SKU selection, disks, and autoscaling rules.",
     theory: {
-      title: "Log Analytics Workspaces",
-      description: "Centralized logging and metrics",
-      whatIsIt: "A unified platform that collects telemetry data from all your Azure resources. You query this data using Kusto Query Language (KQL).",
+      title: "Virtual Machines & VMSS Theory",
+      description: "Core principles of Virtual Machines & VMSS.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Metrics vs Logs", desc: "Metrics are numerical values at a point in time (CPU%). Logs are detailed records of events (Errors)." },
-        { label: "Application Insights", desc: "APM tool for code-level tracing (exceptions, dependency latency)." },
-        { label: "Action Groups", desc: "Defines what happens when an alert triggers (Email, SMS, Webhook)." }
+        { label: "Concept A", desc: "Fundamentals of Virtual Machines & VMSS." },
+        { label: "Concept B", desc: "Architecture of Virtual Machines & VMSS." }
       ]
     },
     realWorld: {
-      title: "SRE Incident Response",
-      description: "Detecting anomalies before users do",
-      intro: "At Jio scale, we cannot look at dashboards manually. We rely on automated anomaly detection.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Virtual Machines & VMSS is used at scale",
+      intro: "In a massive GCC, Virtual Machines & VMSS is critical.",
       points: [
-        "Dynamic Thresholds: Instead of alerting when CPU > 90%, we alert when CPU deviates from historical baselines using Azure ML.",
-        "PagerDuty Integration: Critical alerts (HTTP 5xx spikes) trigger an Azure Action Group webhook to page the on-call engineer."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS CloudWatch == Azure Monitor\nAWS X-Ray == Application Insights"
+      shortcut: "AWS equivalent == Azure Virtual Machines & VMSS"
     },
     interview: [
       {
-        q: "Write a KQL query to find all failed HTTP requests in the last hour.",
-        a: "AppRequests | where Success == false | where TimeGenerated > ago(1h) | summarize count() by resultCode"
+        q: "How do you secure Virtual Machines & VMSS?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "6": {
     id: "6",
-    title: "Identity & Security",
-    subtitle: "Entra ID & Key Vault",
-    description: "Implement Zero-Trust architecture.",
+    title: "App Service & Azure Functions",
+    subtitle: "Azure Compute",
+    description: "PaaS web hosting and serverless event triggers.",
     theory: {
-      title: "Microsoft Entra ID",
-      description: "Formerly Azure Active Directory",
-      whatIsIt: "The cloud-based identity and access management service that controls who can access what in Azure.",
+      title: "App Service & Azure Functions Theory",
+      description: "Core principles of App Service & Azure Functions.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Managed Identities", desc: "An identity automatically managed by Azure for your VM/App Service. No credentials to rotate." },
-        { label: "Role-Based Access Control (RBAC)", desc: "Assigning permissions (e.g. Reader, Contributor) at specific scopes." },
-        { label: "Azure Key Vault", desc: "Securely stores and tightly controls access to tokens, passwords, certificates, and API keys." }
+        { label: "Concept A", desc: "Fundamentals of App Service & Azure Functions." },
+        { label: "Concept B", desc: "Architecture of App Service & Azure Functions." }
       ]
     },
     realWorld: {
-      title: "Zero-Trust at Scale",
-      description: "No more hardcoded passwords",
-      intro: "Security is non-negotiable for telecommunications data. We enforce a strict zero-trust model.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How App Service & Azure Functions is used at scale",
+      intro: "In a massive GCC, App Service & Azure Functions is critical.",
       points: [
-        "Passwordless: Our AKS clusters use Workload Identity to authenticate to Azure SQL. There are zero passwords stored in code.",
-        "JIT Access: Engineers do not have standing Contributor access to production. They request Just-In-Time access via PIM."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS IAM == Microsoft Entra ID\nAWS KMS / Secrets Manager == Azure Key Vault"
+      shortcut: "AWS equivalent == Azure App Service & Azure Functions"
     },
     interview: [
       {
-        q: "What is the difference between a System-Assigned and User-Assigned Managed Identity?",
-        a: "System-assigned is tied to the lifecycle of a single Azure resource (deleted when the resource is deleted). User-assigned is an independent Azure resource that can be shared across multiple VMs."
+        q: "How do you secure App Service & Azure Functions?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "7": {
     id: "7",
-    title: "Azure Storage",
-    subtitle: "Blob, Files & Managed Disks",
-    description: "Design durable, scalable data storage solutions.",
+    title: "Docker Fundamentals & Images",
+    subtitle: "Containers",
+    description: "Dockerfile, layers, cache, and container runtimes.",
     theory: {
-      title: "Azure Storage Accounts",
-      description: "Massive scale cloud storage",
-      whatIsIt: "A highly available, massively scalable, durable, and secure cloud storage service.",
+      title: "Docker Fundamentals & Images Theory",
+      description: "Core principles of Docker Fundamentals & Images.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Blob Storage", desc: "Object storage for unstructured data (images, videos, backups)." },
-        { label: "Access Tiers", desc: "Hot, Cool, and Archive tiers for cost optimization." },
-        { label: "Redundancy (LRS vs GRS)", desc: "Locally Redundant (3 copies in 1 DC) vs Geo-Redundant (copies replicated to a secondary region)." }
+        { label: "Concept A", desc: "Fundamentals of Docker Fundamentals & Images." },
+        { label: "Concept B", desc: "Architecture of Docker Fundamentals & Images." }
       ]
     },
     realWorld: {
-      title: "Massive Data Lakes",
-      description: "Storing exabytes of telemetry",
-      intro: "Jio processes petabytes of network telemetry daily. We use Azure Data Lake Storage Gen2.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Docker Fundamentals & Images is used at scale",
+      intro: "In a massive GCC, Docker Fundamentals & Images is critical.",
       points: [
-        "Lifecycle Management: Logs older than 30 days are automatically moved to the Archive tier to save costs.",
-        "Private Endpoints: Storage accounts are completely locked down. They can only be accessed via private IP addresses from within our VNet."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS S3 == Azure Blob Storage\nAWS EBS == Managed Disks\nAWS EFS == Azure Files"
+      shortcut: "AWS equivalent == Azure Docker Fundamentals & Images"
     },
     interview: [
       {
-        q: "How do you temporarily grant a 3rd party access to a specific Blob file without making the container public?",
-        a: "Generate a Shared Access Signature (SAS) token with a specific expiration time and Read-only permissions."
+        q: "How do you secure Docker Fundamentals & Images?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "8": {
     id: "8",
-    title: "Container Registries",
-    subtitle: "ACR & Helm Chart Management",
-    description: "Secure and distribute your container images.",
+    title: "Multi-Stage Builds & Security",
+    subtitle: "Containers",
+    description: "Build vs runtime separation and Trivy scanning.",
     theory: {
-      title: "Azure Container Registry (ACR)",
-      description: "Private Docker registry",
-      whatIsIt: "A managed, private Docker registry service based on the open-source Docker Registry 2.0.",
+      title: "Multi-Stage Builds & Security Theory",
+      description: "Core principles of Multi-Stage Builds & Security.",
+      whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Image Vulnerability Scanning", desc: "Microsoft Defender automatically scans images for CVEs upon push." },
-        { label: "Geo-replication", desc: "Premium ACR can automatically replicate images across global regions for fast local pulling." },
-        { label: "ACR Tasks", desc: "Cloud-based automated container building." }
+        { label: "Concept A", desc: "Fundamentals of Multi-Stage Builds & Security." },
+        { label: "Concept B", desc: "Architecture of Multi-Stage Builds & Security." }
       ]
     },
     realWorld: {
-      title: "Global Artifact Distribution",
-      description: "Fast deployments everywhere",
-      intro: "When we deploy a new microservice, the image needs to be pulled by AKS clusters in Mumbai and Chennai simultaneously.",
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Multi-Stage Builds & Security is used at scale",
+      intro: "In a massive GCC, Multi-Stage Builds & Security is critical.",
       points: [
-        "Geo-Replication: We use a Premium ACR to ensure images are physically close to the nodes pulling them.",
-        "Helm OCI: We store not just Docker images, but also our Helm charts directly in ACR as OCI artifacts."
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS ECR == Azure Container Registry (ACR)"
+      shortcut: "AWS equivalent == Azure Multi-Stage Builds & Security"
     },
     interview: [
       {
-        q: "How do you authenticate AKS to pull images from ACR?",
-        a: "During cluster creation (or later via `az aks update`), we attach the ACR. Azure automatically grants the AKS agent pool Managed Identity the `AcrPull` role on the registry."
+        q: "How do you secure Multi-Stage Builds & Security?",
+        a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "9": {
     id: "9",
-    title: "Cost Management",
-    subtitle: "FinOps & Azure Policy",
-    description: "Govern cloud spend and enforce compliance.",
-    theory: {
-      title: "Azure FinOps",
-      description: "Cloud Financial Management",
-      whatIsIt: "The practice of bringing financial accountability to the variable spend model of cloud.",
-      keyConcepts: [
-        { label: "Azure Policy", desc: "Rules that enforce organizational standards (e.g. 'All resources must have a CostCenter tag')." },
-        { label: "Reserved Instances (RIs)", desc: "Committing to 1 or 3 years of compute for up to 72% discount." },
-        { label: "Azure Advisor", desc: "Free service that analyzes configurations to recommend cost savings." }
-      ]
-    },
-    realWorld: {
-      title: "Stopping Cloud Waste",
-      description: "Saving millions at enterprise scale",
-      intro: "In a massive enterprise, orphaned disks and over-provisioned VMs can cost millions.",
-      points: [
-        "Auto-Shutdown: Non-production VMs are aggressively auto-shutdown at 7PM daily via Automation Accounts.",
-        "Deny Policies: We use Azure Policy with a 'Deny' effect to prevent developers from spinning up expensive GPU instances without approval."
-      ],
-      shortcut: "AWS Organizations == Azure Management Groups\nAWS Cost Explorer == Azure Cost Management"
-    },
-    interview: [
-      {
-        q: "What is an Azure Policy 'DeployIfNotExists' effect?",
-        a: "If a resource is created without a required sub-resource (like a VM created without the Log Analytics agent), Azure Policy will automatically trigger a deployment to install it."
-      }
-    ]
-  },
-  "10": {
-    id: "10",
-    title: "Chaos Engineering",
-    subtitle: "Advanced SRE Practices",
-    description: "Test resiliency by injecting faults into production.",
-    theory: {
-      title: "Azure Chaos Studio",
-      description: "Controlled fault injection",
-      whatIsIt: "A fully managed chaos engineering experimentation platform to measure, understand, and improve application resilience.",
-      keyConcepts: [
-        { label: "Fault Injection", desc: "Intentionally causing failures (e.g. killing a VM, adding network latency)." },
-        { label: "Experiments", desc: "A defined series of faults executed against target resources." },
-        { label: "Blast Radius", desc: "Carefully controlling the scope of a chaos experiment to prevent actual customer impact." }
-      ]
-    },
-    realWorld: {
-      title: "Game Days",
-      description: "Preparing for the worst",
-      intro: "We regularly conduct 'Game Days' where we simulate complete zonal outages in Azure to verify our HA architecture actually works.",
-      points: [
-        "Network Disconnects: We use Chaos Studio to block all traffic to our primary Redis cache to ensure the app gracefully degrades or fails over.",
-        "CPU Pressure: We simulate 100% CPU on AKS nodes to test if our Pod Disruption Budgets and Cluster Autoscaler respond fast enough."
-      ],
-      shortcut: "AWS Fault Injection Simulator == Azure Chaos Studio"
-    },
-    interview: [
-      {
-        q: "Why do we perform Chaos Engineering in production?",
-        a: "Because staging environments never perfectly replicate production traffic, state, or scale. Testing in production ensures our recovery mechanisms work when real users are relying on them."
-      }
-    ]
-  }
-,
-
-  "11": {
-    id: "11",
-    title: "Azure Functions",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Azure Functions.",
-    theory: {
-      title: "Azure Functions Theory",
-      description: "Core principles of Azure Functions.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Azure Functions." },
-        { label: "Concept B", desc: "Architecture of Azure Functions." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How Azure Functions is used at scale",
-      intro: "In a massive GCC, Azure Functions is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure Azure Functions"
-    },
-    interview: [
-      {
-        q: "How do you secure Azure Functions?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "12": {
-    id: "12",
-    title: "App Service",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into App Service.",
-    theory: {
-      title: "App Service Theory",
-      description: "Core principles of App Service.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of App Service." },
-        { label: "Concept B", desc: "Architecture of App Service." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How App Service is used at scale",
-      intro: "In a massive GCC, App Service is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure App Service"
-    },
-    interview: [
-      {
-        q: "How do you secure App Service?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "13": {
-    id: "13",
-    title: "Container Instances",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Container Instances.",
-    theory: {
-      title: "Container Instances Theory",
-      description: "Core principles of Container Instances.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Container Instances." },
-        { label: "Concept B", desc: "Architecture of Container Instances." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How Container Instances is used at scale",
-      intro: "In a massive GCC, Container Instances is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure Container Instances"
-    },
-    interview: [
-      {
-        q: "How do you secure Container Instances?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "14": {
-    id: "14",
-    title: "Docker Fundamentals",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Docker Fundamentals.",
-    theory: {
-      title: "Docker Fundamentals Theory",
-      description: "Core principles of Docker Fundamentals.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Docker Fundamentals." },
-        { label: "Concept B", desc: "Architecture of Docker Fundamentals." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How Docker Fundamentals is used at scale",
-      intro: "In a massive GCC, Docker Fundamentals is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure Docker Fundamentals"
-    },
-    interview: [
-      {
-        q: "How do you secure Docker Fundamentals?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "15": {
-    id: "15",
-    title: "Multi-Stage Builds",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Multi-Stage Builds.",
-    theory: {
-      title: "Multi-Stage Builds Theory",
-      description: "Core principles of Multi-Stage Builds.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Multi-Stage Builds." },
-        { label: "Concept B", desc: "Architecture of Multi-Stage Builds." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How Multi-Stage Builds is used at scale",
-      intro: "In a massive GCC, Multi-Stage Builds is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure Multi-Stage Builds"
-    },
-    interview: [
-      {
-        q: "How do you secure Multi-Stage Builds?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "16": {
-    id: "16",
-    title: "Image Security",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Image Security.",
-    theory: {
-      title: "Image Security Theory",
-      description: "Core principles of Image Security.",
-      whatIsIt: "An essential enterprise capability in Azure.",
-      keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Image Security." },
-        { label: "Concept B", desc: "Architecture of Image Security." }
-      ]
-    },
-    realWorld: {
-      title: "Jio/Reliance Enterprise Use Case",
-      description: "How Image Security is used at scale",
-      intro: "In a massive GCC, Image Security is critical.",
-      points: [
-        "High Availability: Deploying across multiple zones.",
-        "Security: Zero-trust network integration."
-      ],
-      shortcut: "AWS equivalent == Azure Image Security"
-    },
-    interview: [
-      {
-        q: "How do you secure Image Security?",
-        a: "By using private endpoints and Azure AD Managed Identities."
-      }
-    ]
-  },
-  "17": {
-    id: "17",
     title: "ACR (Azure Container Registry)",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into ACR (Azure Container Registry).",
+    subtitle: "Containers",
+    description: "Private Docker registry, push/pull, geo-replication.",
     theory: {
       title: "ACR (Azure Container Registry) Theory",
       description: "Core principles of ACR (Azure Container Registry).",
@@ -562,166 +302,166 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
-  "18": {
-    id: "18",
-    title: "Container Networking",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Container Networking.",
+  "10": {
+    id: "10",
+    title: "AKS Architecture & Control Plane",
+    subtitle: "Kubernetes / AKS",
+    description: "Managed Kubernetes, Node pools, and Azure CNI.",
     theory: {
-      title: "Container Networking Theory",
-      description: "Core principles of Container Networking.",
+      title: "AKS Architecture & Control Plane Theory",
+      description: "Core principles of AKS Architecture & Control Plane.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Container Networking." },
-        { label: "Concept B", desc: "Architecture of Container Networking." }
+        { label: "Concept A", desc: "Fundamentals of AKS Architecture & Control Plane." },
+        { label: "Concept B", desc: "Architecture of AKS Architecture & Control Plane." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Container Networking is used at scale",
-      intro: "In a massive GCC, Container Networking is critical.",
+      description: "How AKS Architecture & Control Plane is used at scale",
+      intro: "In a massive GCC, AKS Architecture & Control Plane is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Container Networking"
+      shortcut: "AWS equivalent == Azure AKS Architecture & Control Plane"
     },
     interview: [
       {
-        q: "How do you secure Container Networking?",
+        q: "How do you secure AKS Architecture & Control Plane?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
-  "19": {
-    id: "19",
-    title: "Volumes & Storage",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Volumes & Storage.",
+  "11": {
+    id: "11",
+    title: "Pods, Deployments & Services",
+    subtitle: "Kubernetes / AKS",
+    description: "Replicas, rolling updates, ClusterIP, and LoadBalancers.",
     theory: {
-      title: "Volumes & Storage Theory",
-      description: "Core principles of Volumes & Storage.",
+      title: "Pods, Deployments & Services Theory",
+      description: "Core principles of Pods, Deployments & Services.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Volumes & Storage." },
-        { label: "Concept B", desc: "Architecture of Volumes & Storage." }
+        { label: "Concept A", desc: "Fundamentals of Pods, Deployments & Services." },
+        { label: "Concept B", desc: "Architecture of Pods, Deployments & Services." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Volumes & Storage is used at scale",
-      intro: "In a massive GCC, Volumes & Storage is critical.",
+      description: "How Pods, Deployments & Services is used at scale",
+      intro: "In a massive GCC, Pods, Deployments & Services is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Volumes & Storage"
+      shortcut: "AWS equivalent == Azure Pods, Deployments & Services"
     },
     interview: [
       {
-        q: "How do you secure Volumes & Storage?",
+        q: "How do you secure Pods, Deployments & Services?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
-  "20": {
-    id: "20",
-    title: "Secrets in Containers",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Secrets in Containers.",
+  "12": {
+    id: "12",
+    title: "Ingress Controllers & Routing",
+    subtitle: "Kubernetes / AKS",
+    description: "NGINX ingress, TLS termination, and path routing.",
     theory: {
-      title: "Secrets in Containers Theory",
-      description: "Core principles of Secrets in Containers.",
+      title: "Ingress Controllers & Routing Theory",
+      description: "Core principles of Ingress Controllers & Routing.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Secrets in Containers." },
-        { label: "Concept B", desc: "Architecture of Secrets in Containers." }
+        { label: "Concept A", desc: "Fundamentals of Ingress Controllers & Routing." },
+        { label: "Concept B", desc: "Architecture of Ingress Controllers & Routing." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Secrets in Containers is used at scale",
-      intro: "In a massive GCC, Secrets in Containers is critical.",
+      description: "How Ingress Controllers & Routing is used at scale",
+      intro: "In a massive GCC, Ingress Controllers & Routing is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Secrets in Containers"
+      shortcut: "AWS equivalent == Azure Ingress Controllers & Routing"
     },
     interview: [
       {
-        q: "How do you secure Secrets in Containers?",
+        q: "How do you secure Ingress Controllers & Routing?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
-  "21": {
-    id: "21",
-    title: "Git Fundamentals",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Git Fundamentals.",
+  "13": {
+    id: "13",
+    title: "HPA & Network Policies",
+    subtitle: "Kubernetes / AKS",
+    description: "CPU/memory autoscaling and pod-to-pod traffic control.",
     theory: {
-      title: "Git Fundamentals Theory",
-      description: "Core principles of Git Fundamentals.",
+      title: "HPA & Network Policies Theory",
+      description: "Core principles of HPA & Network Policies.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Git Fundamentals." },
-        { label: "Concept B", desc: "Architecture of Git Fundamentals." }
+        { label: "Concept A", desc: "Fundamentals of HPA & Network Policies." },
+        { label: "Concept B", desc: "Architecture of HPA & Network Policies." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Git Fundamentals is used at scale",
-      intro: "In a massive GCC, Git Fundamentals is critical.",
+      description: "How HPA & Network Policies is used at scale",
+      intro: "In a massive GCC, HPA & Network Policies is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Git Fundamentals"
+      shortcut: "AWS equivalent == Azure HPA & Network Policies"
     },
     interview: [
       {
-        q: "How do you secure Git Fundamentals?",
+        q: "How do you secure HPA & Network Policies?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
-  "22": {
-    id: "22",
-    title: "Gitflow vs Trunk-Based",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Gitflow vs Trunk-Based.",
+  "14": {
+    id: "14",
+    title: "Git Fundamentals & Gitflow",
+    subtitle: "DevOps",
+    description: "Branching, merging, rebasing, and PR policies.",
     theory: {
-      title: "Gitflow vs Trunk-Based Theory",
-      description: "Core principles of Gitflow vs Trunk-Based.",
+      title: "Git Fundamentals & Gitflow Theory",
+      description: "Core principles of Git Fundamentals & Gitflow.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Gitflow vs Trunk-Based." },
-        { label: "Concept B", desc: "Architecture of Gitflow vs Trunk-Based." }
+        { label: "Concept A", desc: "Fundamentals of Git Fundamentals & Gitflow." },
+        { label: "Concept B", desc: "Architecture of Git Fundamentals & Gitflow." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Gitflow vs Trunk-Based is used at scale",
-      intro: "In a massive GCC, Gitflow vs Trunk-Based is critical.",
+      description: "How Git Fundamentals & Gitflow is used at scale",
+      intro: "In a massive GCC, Git Fundamentals & Gitflow is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Gitflow vs Trunk-Based"
+      shortcut: "AWS equivalent == Azure Git Fundamentals & Gitflow"
     },
     interview: [
       {
-        q: "How do you secure Gitflow vs Trunk-Based?",
+        q: "How do you secure Git Fundamentals & Gitflow?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
-  "23": {
-    id: "23",
+  "15": {
+    id: "15",
     title: "GitHub Actions",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into GitHub Actions.",
+    subtitle: "DevOps",
+    description: "Workflows, secrets, and matrix builds.",
     theory: {
       title: "GitHub Actions Theory",
       description: "Core principles of GitHub Actions.",
@@ -748,219 +488,467 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
-  "24": {
-    id: "24",
-    title: "Azure Repos",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Azure Repos.",
+  "16": {
+    id: "16",
+    title: "Azure Repos & Azure Pipelines",
+    subtitle: "DevOps",
+    description: "YAML pipelines, stages, and Service Connections.",
     theory: {
-      title: "Azure Repos Theory",
-      description: "Core principles of Azure Repos.",
+      title: "Azure Repos & Azure Pipelines Theory",
+      description: "Core principles of Azure Repos & Azure Pipelines.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Azure Repos." },
-        { label: "Concept B", desc: "Architecture of Azure Repos." }
+        { label: "Concept A", desc: "Fundamentals of Azure Repos & Azure Pipelines." },
+        { label: "Concept B", desc: "Architecture of Azure Repos & Azure Pipelines." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Azure Repos is used at scale",
-      intro: "In a massive GCC, Azure Repos is critical.",
+      description: "How Azure Repos & Azure Pipelines is used at scale",
+      intro: "In a massive GCC, Azure Repos & Azure Pipelines is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Azure Repos"
+      shortcut: "AWS equivalent == Azure Azure Repos & Azure Pipelines"
     },
     interview: [
       {
-        q: "How do you secure Azure Repos?",
+        q: "How do you secure Azure Repos & Azure Pipelines?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "17": {
+    id: "17",
+    title: "Release Management & Gates",
+    subtitle: "DevOps",
+    description: "Environments, approval gates, and rollback strategies.",
+    theory: {
+      title: "Release Management & Gates Theory",
+      description: "Core principles of Release Management & Gates.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Release Management & Gates." },
+        { label: "Concept B", desc: "Architecture of Release Management & Gates." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Release Management & Gates is used at scale",
+      intro: "In a massive GCC, Release Management & Gates is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Release Management & Gates"
+    },
+    interview: [
+      {
+        q: "How do you secure Release Management & Gates?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "18": {
+    id: "18",
+    title: "Terraform Basics & State",
+    subtitle: "Infrastructure as Code",
+    description: "Providers, resources, variables, and remote state in Blob.",
+    theory: {
+      title: "Terraform Basics & State Theory",
+      description: "Core principles of Terraform Basics & State.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Terraform Basics & State." },
+        { label: "Concept B", desc: "Architecture of Terraform Basics & State." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Terraform Basics & State is used at scale",
+      intro: "In a massive GCC, Terraform Basics & State is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Terraform Basics & State"
+    },
+    interview: [
+      {
+        q: "How do you secure Terraform Basics & State?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "19": {
+    id: "19",
+    title: "Terraform Modules & Workspaces",
+    subtitle: "Infrastructure as Code",
+    description: "Reusable components, versioning, and environment separation.",
+    theory: {
+      title: "Terraform Modules & Workspaces Theory",
+      description: "Core principles of Terraform Modules & Workspaces.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Terraform Modules & Workspaces." },
+        { label: "Concept B", desc: "Architecture of Terraform Modules & Workspaces." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Terraform Modules & Workspaces is used at scale",
+      intro: "In a massive GCC, Terraform Modules & Workspaces is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Terraform Modules & Workspaces"
+    },
+    interview: [
+      {
+        q: "How do you secure Terraform Modules & Workspaces?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "20": {
+    id: "20",
+    title: "Bicep & ARM Templates",
+    subtitle: "Infrastructure as Code",
+    description: "Declarative Infrastructure Automation using Microsoft's DSL.",
+    theory: {
+      title: "Bicep & ARM Templates Theory",
+      description: "Core principles of Bicep & ARM Templates.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Bicep & ARM Templates." },
+        { label: "Concept B", desc: "Architecture of Bicep & ARM Templates." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Bicep & ARM Templates is used at scale",
+      intro: "In a massive GCC, Bicep & ARM Templates is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Bicep & ARM Templates"
+    },
+    interview: [
+      {
+        q: "How do you secure Bicep & ARM Templates?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "21": {
+    id: "21",
+    title: "Entra ID & RBAC",
+    subtitle: "Security",
+    description: "Managed identities, custom roles, and PIM.",
+    theory: {
+      title: "Entra ID & RBAC Theory",
+      description: "Core principles of Entra ID & RBAC.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Entra ID & RBAC." },
+        { label: "Concept B", desc: "Architecture of Entra ID & RBAC." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Entra ID & RBAC is used at scale",
+      intro: "In a massive GCC, Entra ID & RBAC is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Entra ID & RBAC"
+    },
+    interview: [
+      {
+        q: "How do you secure Entra ID & RBAC?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "22": {
+    id: "22",
+    title: "Key Vault & CSI Driver",
+    subtitle: "Security",
+    description: "Secrets injection without env vars.",
+    theory: {
+      title: "Key Vault & CSI Driver Theory",
+      description: "Core principles of Key Vault & CSI Driver.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Key Vault & CSI Driver." },
+        { label: "Concept B", desc: "Architecture of Key Vault & CSI Driver." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Key Vault & CSI Driver is used at scale",
+      intro: "In a massive GCC, Key Vault & CSI Driver is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Key Vault & CSI Driver"
+    },
+    interview: [
+      {
+        q: "How do you secure Key Vault & CSI Driver?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "23": {
+    id: "23",
+    title: "Azure Storage (Blobs, Files, Tiers)",
+    subtitle: "Azure Storage",
+    description: "Object storage, hot/cool/archive tiers, and SAS tokens.",
+    theory: {
+      title: "Azure Storage (Blobs, Files, Tiers) Theory",
+      description: "Core principles of Azure Storage (Blobs, Files, Tiers).",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Azure Storage (Blobs, Files, Tiers)." },
+        { label: "Concept B", desc: "Architecture of Azure Storage (Blobs, Files, Tiers)." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Azure Storage (Blobs, Files, Tiers) is used at scale",
+      intro: "In a massive GCC, Azure Storage (Blobs, Files, Tiers) is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Azure Storage (Blobs, Files, Tiers)"
+    },
+    interview: [
+      {
+        q: "How do you secure Azure Storage (Blobs, Files, Tiers)?",
+        a: "By using private endpoints and Azure AD Managed Identities."
+      }
+    ]
+  },
+  "24": {
+    id: "24",
+    title: "Azure Monitor & Alerts",
+    subtitle: "Observability",
+    description: "Metrics, dynamic thresholds, and action groups.",
+    theory: {
+      title: "Azure Monitor & Alerts Theory",
+      description: "Core principles of Azure Monitor & Alerts.",
+      whatIsIt: "An essential enterprise capability in Azure.",
+      keyConcepts: [
+        { label: "Concept A", desc: "Fundamentals of Azure Monitor & Alerts." },
+        { label: "Concept B", desc: "Architecture of Azure Monitor & Alerts." }
+      ]
+    },
+    realWorld: {
+      title: "Jio/Reliance Enterprise Use Case",
+      description: "How Azure Monitor & Alerts is used at scale",
+      intro: "In a massive GCC, Azure Monitor & Alerts is critical.",
+      points: [
+        "High Availability: Deploying across multiple zones.",
+        "Security: Zero-trust network integration."
+      ],
+      shortcut: "AWS equivalent == Azure Azure Monitor & Alerts"
+    },
+    interview: [
+      {
+        q: "How do you secure Azure Monitor & Alerts?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "25": {
     id: "25",
-    title: "Azure Pipelines",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Azure Pipelines.",
+    title: "Log Analytics & KQL",
+    subtitle: "Observability",
+    description: "Centralized logging and Kusto Query Language.",
     theory: {
-      title: "Azure Pipelines Theory",
-      description: "Core principles of Azure Pipelines.",
+      title: "Log Analytics & KQL Theory",
+      description: "Core principles of Log Analytics & KQL.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Azure Pipelines." },
-        { label: "Concept B", desc: "Architecture of Azure Pipelines." }
+        { label: "Concept A", desc: "Fundamentals of Log Analytics & KQL." },
+        { label: "Concept B", desc: "Architecture of Log Analytics & KQL." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Azure Pipelines is used at scale",
-      intro: "In a massive GCC, Azure Pipelines is critical.",
+      description: "How Log Analytics & KQL is used at scale",
+      intro: "In a massive GCC, Log Analytics & KQL is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Azure Pipelines"
+      shortcut: "AWS equivalent == Azure Log Analytics & KQL"
     },
     interview: [
       {
-        q: "How do you secure Azure Pipelines?",
+        q: "How do you secure Log Analytics & KQL?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "26": {
     id: "26",
-    title: "Release Management",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Release Management.",
+    title: "Helm & Package Management",
+    subtitle: "Advanced SRE",
+    description: "Templating Kubernetes manifests and OCI artifacts.",
     theory: {
-      title: "Release Management Theory",
-      description: "Core principles of Release Management.",
+      title: "Helm & Package Management Theory",
+      description: "Core principles of Helm & Package Management.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Release Management." },
-        { label: "Concept B", desc: "Architecture of Release Management." }
+        { label: "Concept A", desc: "Fundamentals of Helm & Package Management." },
+        { label: "Concept B", desc: "Architecture of Helm & Package Management." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Release Management is used at scale",
-      intro: "In a massive GCC, Release Management is critical.",
+      description: "How Helm & Package Management is used at scale",
+      intro: "In a massive GCC, Helm & Package Management is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Release Management"
+      shortcut: "AWS equivalent == Azure Helm & Package Management"
     },
     interview: [
       {
-        q: "How do you secure Release Management?",
+        q: "How do you secure Helm & Package Management?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "27": {
     id: "27",
-    title: "GitOps",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into GitOps.",
+    title: "ArgoCD & GitOps",
+    subtitle: "Advanced SRE",
+    description: "Git as a single source of truth for infra and app state.",
     theory: {
-      title: "GitOps Theory",
-      description: "Core principles of GitOps.",
+      title: "ArgoCD & GitOps Theory",
+      description: "Core principles of ArgoCD & GitOps.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of GitOps." },
-        { label: "Concept B", desc: "Architecture of GitOps." }
+        { label: "Concept A", desc: "Fundamentals of ArgoCD & GitOps." },
+        { label: "Concept B", desc: "Architecture of ArgoCD & GitOps." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How GitOps is used at scale",
-      intro: "In a massive GCC, GitOps is critical.",
+      description: "How ArgoCD & GitOps is used at scale",
+      intro: "In a massive GCC, ArgoCD & GitOps is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure GitOps"
+      shortcut: "AWS equivalent == Azure ArgoCD & GitOps"
     },
     interview: [
       {
-        q: "How do you secure GitOps?",
+        q: "How do you secure ArgoCD & GitOps?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "28": {
     id: "28",
-    title: "Helm",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Helm.",
+    title: "Cost Management (FinOps) & Policy",
+    subtitle: "FinOps",
+    description: "Reserved instances, Azure Advisor, and DeployIfNotExists.",
     theory: {
-      title: "Helm Theory",
-      description: "Core principles of Helm.",
+      title: "Cost Management (FinOps) & Policy Theory",
+      description: "Core principles of Cost Management (FinOps) & Policy.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Helm." },
-        { label: "Concept B", desc: "Architecture of Helm." }
+        { label: "Concept A", desc: "Fundamentals of Cost Management (FinOps) & Policy." },
+        { label: "Concept B", desc: "Architecture of Cost Management (FinOps) & Policy." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Helm is used at scale",
-      intro: "In a massive GCC, Helm is critical.",
+      description: "How Cost Management (FinOps) & Policy is used at scale",
+      intro: "In a massive GCC, Cost Management (FinOps) & Policy is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Helm"
+      shortcut: "AWS equivalent == Azure Cost Management (FinOps) & Policy"
     },
     interview: [
       {
-        q: "How do you secure Helm?",
+        q: "How do you secure Cost Management (FinOps) & Policy?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "29": {
     id: "29",
-    title: "ArgoCD",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into ArgoCD.",
+    title: "Chaos Engineering (Azure Chaos Studio)",
+    subtitle: "Advanced SRE",
+    description: "Controlled fault injection and blast radius management.",
     theory: {
-      title: "ArgoCD Theory",
-      description: "Core principles of ArgoCD.",
+      title: "Chaos Engineering (Azure Chaos Studio) Theory",
+      description: "Core principles of Chaos Engineering (Azure Chaos Studio).",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of ArgoCD." },
-        { label: "Concept B", desc: "Architecture of ArgoCD." }
+        { label: "Concept A", desc: "Fundamentals of Chaos Engineering (Azure Chaos Studio)." },
+        { label: "Concept B", desc: "Architecture of Chaos Engineering (Azure Chaos Studio)." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How ArgoCD is used at scale",
-      intro: "In a massive GCC, ArgoCD is critical.",
+      description: "How Chaos Engineering (Azure Chaos Studio) is used at scale",
+      intro: "In a massive GCC, Chaos Engineering (Azure Chaos Studio) is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure ArgoCD"
+      shortcut: "AWS equivalent == Azure Chaos Engineering (Azure Chaos Studio)"
     },
     interview: [
       {
-        q: "How do you secure ArgoCD?",
+        q: "How do you secure Chaos Engineering (Azure Chaos Studio)?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
   },
   "30": {
     id: "30",
-    title: "Chaos Mesh",
-    subtitle: "Advanced Azure Topic",
-    description: "Deep dive into Chaos Mesh.",
+    title: "Production Architecture Game Day",
+    subtitle: "Advanced SRE",
+    description: "Simulating complete zonal outages and HA failovers.",
     theory: {
-      title: "Chaos Mesh Theory",
-      description: "Core principles of Chaos Mesh.",
+      title: "Production Architecture Game Day Theory",
+      description: "Core principles of Production Architecture Game Day.",
       whatIsIt: "An essential enterprise capability in Azure.",
       keyConcepts: [
-        { label: "Concept A", desc: "Fundamentals of Chaos Mesh." },
-        { label: "Concept B", desc: "Architecture of Chaos Mesh." }
+        { label: "Concept A", desc: "Fundamentals of Production Architecture Game Day." },
+        { label: "Concept B", desc: "Architecture of Production Architecture Game Day." }
       ]
     },
     realWorld: {
       title: "Jio/Reliance Enterprise Use Case",
-      description: "How Chaos Mesh is used at scale",
-      intro: "In a massive GCC, Chaos Mesh is critical.",
+      description: "How Production Architecture Game Day is used at scale",
+      intro: "In a massive GCC, Production Architecture Game Day is critical.",
       points: [
         "High Availability: Deploying across multiple zones.",
         "Security: Zero-trust network integration."
       ],
-      shortcut: "AWS equivalent == Azure Chaos Mesh"
+      shortcut: "AWS equivalent == Azure Production Architecture Game Day"
     },
     interview: [
       {
-        q: "How do you secure Chaos Mesh?",
+        q: "How do you secure Production Architecture Game Day?",
         a: "By using private endpoints and Azure AD Managed Identities."
       }
     ]
