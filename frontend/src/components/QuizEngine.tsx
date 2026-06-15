@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, CheckCircle2, XCircle } from "lucide-react";
 import { useProgress } from "@/hooks/useProgress";
+import confetti from "canvas-confetti";
 
 type Question = {
   id: string;
@@ -70,6 +71,12 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
         setIsAnswerSubmitted(false);
       } else {
         setIsFinished(true);
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6']
+        });
         // Save progress using hook
         addXP(score + (selectedAnswer === currentQuestion.correctOptionId ? 100 : 0));
         markModuleCompleted(moduleId);

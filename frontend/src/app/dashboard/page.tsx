@@ -3,13 +3,20 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Trophy, Target, Activity, Settings2, Key } from "lucide-react";
+import { BookOpen, Trophy, Target, Activity, Settings2, Key, Shield, Medal, Crown } from "lucide-react";
 import { useProgress } from "@/hooks/useProgress";
 import { useSettings } from "@/hooks/useSettings";
 
 export default function Dashboard() {
-  const { progress, isLoaded } = useProgress();
+  const { progress, isLoaded, unlockedBadges } = useProgress();
   const { apiKey, saveApiKey, isLoaded: settingsLoaded } = useSettings();
+  
+  const iconMap: Record<string, React.ReactNode> = {
+    Shield: <Shield className="w-8 h-8 text-blue-400" />,
+    Medal: <Medal className="w-8 h-8 text-emerald-400" />,
+    Trophy: <Trophy className="w-8 h-8 text-yellow-400" />,
+    Crown: <Crown className="w-8 h-8 text-purple-400" />
+  };
   return (
     <div className="min-h-screen p-8 pt-24 bg-background">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -67,6 +74,24 @@ export default function Dashboard() {
                <ActivityRow title="Completed Quiz: Azure Regions" time="2 hours ago" score="90%" />
                <ActivityRow title="Finished Lab: Create Resource Group" time="Yesterday" />
                <ActivityRow title="Started Module: VNET Architecture" time="2 days ago" />
+            </div>
+
+            <h2 className="text-xl font-semibold text-white pt-4">Achievements & Badges</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {isLoaded && unlockedBadges.map(badge => (
+                <Card key={badge.id} className="bg-gradient-to-br from-white/[0.05] to-transparent border-white/10 text-center flex flex-col items-center justify-center p-4 hover:scale-105 transition-transform cursor-default">
+                  <div className="p-4 rounded-full bg-black/20 mb-3 shadow-inner">
+                    {iconMap[badge.icon] || <Trophy className="w-8 h-8 text-yellow-400" />}
+                  </div>
+                  <h3 className="text-sm font-bold text-white">{badge.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{badge.desc}</p>
+                </Card>
+              ))}
+              {isLoaded && unlockedBadges.length === 0 && (
+                <div className="col-span-2 md:col-span-4 text-center p-8 bg-white/[0.02] border border-white/5 rounded-lg border-dashed">
+                  <p className="text-muted-foreground text-sm">Earn XP to unlock your first badge!</p>
+                </div>
+              )}
             </div>
           </div>
 
