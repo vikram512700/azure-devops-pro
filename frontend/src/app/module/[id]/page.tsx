@@ -4,6 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CheckCircle2, Circle, BookOpen, Presentation, Database, Terminal, AlertTriangle, HelpCircle } from "lucide-react";
 import { QuizEngine } from "@/components/QuizEngine";
 import { LabPanel } from "@/components/LabPanel";
+import { ArchitectureVisualizer } from "@/components/ArchitectureVisualizer";
+import { TroubleshootingSimulator } from "@/components/TroubleshootingSimulator";
 
 export default function ModulePage({ params }: { params: { id: string } }) {
   const moduleId = params.id;
@@ -52,9 +54,11 @@ export default function ModulePage({ params }: { params: { id: string } }) {
               <h1 className="text-3xl font-extrabold text-white tracking-tight">VNet Implementation</h1>
               <p className="text-muted-foreground mt-2 text-lg">Deploy a secure Hub-Spoke network topology.</p>
             </div>
-            <TabsList className="bg-white/5 border border-white/10">
+            <TabsList className="bg-white/5 border border-white/10 flex-wrap h-auto">
               <TabsTrigger value="theory" className="data-[state=active]:bg-blue-600 data-[state=active]:text-white">Theory</TabsTrigger>
+              <TabsTrigger value="architecture" className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white">Architecture</TabsTrigger>
               <TabsTrigger value="lab" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">Interactive Lab</TabsTrigger>
+              <TabsTrigger value="troubleshoot" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">Troubleshoot</TabsTrigger>
               <TabsTrigger value="quiz" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white">Knowledge Check</TabsTrigger>
             </TabsList>
           </div>
@@ -78,8 +82,18 @@ export default function ModulePage({ params }: { params: { id: string } }) {
             </Card>
           </TabsContent>
 
+          <TabsContent value="architecture" className="mt-0 space-y-4">
+            <h2 className="text-xl font-bold text-white mb-2">Production Architecture Explorer</h2>
+            <ArchitectureVisualizer />
+          </TabsContent>
+
           <TabsContent value="lab" className="mt-0">
             <LabPanel />
+          </TabsContent>
+
+          <TabsContent value="troubleshoot" className="mt-0 space-y-4">
+            <h2 className="text-xl font-bold text-white mb-2">Troubleshooting Simulator</h2>
+            <TroubleshootingSimulator />
           </TabsContent>
 
           <TabsContent value="quiz" className="mt-0">
