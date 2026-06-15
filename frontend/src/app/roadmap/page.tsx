@@ -2,49 +2,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Lock, Unlock, PlayCircle } from "lucide-react";
 
+import Link from "next/link";
+
 const TRACKS = [
-  {
-    id: 1,
-    title: "Azure Fundamentals",
-    modules: 6,
-    status: "completed",
-    desc: "Regions, ARM, Portal, CLI",
-  },
-  {
-    id: 2,
-    title: "Azure Networking",
-    modules: 11,
-    status: "in-progress",
-    desc: "VNET, NSG, Firewall, App Gateway",
-  },
-  {
-    id: 3,
-    title: "Azure Compute",
-    modules: 6,
-    status: "locked",
-    desc: "VMs, VMSS, Functions, App Service",
-  },
-  {
-    id: 4,
-    title: "Containers",
-    modules: 6,
-    status: "locked",
-    desc: "Docker, ACR, Volumes, Security",
-  },
-  {
-    id: 5,
-    title: "Kubernetes",
-    modules: 8,
-    status: "locked",
-    desc: "AKS, Pods, Deployments, RBAC",
-  },
-  {
-    id: 6,
-    title: "DevOps",
-    modules: 7,
-    status: "locked",
-    desc: "GitHub, Azure DevOps, CI/CD, GitOps",
-  },
+  { id: 1, title: "Azure Virtual Networks", modules: 1, status: "completed", desc: "Deploy a secure Hub-Spoke network topology." },
+  { id: 2, title: "Azure Compute & AKS", modules: 1, status: "in-progress", desc: "Architect and scale highly available microservices." },
+  { id: 3, title: "Infrastructure as Code", modules: 1, status: "available", desc: "Automate your infrastructure deployments." },
+  { id: 4, title: "CI/CD Pipelines", modules: 1, status: "available", desc: "Build and release software at DevOps speed." },
+  { id: 5, title: "Monitoring & Observability", modules: 1, status: "available", desc: "Achieve SRE excellence through proactive alerting." },
+  { id: 6, title: "Identity & Security", modules: 1, status: "available", desc: "Implement Zero-Trust architecture." },
+  { id: 7, title: "Azure Storage", modules: 1, status: "available", desc: "Design durable, scalable data storage solutions." },
+  { id: 8, title: "Container Registries", modules: 1, status: "available", desc: "Secure and distribute your container images." },
+  { id: 9, title: "Cost Management", modules: 1, status: "available", desc: "Govern cloud spend and enforce compliance." },
+  { id: 10, title: "Chaos Engineering", modules: 1, status: "available", desc: "Test resiliency by injecting faults into production." },
 ];
 
 export default function Roadmap() {
@@ -89,10 +59,12 @@ export default function Roadmap() {
                         <Lock className="w-4 h-4" /> Locked
                       </div>
                     ) : (
-                      <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-lg shadow-blue-900/20">
-                        <PlayCircle className="w-4 h-4" /> 
-                        {track.status === 'completed' ? 'Review Track' : 'Continue'}
-                      </button>
+                      <Link href={`/module/${track.id}`}>
+                        <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-lg shadow-blue-900/20">
+                          <PlayCircle className="w-4 h-4" /> 
+                          {track.status === 'completed' ? 'Review Track' : 'Continue'}
+                        </button>
+                      </Link>
                     )}
                   </div>
                 </CardHeader>
