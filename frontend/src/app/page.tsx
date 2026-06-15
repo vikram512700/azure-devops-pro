@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ArrowRight, Cloud, Terminal, BrainCircuit, Rocket } from "lucide-react";
 
 export default function Home() {
@@ -30,15 +31,11 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4 w-full sm:w-auto">
-          <Link href="/dashboard" className="w-full sm:w-auto">
-            <Button size="lg" className="w-full rounded-full bg-blue-600 hover:bg-blue-700 text-white gap-2 font-semibold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all hover:scale-105">
-              Get Started <ArrowRight className="w-4 h-4" />
-            </Button>
+          <Link href="/dashboard" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-auto rounded-full bg-blue-600 hover:bg-blue-700 text-white gap-2 font-semibold shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all hover:scale-105")}>
+            Get Started <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link href="/roadmap" className="w-full sm:w-auto">
-            <Button size="lg" variant="outline" className="w-full rounded-full gap-2 font-semibold border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all">
-              View Roadmap
-            </Button>
+          <Link href="/roadmap" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "w-full sm:w-auto rounded-full gap-2 font-semibold border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all")}>
+            View Roadmap
           </Link>
         </div>
 
