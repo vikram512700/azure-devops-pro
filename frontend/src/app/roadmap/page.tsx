@@ -1,8 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Lock, Unlock, PlayCircle } from "lucide-react";
-
 import Link from "next/link";
+import { useProgress } from "@/hooks/useProgress";
 
 const TRACKS = [
   { id: 1, title: "Azure Virtual Networks", modules: 1, status: "completed", desc: "Deploy a secure Hub-Spoke network topology." },
@@ -18,6 +20,8 @@ const TRACKS = [
 ];
 
 export default function Roadmap() {
+  const { progress, isLoaded } = useProgress();
+
   return (
     <div className="min-h-screen p-8 pt-24 bg-background relative">
       {/* Background decoration */}
@@ -34,27 +38,32 @@ export default function Roadmap() {
         </div>
 
         <div className="relative border-l-2 border-white/10 ml-4 md:ml-0 md:pl-0 space-y-12">
-          {TRACKS.map((track, index) => (
-            <div key={track.id} className="relative pl-8 md:pl-0">
+          {TRACKS.map((track, index) => {
+            const isCompleted = isLoaded && progress.completedModules.includes(track.id.toString());
+            const isLocked = isLoaded && index > 0 && !progress.completedModules.includes(TRACKS[index - 1].id.toString());
+            const status = isLocked ? 'locked' : (isCompleted ? 'completed' : 'in-progress');
+
+            return (
+              <div key={track.id} className="relative pl-8 md:pl-0">
               
               {/* Timeline dot */}
               <div className="absolute left-[-9px] md:left-[-1px] top-6 w-4 h-4 rounded-full bg-background border-2 border-blue-500 z-10 hidden md:block" />
               <div className="absolute left-[-9px] top-6 w-4 h-4 rounded-full bg-background border-2 border-blue-500 z-10 md:hidden" />
 
-              <Card className={`bg-white/[0.02] border-white/[0.05] md:ml-8 transition-all hover:bg-white/[0.04] ${track.status === 'locked' ? 'opacity-60 grayscale-[0.5]' : 'shadow-[0_0_20px_rgba(37,99,235,0.05)]'}`}>
+              <Card className={`bg-white/[0.02] border-white/[0.05] md:ml-8 transition-all hover:bg-white/[0.04] ${status === 'locked' ? 'opacity-60 grayscale-[0.5]' : 'shadow-[0_0_20px_rgba(37,99,235,0.05)]'}`}>
                 <CardHeader className="flex flex-col md:flex-row md:items-start justify-between gap-4 pb-4">
                   <div>
                     <div className="flex items-center gap-3 mb-2">
                       <Badge variant="secondary" className="bg-white/10 text-white border-none">Track {track.id}</Badge>
-                      {track.status === 'completed' && <Badge className="bg-emerald-500/20 text-emerald-400 border-none hover:bg-emerald-500/30">Completed</Badge>}
-                      {track.status === 'in-progress' && <Badge className="bg-blue-500/20 text-blue-400 border-none hover:bg-blue-500/30 animate-pulse">In Progress</Badge>}
+                      {status === 'completed' && <Badge className="bg-emerald-500/20 text-emerald-400 border-none hover:bg-emerald-500/30">Completed</Badge>}
+                      {status === 'in-progress' && <Badge className="bg-blue-500/20 text-blue-400 border-none hover:bg-blue-500/30 animate-pulse">In Progress</Badge>}
                     </div>
                     <CardTitle className="text-2xl text-white">{track.title}</CardTitle>
                     <CardDescription className="text-base mt-2">{track.desc}</CardDescription>
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    {track.status === 'locked' ? (
+                    {status === 'locked' ? (
                       <div className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/5 text-muted-foreground border border-white/10 text-sm">
                         <Lock className="w-4 h-4" /> Locked
                       </div>
@@ -62,7 +71,7 @@ export default function Roadmap() {
                       <Link href={`/module/${track.id}`}>
                         <button className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors shadow-lg shadow-blue-900/20">
                           <PlayCircle className="w-4 h-4" /> 
-                          {track.status === 'completed' ? 'Review Track' : 'Continue'}
+                          {status === 'completed' ? 'Review Track' : 'Continue'}
                         </button>
                       </Link>
                     )}
@@ -80,7 +89,8 @@ export default function Roadmap() {
                 </CardContent>
               </Card>
             </div>
-          ))}
+          );
+        })}
         </div>
 
       </div>

@@ -1,9 +1,13 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Trophy, Target, Activity } from "lucide-react";
+import { useProgress } from "@/hooks/useProgress";
 
 export default function Dashboard() {
+  const { progress, isLoaded } = useProgress();
   return (
     <div className="min-h-screen p-8 pt-24 bg-background">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -21,9 +25,9 @@ export default function Dashboard() {
 
         {/* Stats Row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <StatCard icon={<Trophy className="w-5 h-5 text-yellow-500"/>} title="Total XP" value="2,450" />
-          <StatCard icon={<BookOpen className="w-5 h-5 text-blue-500"/>} title="Modules Done" value="4 / 30" />
-          <StatCard icon={<Activity className="w-5 h-5 text-emerald-500"/>} title="Labs Finished" value="12" />
+          <StatCard icon={<Trophy className="w-5 h-5 text-yellow-500"/>} title="Total XP" value={isLoaded ? progress.xp.toString() : "..."} />
+          <StatCard icon={<BookOpen className="w-5 h-5 text-blue-500"/>} title="Modules Done" value={isLoaded ? `${progress.completedModules.length} / 10` : "..."} />
+          <StatCard icon={<Activity className="w-5 h-5 text-emerald-500"/>} title="Labs Finished" value="0" />
           <StatCard icon={<Target className="w-5 h-5 text-purple-500"/>} title="Current Track" value="Networking" />
         </div>
 

@@ -160,7 +160,7 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
           </TabsContent>
 
           <TabsContent value="quiz" className="mt-0">
-            <QuizEngine />
+            <QuizEngine moduleId={moduleId} />
           </TabsContent>
           
           <div className="flex justify-between items-center pt-8 border-t border-white/5 mt-8">

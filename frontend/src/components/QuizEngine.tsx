@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Trophy, CheckCircle2, XCircle } from "lucide-react";
+import { useProgress } from "@/hooks/useProgress";
 
 type Question = {
   id: string;
@@ -43,12 +44,14 @@ const SAMPLE_QUESTIONS: Question[] = [
   }
 ];
 
-export function QuizEngine() {
+export function QuizEngine({ moduleId }: { moduleId: string }) {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string>("");
   const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+
+  const { addXP, markModuleCompleted } = useProgress();
 
   const currentQuestion = SAMPLE_QUESTIONS[currentQuestionIdx];
   const progress = ((currentQuestionIdx) / SAMPLE_QUESTIONS.length) * 100;
@@ -67,6 +70,9 @@ export function QuizEngine() {
         setIsAnswerSubmitted(false);
       } else {
         setIsFinished(true);
+        // Save progress using hook
+        addXP(score + (selectedAnswer === currentQuestion.correctOptionId ? 100 : 0));
+        markModuleCompleted(moduleId);
       }
     }
   };
