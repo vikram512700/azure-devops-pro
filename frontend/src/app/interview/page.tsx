@@ -36,7 +36,7 @@ export default function InterviewPage() {
         throw new Error("Please enter your Gemini API Key in the Dashboard Settings first.");
       }
       const client = getGeminiClient(apiKey);
-      const model = client.getGenerativeModel({ model: "gemini-pro" });
+      const model = client.getGenerativeModel({ model: "gemini-3.5-flash" });
       
       // Filter out the initial UI greeting from the API history
       const history = messages.slice(1).map(m => ({
