@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText } from "lucide-react";
+import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText, FolderGit2 } from "lucide-react";
 import { CommandMenu } from "@/components/CommandMenu";
 
 import type { DocCategory } from "@/lib/docs";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/roadmap", label: "Roadmap", icon: Map },
+  { href: "/projects", label: "Projects", icon: FolderGit2 },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/docs", label: "Docs", icon: BookText },
   { href: "/interview", label: "AI Interview", icon: Bot },
   { href: "/jd-analyzer", label: "JD Analyzer", icon: FileSearch },

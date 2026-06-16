@@ -12,12 +12,12 @@ import { modulesData } from "@/data/modules";
 
 const ALL_IDS = Array.from({ length: 30 }, (_, i) => (i + 1).toString());
 
-// Hyderabad market skills mapped to the module that teaches them.
 const MARKET_SKILLS = [
-  { name: "AKS / Kubernetes", demand: 95, moduleId: "10" },
-  { name: "Terraform", demand: 88, moduleId: "18" },
-  { name: "CI/CD Pipelines", demand: 82, moduleId: "16" },
-  { name: "Docker", demand: 75, moduleId: "7" },
+  { name: "AKS / Kubernetes", demand: 95, moduleId: "10", projectId: "p7" },
+  { name: "Terraform", demand: 88, moduleId: "18", projectId: "p15" },
+  { name: "CI/CD Pipelines", demand: 82, moduleId: "16", projectId: "p6" },
+  { name: "Docker", demand: 75, moduleId: "7", projectId: "p5" },
+  { name: "Landing Zone", demand: 70, moduleId: "22", projectId: "p10" },
 ];
 
 export default function Dashboard() {
@@ -209,7 +209,13 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {MARKET_SKILLS.map((s) => (
-                  <SkillBar key={s.name} name={s.name} demand={s.demand} userHas={isLoaded && completed.includes(s.moduleId)} />
+                  <SkillBar 
+                    key={s.name} 
+                    name={s.name} 
+                    demand={s.demand} 
+                    userHas={isLoaded && progress.completedModules.includes(s.moduleId)} 
+                    userProven={isLoaded && progress.completedProjects.includes(s.projectId)}
+                  />
                 ))}
               </CardContent>
             </Card>
@@ -269,17 +275,28 @@ function ActivityRow({ title, detail }: { title: string, detail?: string }) {
   );
 }
 
-function SkillBar({ name, demand, userHas }: { name: string, demand: number, userHas: boolean }) {
+function SkillBar({ name, demand, userHas, userProven }: { name: string, demand: number, userHas: boolean, userProven: boolean }) {
+  let statusText = "To Learn";
+  let statusColor = "text-amber-400";
+  let indicatorColor = "bg-amber-500";
+  
+  if (userProven) {
+    statusText = "Proven ✅";
+    statusColor = "text-green-400 font-bold";
+    indicatorColor = "bg-green-500";
+  } else if (userHas) {
+    statusText = "Covered";
+    statusColor = "text-emerald-400";
+    indicatorColor = "bg-emerald-500";
+  }
+
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between text-sm">
         <span className="text-gray-200">{name}</span>
-        {userHas ?
-          <span className="text-emerald-400 text-xs flex items-center gap-1">Covered</span> :
-          <span className="text-amber-400 text-xs flex items-center gap-1">To Learn</span>
-        }
+        <span className={`${statusColor} text-xs flex items-center gap-1`}>{statusText}</span>
       </div>
-      <Progress value={demand} className="h-1.5 bg-white/5" indicatorClassName={userHas ? "bg-emerald-500" : "bg-amber-500"} />
+      <Progress value={demand} className="h-1.5 bg-white/5" indicatorClassName={indicatorColor} />
     </div>
   );
 }
