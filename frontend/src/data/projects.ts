@@ -14,6 +14,7 @@ export interface ProjectStep {
   title: string;
   description: string;
   commands: string[];
+  codeType?: "cli" | "terraform" | "yaml" | "kusto" | "bash";
   expectedOutput?: string;
   validationCmd?: string;
 }
@@ -42,6 +43,10 @@ export interface Project {
   skills: string[];
   deliverables: string[];
   architecture: ProjectArch;
+  businessContext?: string;
+  costAnalysis?: string;
+  day2Operations?: string[];
+  troubleshooting?: { issue: string; solution: string }[];
   steps: ProjectStep[];
   interviewQuestions: ProjectInterviewQ[];
   githubTemplateUrl?: string;
@@ -467,12 +472,23 @@ export const projectsData: Record<string, Project> = {
     subtitle: "Highly Available Kubernetes with Azure CNI and Managed Identity",
     difficulty: "Advanced",
     category: "AKS",
-    estimatedHours: 5,
+    estimatedHours: 10,
     isFeatured: true,
     linkedModuleIds: ["9", "10", "11", "12"],
-    skills: ["AKS", "Azure CNI", "ACR integration", "Ingress", "Managed Identity", "HPA"],
-    deliverables: ["AKS Cluster", "HPA Config", "Deployed Workloads"],
+    skills: ["AKS", "Azure CNI", "ACR integration", "Ingress", "Managed Identity", "HPA", "PDB"],
+    deliverables: ["AKS Cluster", "HPA Config", "Deployed Workloads", "Ingress Controller"],
     jdKeywords: ["AKS", "Kubernetes", "Ingress", "KEDA", "Managed Identity", "Azure CNI"],
+    businessContext: "The business is migrating monolithic applications to microservices. The platform must survive a zone failure, automatically scale during Black Friday events without manual intervention, and strictly adhere to least-privilege identity access to Azure services (No connection strings).",
+    costAnalysis: "Estimated Monthly Cost: $650. System Node Pool (2x D2s_v3): $137/mo, User Node Pool (Min 3x D4s_v3): $410/mo, SLA Uptime Tier: $73/mo, Standard Load Balancer: $30/mo.",
+    day2Operations: [
+      "Performing zero-downtime Kubernetes version upgrades via surge node upgrades.",
+      "Monitoring CPU/Memory saturation points to adjust HPA thresholds.",
+      "Rotating certificates for the NGINX Ingress Controller via cert-manager."
+    ],
+    troubleshooting: [
+      { issue: "SNAT Port Exhaustion", solution: "When out-bound connections fail, verify SNAT allocation. Fix by migrating to Managed NAT Gateway instead of default outbound Load Balancer." },
+      { issue: "Pods stuck in Pending", solution: "Check cluster autoscaler logs. Often caused by lack of available IP addresses in the Azure CNI subnet, requiring VNET expansion." }
+    ],
     architecture: {
       description: "A production-grade Azure Kubernetes Service architecture with advanced networking and autoscale capabilities.",
       nodes: ["Application Gateway (WAF)", "AGIC", "AKS Cluster (Azure CNI)", "System Node Pool", "User Node Pool (Autoscale)", "Managed Identity"],
@@ -486,42 +502,110 @@ export const projectsData: Record<string, Project> = {
     steps: [
       {
         id: 1,
-        title: "Provision AKS Cluster",
-        description: "Create an AKS cluster with advanced networking and identity settings.",
+        title: "Provision Zonal AKS Cluster",
+        description: "Create an AKS cluster utilizing Availability Zones for HA and separate node pools to protect the control plane.",
+        codeType: "cli",
         commands: [
-          "az aks create --resource-group [RG_NAME] --name aks-prod-[YOURALIAS] --node-count 2 --node-vm-size Standard_D2s_v3 --network-plugin azure --network-policy azure --enable-managed-identity --enable-workload-identity --zones 1 2 3"
+          "az aks create \\",
+          "  --resource-group rg-aks-prod \\",
+          "  --name aks-prod-001 \\",
+          "  --node-count 3 \\",
+          "  --zones 1 2 3 \\",
+          "  --network-plugin azure \\",
+          "  --enable-managed-identity \\",
+          "  --enable-cluster-autoscaler \\",
+          "  --min-count 3 \\",
+          "  --max-count 10 \\",
+          "  --tier standard"
         ]
       },
       {
         id: 2,
-        title: "Attach Container Registry",
-        description: "Grant the AKS cluster pull permissions to your ACR.",
+        title: "Enable Workload Identity",
+        description: "Eliminate pod secrets by establishing federation between Entra ID and Kubernetes Service Accounts.",
+        codeType: "bash",
         commands: [
-          "ACR_ID=$(az acr show --name acr[YOURALIAS]lab --query id -o tsv)",
-          "az aks update --name aks-prod-[YOURALIAS] --resource-group [RG_NAME] --attach-acr $ACR_ID"
+          "OIDC_ISSUER=$(az aks show -n aks-prod-001 -g rg-aks-prod --query \"oidcIssuerProfile.issuerUrl\" -otsv)",
+          "az identity create --name mi-workload-api --resource-group rg-aks-prod",
+          "az identity federated-credential create \\",
+          "  --name k8s-fed-cred \\",
+          "  --identity-name mi-workload-api \\",
+          "  --resource-group rg-aks-prod \\",
+          "  --issuer $OIDC_ISSUER \\",
+          "  --subject system:serviceaccount:production:api-sa"
         ]
       },
       {
         id: 3,
-        title: "Deploy Workload",
-        description: "Deploy the application with resource limits and topology spread constraints.",
+        title: "Deploy Workload with High Availability Constraints",
+        description: "Deploy the application enforcing anti-affinity to ensure pods never share the same physical node.",
+        codeType: "yaml",
         commands: [
-          "kubectl apply -f deployment.yaml"
+          "apiVersion: apps/v1",
+          "kind: Deployment",
+          "metadata:",
+          "  name: api-workload",
+          "  namespace: production",
+          "spec:",
+          "  replicas: 3",
+          "  selector:",
+          "    matchLabels:",
+          "      app: api",
+          "  template:",
+          "    metadata:",
+          "      labels:",
+          "        app: api",
+          "        azure.workload.identity/use: \"true\"",
+          "    spec:",
+          "      serviceAccountName: api-sa",
+          "      topologySpreadConstraints:",
+          "        - maxSkew: 1",
+          "          topologyKey: topology.kubernetes.io/zone",
+          "          whenUnsatisfiable: DoNotSchedule",
+          "          labelSelector:",
+          "            matchLabels:",
+          "              app: api",
+          "      containers:",
+          "        - name: api",
+          "          image: acrprod001.azurecr.io/api:v1.0.0",
+          "          resources:",
+          "            requests:",
+          "              cpu: \"250m\"",
+          "              memory: \"512Mi\""
         ]
       },
       {
         id: 4,
-        title: "Configure Autoscaling",
-        description: "Set up a Horizontal Pod Autoscaler (HPA) to scale pods based on CPU usage.",
+        title: "Configure Horizontal Pod Autoscaler",
+        description: "Set up HPA to dynamically spin up pods during traffic spikes.",
+        codeType: "yaml",
         commands: [
-          "kubectl autoscale deployment myapp --cpu-percent=70 --min=3 --max=10",
-          "kubectl get hpa"
+          "apiVersion: autoscaling/v2",
+          "kind: HorizontalPodAutoscaler",
+          "metadata:",
+          "  name: api-hpa",
+          "  namespace: production",
+          "spec:",
+          "  scaleTargetRef:",
+          "    apiVersion: apps/v1",
+          "    kind: Deployment",
+          "    name: api-workload",
+          "  minReplicas: 3",
+          "  maxReplicas: 15",
+          "  metrics:",
+          "  - type: Resource",
+          "    resource:",
+          "      name: cpu",
+          "      target:",
+          "        type: Utilization",
+          "        averageUtilization: 75"
         ]
       }
     ],
     interviewQuestions: [
-      { q: "What is Azure CNI and how does it differ from Kubenet?", a: "Azure CNI assigns every pod an IP from the subnet, making them directly routable in the VNET. Kubenet uses NAT and internal routing, saving VNET IP space but adding networking complexity.", level: "Advanced" },
-      { q: "Why do we separate System and User node pools?", a: "System pools host critical cluster components (CoreDNS, metrics-server). Isolating them prevents user applications from starving the cluster control plane of resources.", level: "Intermediate" }
+      { q: "What is Azure CNI and how does it differ from Kubenet?", a: "Azure CNI assigns every pod an IP directly from the VNET subnet, making them fully routable. Kubenet uses internal IP ranges and NATs them at the node level, saving VNET IP space but adding network overhead.", level: "Advanced" },
+      { q: "Why do we separate System and User node pools?", a: "System pools host critical cluster components (CoreDNS, metrics-server). Isolating them prevents user applications experiencing memory leaks from starving the cluster control plane of resources.", level: "Intermediate" },
+      { q: "What is Topology Spread Constraint in Kubernetes?", a: "It dictates how pods are distributed across the cluster based on regions, zones, or nodes. It ensures that a single zone failure doesn't wipe out all replicas of your application.", level: "Advanced" }
     ]
   },
   p8: {
@@ -653,17 +737,28 @@ export const projectsData: Record<string, Project> = {
   p10: {
     id: "p10",
     title: "Enterprise Landing Zone",
-    subtitle: "Hub-Spoke Topology with Azure Firewall",
+    subtitle: "Hub-Spoke Topology with Azure Firewall & Terraform",
     difficulty: "Production",
-    category: "Azure Fundamentals",
-    estimatedHours: 6,
+    category: "Terraform",
+    estimatedHours: 12,
     isFeatured: true,
     linkedModuleIds: ["2", "3", "22", "23"],
-    skills: ["Hub-Spoke", "Azure Firewall", "Private Endpoints", "Key Vault", "Policy"],
+    skills: ["Hub-Spoke", "Azure Firewall", "Terraform", "Private Endpoints", "UDR", "Azure Policy"],
     deliverables: ["Hub VNET", "Spoke VNET", "Azure Firewall", "Private Endpoints"],
-    jdKeywords: ["Landing Zone", "Hub-Spoke", "Private Endpoint", "Azure Firewall", "Azure Policy"],
+    jdKeywords: ["Landing Zone", "Hub-Spoke", "Private Endpoint", "Azure Firewall", "Terraform", "IaC"],
+    businessContext: "The enterprise requires strict network isolation and deep packet inspection for all egress traffic to comply with SOC2 and PCI-DSS standards. Unregulated public internet access from production workloads is strictly forbidden.",
+    costAnalysis: "Estimated Monthly Cost: $1,150. Azure Firewall Standard ($912/mo), VNET Peering ($0.01/GB), Private Endpoints ($7.30/mo + data processed).",
+    day2Operations: [
+      "Reviewing Azure Firewall Threat Intelligence alerts in Log Analytics.",
+      "Scaling VNET address spaces without breaking peering.",
+      "Updating UDRs when deploying new Network Virtual Appliances (NVAs)."
+    ],
+    troubleshooting: [
+      { issue: "Asymmetric Routing", solution: "Ensure return traffic passes through the firewall by explicitly defining UDRs on gateway subnets or using Azure Route Server." },
+      { issue: "Private Endpoint DNS Resolution Fails", solution: "Verify the Azure Private DNS Zone is linked to the Hub VNET or the custom DNS forwarder is correctly configured to forward queries to 168.63.129.16." }
+    ],
     architecture: {
-      description: "A secure, scalable enterprise network topology enforcing centralized egress traffic inspection.",
+      description: "A secure, scalable enterprise network topology deployed entirely via Terraform enforcing centralized egress traffic inspection.",
       nodes: ["Hub VNET", "Azure Firewall", "Spoke VNET (Workloads)", "Private Endpoint (Key Vault)", "UDR (Route Table)"],
       connections: [
         "Spoke VNET → Hub VNET (VNET Peering)",
@@ -675,49 +770,96 @@ export const projectsData: Record<string, Project> = {
     steps: [
       {
         id: 1,
-        title: "Create Hub Network",
-        description: "Provision the central Hub VNET and AzureFirewallSubnet.",
+        title: "Define Provider & Backend",
+        description: "Configure the Terraform AzureRM provider and backend state to ensure remote state locking.",
+        codeType: "terraform",
         commands: [
-          "az network vnet create --name vnet-hub --resource-group [HUB_RG] --address-prefix 10.0.0.0/16 --subnet-name AzureFirewallSubnet --subnet-prefix 10.0.0.0/26"
+          "terraform {",
+          "  backend \"azurerm\" {",
+          "    resource_group_name  = \"rg-terraform-state\"",
+          "    storage_account_name = \"sttfstateprod001\"",
+          "    container_name       = \"tfstate\"",
+          "    key                  = \"landingzone.tfstate\"",
+          "  }",
+          "  required_providers {",
+          "    azurerm = {",
+          "      source  = \"hashicorp/azurerm\"",
+          "      version = \"~> 3.0\"",
+          "    }",
+          "  }",
+          "}"
         ]
       },
       {
         id: 2,
-        title: "Deploy Azure Firewall",
-        description: "Deploy the managed firewall to inspect and filter all traffic.",
+        title: "Provision Hub VNET & Firewall",
+        description: "Deploy the Hub network and the centralized Azure Firewall.",
+        codeType: "terraform",
         commands: [
-          "az network firewall create --name fw-hub --resource-group [HUB_RG] --location eastus --vnet-name vnet-hub --sku-tier Standard"
+          "resource \"azurerm_virtual_network\" \"hub\" {",
+          "  name                = \"vnet-hub-prod\"",
+          "  address_space       = [\"10.0.0.0/16\"]",
+          "  location            = var.location",
+          "  resource_group_name = azurerm_resource_group.hub.name",
+          "}",
+          "",
+          "resource \"azurerm_subnet\" \"firewall\" {",
+          "  name                 = \"AzureFirewallSubnet\"",
+          "  resource_group_name  = azurerm_resource_group.hub.name",
+          "  virtual_network_name = azurerm_virtual_network.hub.name",
+          "  address_prefixes     = [\"10.0.0.0/26\"]",
+          "}",
+          "",
+          "resource \"azurerm_firewall\" \"fw\" {",
+          "  name                = \"afw-hub-prod\"",
+          "  location            = var.location",
+          "  resource_group_name = azurerm_resource_group.hub.name",
+          "  sku_name            = \"AZFW_VNet\"",
+          "  sku_tier            = \"Standard\"",
+          "}"
         ]
       },
       {
         id: 3,
         title: "Configure Spoke & Peering",
-        description: "Create workload VNETs and peer them to the Hub.",
+        description: "Create workload VNETs and establish bidirectional VNET peering to the Hub.",
+        codeType: "terraform",
         commands: [
-          "az network vnet create --name vnet-spoke-workloads --resource-group [SPOKE_RG] --address-prefix 10.1.0.0/16",
-          "az network vnet peering create --name hub-to-spoke --resource-group [HUB_RG] --vnet-name vnet-hub --remote-vnet vnet-spoke-workloads --allow-forwarded-traffic"
+          "resource \"azurerm_virtual_network_peering\" \"hub_to_spoke\" {",
+          "  name                      = \"peer-hub-to-spoke\"",
+          "  resource_group_name       = azurerm_resource_group.hub.name",
+          "  virtual_network_name      = azurerm_virtual_network.hub.name",
+          "  remote_virtual_network_id = azurerm_virtual_network.spoke.id",
+          "  allow_forwarded_traffic   = true",
+          "}"
         ]
       },
       {
         id: 4,
-        title: "Implement UDR",
-        description: "Force all spoke egress traffic through the Azure Firewall via Route Tables.",
+        title: "Implement UDR (User Defined Routes)",
+        description: "Force all spoke egress traffic through the Azure Firewall to prevent public internet breakout.",
+        codeType: "terraform",
         commands: [
-          "az network route-table route create --name default-to-firewall --route-table-name rt-spoke --resource-group [SPOKE_RG] --address-prefix 0.0.0.0/0 --next-hop-type VirtualAppliance --next-hop-ip-address $FW_IP"
-        ]
-      },
-      {
-        id: 5,
-        title: "Deploy Private Endpoints",
-        description: "Secure PaaS services (Key Vault) by attaching them directly to the spoke VNET.",
-        commands: [
-          "az network private-endpoint create --name pe-keyvault --resource-group [SPOKE_RG] --vnet-name vnet-spoke-workloads --subnet DataSubnet --private-connection-resource-id $KV_ID --group-id vault"
+          "resource \"azurerm_route_table\" \"spoke_rt\" {",
+          "  name                = \"rt-spoke-prod\"",
+          "  location            = var.location",
+          "  resource_group_name = azurerm_resource_group.spoke.name",
+          "}",
+          "",
+          "resource \"azurerm_route\" \"default_to_firewall\" {",
+          "  name                   = \"udr-default-to-fw\"",
+          "  route_table_name       = azurerm_route_table.spoke_rt.name",
+          "  address_prefix         = \"0.0.0.0/0\"",
+          "  next_hop_type          = \"VirtualAppliance\"",
+          "  next_hop_in_ip_address = azurerm_firewall.fw.ip_configuration[0].private_ip_address",
+          "}"
         ]
       }
     ],
     interviewQuestions: [
       { q: "Why use a Hub and Spoke network topology?", a: "It provides centralized management for security (Firewall) and connectivity (VPN/ExpressRoute), reducing costs and preventing individual teams from bypassing corporate security controls.", level: "Intermediate" },
-      { q: "What is the difference between Service Endpoints and Private Endpoints?", a: "Service Endpoints route traffic over the Azure backbone but the PaaS service retains a public IP. Private Endpoints inject a private IP from your VNET directly into the PaaS service, allowing you to completely disable public network access.", level: "Advanced" }
+      { q: "What is the difference between Service Endpoints and Private Endpoints?", a: "Service Endpoints route traffic over the Azure backbone but the PaaS service retains a public IP. Private Endpoints inject a private IP from your VNET directly into the PaaS service, allowing you to completely disable public network access.", level: "Advanced" },
+      { q: "How do you handle asymmetric routing when an ExpressRoute is attached to the Hub?", a: "You must ensure that traffic coming from on-prem via the ExpressRoute Gateway is explicitly routed back to the gateway using a UDR on the Firewall Subnet, or by utilizing Azure Route Server to propagate BGP routes correctly.", level: "Advanced" }
     ]
   },
   p11: {

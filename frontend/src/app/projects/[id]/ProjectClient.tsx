@@ -98,7 +98,9 @@ export default function ProjectClient({ project }: { project: Project }) {
         <TabsList className="w-full justify-start border-b border-white/10 rounded-none bg-transparent p-0 mb-8 h-auto flex-wrap">
           <TabsTrigger value="overview" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Overview</TabsTrigger>
           <TabsTrigger value="architecture" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Architecture</TabsTrigger>
-          <TabsTrigger value="steps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Build Steps</TabsTrigger>
+          <TabsTrigger value="business" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Business & Cost</TabsTrigger>
+          <TabsTrigger value="steps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Execution</TabsTrigger>
+          <TabsTrigger value="day2" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Day 2 & Troubleshooting</TabsTrigger>
           <TabsTrigger value="interview" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Interview Prep</TabsTrigger>
         </TabsList>
 
@@ -198,6 +200,29 @@ export default function ProjectClient({ project }: { project: Project }) {
           </div>
         </TabsContent>
 
+        <TabsContent value="business" className="animate-in fade-in slide-in-from-bottom-2 space-y-8">
+          {project.businessContext ? (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Business Context</h3>
+              <p className="text-gray-300 leading-relaxed max-w-3xl border-l-4 border-blue-500 pl-4 py-1 bg-white/5 rounded-r-lg">
+                {project.businessContext}
+              </p>
+            </div>
+          ) : (
+            <div className="text-gray-500 italic p-4">Business context currently unavailable for this legacy project.</div>
+          )}
+
+          {project.costAnalysis && (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Cost Analysis</h3>
+              <p className="text-gray-300 leading-relaxed bg-black/40 p-4 rounded-lg border border-white/5 font-mono text-sm">
+                {project.costAnalysis}
+              </p>
+            </div>
+          )}
+        </TabsContent>
+
+
         <TabsContent value="steps" className="animate-in fade-in slide-in-from-bottom-2 space-y-6">
           {project.steps.map((step, index) => (
             <div key={step.id} className="bg-[#0f111a] border border-white/10 rounded-xl overflow-hidden shadow-2xl relative group">
@@ -217,13 +242,13 @@ export default function ProjectClient({ project }: { project: Project }) {
                 </p>
 
                 <div className="ml-11 relative bg-black/60 rounded-lg border border-white/5">
-                  <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
+                    <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-white/[0.02]">
                     <div className="flex gap-1.5">
                       <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
                       <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
                       <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
                     </div>
-                    <span className="text-xs text-gray-500 font-mono">Terminal</span>
+                    <span className="text-xs text-gray-500 font-mono uppercase tracking-wider">{step.codeType || "Terminal"}</span>
                   </div>
                   
                   <div className="p-4 overflow-x-auto relative">
@@ -234,13 +259,22 @@ export default function ProjectClient({ project }: { project: Project }) {
                     >
                       {copiedStep === step.id ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
                     </button>
-                    <pre className="font-mono text-sm leading-relaxed pr-10">
-                      {step.commands.map((cmd, i) => (
-                        <div key={i} className="flex gap-4">
-                          <span className="text-gray-600 select-none">$</span>
-                          <span className="text-blue-300">{cmd}</span>
-                        </div>
-                      ))}
+                    <pre className="font-mono text-sm leading-relaxed pr-10 whitespace-pre">
+                      {step.commands.map((cmd, i) => {
+                        const isCli = !step.codeType || step.codeType === "cli" || step.codeType === "bash";
+                        return (
+                          <div key={i} className={`flex ${isCli ? 'gap-4' : ''}`}>
+                            {isCli && <span className="text-gray-600 select-none">$</span>}
+                            <span className={
+                              step.codeType === "terraform" ? "text-purple-300" :
+                              step.codeType === "yaml" ? "text-amber-300" :
+                              "text-blue-300"
+                            }>
+                              {cmd}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </pre>
                   </div>
                 </div>
@@ -254,6 +288,43 @@ export default function ProjectClient({ project }: { project: Project }) {
               </div>
             </div>
           ))}
+        </TabsContent>
+
+        <TabsContent value="day2" className="animate-in fade-in slide-in-from-bottom-2 space-y-8">
+          {project.day2Operations && project.day2Operations.length > 0 ? (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Day 2 Operations</h3>
+              <ul className="space-y-4">
+                {project.day2Operations.map((op, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-300">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                    {op}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="text-gray-500 italic p-4">Day 2 operations currently unavailable for this legacy project.</div>
+          )}
+
+          {project.troubleshooting && project.troubleshooting.length > 0 && (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Common Failures & Troubleshooting</h3>
+              <div className="grid gap-4">
+                {project.troubleshooting.map((ts, i) => (
+                  <div key={i} className="bg-red-950/20 border border-red-500/20 rounded-xl p-6">
+                    <div className="flex items-start gap-3 mb-3">
+                      <Shield className="w-5 h-5 text-red-400 shrink-0" />
+                      <h4 className="text-lg font-bold text-white leading-tight">{ts.issue}</h4>
+                    </div>
+                    <p className="text-gray-300 ml-8 p-3 bg-black/30 rounded-lg border border-red-500/10">
+                      {ts.solution}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="interview" className="animate-in fade-in slide-in-from-bottom-2 space-y-4">
