@@ -175,6 +175,8 @@ export default function Dashboard() {
                 </div>
                 {apiKey && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">API Key Saved</Badge>}
               </CardContent>
+            </Card>
+
             <Card className="bg-white/[0.02] border-white/[0.05] mt-6">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
