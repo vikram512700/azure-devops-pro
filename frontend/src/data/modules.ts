@@ -82,8 +82,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "Design a multi-region resource group naming convention for a company with 5 business units and 3 environments.",
         a: "A pattern like rg-<businessunit>-<app>-<env>-<region-shortcode> e.g., rg-jiomart-checkout-prod-cin (Central India). This is enforced via an Azure Policy naming convention check (regex match on resource name), combined with mandatory tags (BusinessUnit, Environment, CostCenter) so that Cost Management can slice spend by any dimension without relying on naming alone."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -122,7 +121,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Azure Regions & Resource Groups enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "2": {
     id: "2",
     title: "Subscriptions, CLI & Portal",
@@ -175,8 +174,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "You need to set a default resource group and location for all your az CLI commands in a session. How?",
         a: "`az configure --defaults group=rg-jiopay-prod-cin location=centralindia`. This persists in ~/.azure/config so subsequent commands like `az vm list` or `az network vnet create` don't need --resource-group/--location flags repeated — useful for reducing errors during long CLI sessions."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -215,7 +213,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Subscriptions, CLI & Portal enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "3": {
     id: "3",
     title: "VNETs, Subnets & Peering",
@@ -268,8 +266,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "What happens if you try to peer two VNets with overlapping address spaces?",
         a: "Azure rejects the peering creation with an error — overlapping CIDR ranges make routing ambiguous (Azure wouldn't know which VNet's 10.0.0.5 a packet is destined for). This is why centralized IPAM planning before VNet creation is critical, especially in large organizations adding new spokes frequently."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -308,7 +305,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, VNETs, Subnets & Peering enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "4": {
     id: "4",
     title: "NSGs, Route Tables & Firewalls",
@@ -361,8 +358,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "How would you implement FQDN-based egress filtering to allow pods to pull images only from your ACR and Microsoft endpoints?",
         a: "Use Azure Firewall (Premium SKU for TLS inspection if needed) Application Rules with FQDN tags/wildcards: allow *.azurecr.io, *.blob.core.windows.net (for layer storage), login.microsoftonline.com, mcr.microsoft.com. Set the spoke subnet's route table to forward 0.0.0.0/0 to the firewall. Combine with Azure Policy to prevent AKS from using public IPs directly, ensuring all egress is firewall-inspected."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -401,7 +397,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, NSGs, Route Tables & Firewalls enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "5": {
     id: "5",
     title: "Virtual Machines & VMSS",
@@ -454,8 +450,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "A VM is stuck and you suspect a disk IOPS bottleneck. How would you diagnose and fix it?",
         a: "Check Azure Monitor metrics 'OS Disk IOPS Consumed Percentage' and 'OS Disk Queue Depth' — if consistently near 100%, the disk's provisioned IOPS (determined by disk size/tier) is the bottleneck. Fixes: resize to a larger Premium SSD (more size = more baseline IOPS), switch to Premium SSD v2 or Ultra Disk (IOPS provisioned independently of size), or move high-IOPS workloads (databases) to a dedicated data disk separate from the OS disk."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -494,7 +489,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Virtual Machines & VMSS enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "6": {
     id: "6",
     title: "App Service & Azure Functions",
@@ -547,8 +542,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "Compare Azure Functions and a Kubernetes-based microservice for an event-driven workload. When would you choose Functions?",
         a: "Choose Functions when: workload is sporadic/bursty (pay only for execution time, scale-to-zero saves cost), the logic is small and stateless, and you want minimal operational overhead (no cluster to manage). Choose Kubernetes/AKS when: you need fine-grained control over runtime/networking, the workload runs continuously (Functions' cost benefit disappears at high sustained throughput), you need complex inter-service communication (service mesh), or you're already standardized on K8s tooling for CI/CD and observability."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -587,7 +581,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, App Service & Azure Functions enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "7": {
     id: "7",
     title: "Docker Fundamentals & Images",
@@ -640,8 +634,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "Your team runs `docker build` and notices the COPY . . layer always rebuilds even with no code changes. What could cause this and how do you fix it?",
         a: "Likely cause: the build context includes files that change on every checkout (e.g., .git directory, build artifacts, log files, OS metadata files like .DS_Store) which alter the context's checksum even if source code is identical. Fix: add a comprehensive `.dockerignore` (.git, node_modules, dist, *.log, .DS_Store) so the build context — and thus the COPY layer's cache key — only reflects files that actually matter."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -680,7 +673,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Docker Fundamentals & Images enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "8": {
     id: "8",
     title: "Multi-Stage Builds & Security",
@@ -733,8 +726,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "How would you set up a CI pipeline so a HIGH severity CVE doesn't block urgent hotfix deployments, but is still tracked?",
         a: "Use a two-tier gate: CRITICAL severity CVEs with `--exit-code 1` hard-block the pipeline (non-negotiable). HIGH severity CVEs run with `--exit-code 0` (informational) but the scan results are still uploaded as a pipeline artifact/report and pushed to a security dashboard (e.g., Microsoft Defender for Cloud or a vulnerability tracker) with a tracked SLA (e.g., must be fixed within 14 days) — balancing urgent delivery needs against not silently ignoring real risk."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -773,7 +765,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Multi-Stage Builds & Security enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "9": {
     id: "9",
     title: "ACR (Azure Container Registry)",
@@ -826,8 +818,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "How would you control storage costs on an ACR that accumulates thousands of images from frequent CI builds?",
         a: "1) Enable a retention policy to auto-purge untagged manifests after N days (`az acr config retention update --days 7 --status enabled`) — these accumulate from tag overwrites/retries. 2) Adopt immutable, meaningful tags (git SHA) so old images can be identified and purged by age/policy rather than guessing. 3) Use ACR Tasks or a scheduled `az acr run` with `acr purge` command to delete images older than a retention window that aren't referenced by any active deployment tag (e.g., keep last 10 tags per repository)."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -866,7 +857,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, ACR (Azure Container Registry) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "10": {
     id: "10",
     title: "AKS Architecture & Control Plane",
@@ -919,8 +910,7 @@ export const modulesData: Record<string, ModuleContent> = {
         q: "How does the Cluster Autoscaler decide to add a node, and why might a pod remain Pending even with autoscaling enabled?",
         a: "Cluster Autoscaler watches for Pending pods that can't be scheduled due to insufficient resources, and if adding a node from an autoscale-enabled node pool WOULD allow scheduling, it scales out (respecting max node count). A pod can remain Pending despite autoscaling if: it requests resources exceeding any available VM SKU in the node pool (no node size would ever fit it), the node pool is already at max count, there's a taint the pod doesn't tolerate, or a PodDisruptionBudget/affinity rule makes scheduling impossible regardless of node count — autoscaler only adds capacity, it doesn't fix scheduling constraint mismatches."
       }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -959,7 +949,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, AKS Architecture & Control Plane enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "11": {
     id: "11",
     title: "Pods, Deployments & Services",
@@ -994,8 +984,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How does a rolling update achieve zero downtime, and what role do maxSurge/maxUnavailable play?", a: "maxUnavailable defines how many pods can be down during the update; maxSurge defines how many extra pods can be created above the desired count. Setting maxUnavailable: 0 + maxSurge: 25% means Kubernetes brings up new pods FIRST, waits for them to pass readiness, then terminates old ones — capacity never drops below 100%, so users see no downtime." },
       { q: "A Service exists and pods are Running, but traffic isn't reaching them. How do you debug?", a: "1) Check the Service's label selector matches the pods' labels (`kubectl get endpoints <svc>` — empty endpoints means selector mismatch). 2) Verify pods pass readiness probes (a failing readiness probe removes them from endpoints). 3) Check NetworkPolicies aren't blocking the traffic. 4) Confirm the container is listening on the targetPort the Service forwards to. The `kubectl get endpoints` command is the fastest first check — it shows exactly which pod IPs the Service is routing to." },
       { q: "Why are Pod IPs considered ephemeral, and how do Services solve this?", a: "Pods are cattle, not pets — they're created and destroyed constantly (scaling, rescheduling, node failures), each time getting a new IP. Hardcoding a Pod IP would break the moment that pod is replaced. A Service provides a stable ClusterIP and DNS name (e.g., checkout.production.svc.cluster.local) that never changes; kube-proxy continuously updates the backend pod IPs behind it via the label selector, so callers always use the stable Service name." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1034,7 +1023,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Pods, Deployments & Services enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "12": {
     id: "12",
     title: "Ingress Controllers & Routing",
@@ -1069,8 +1058,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How is TLS termination handled at the Ingress, and where does the certificate live?", a: "The Ingress references a Kubernetes Secret (type kubernetes.io/tls) containing the cert + private key, declared under the Ingress's tls: section for specific hosts. The Ingress Controller decrypts HTTPS at the edge and forwards plain HTTP to backend pods. In Azure, the cert is often stored in Key Vault and synced into the Secret (via CSI driver or AGIC's native Key Vault integration) so rotation is centralized." },
       { q: "A new path rule /api/v2 returns 404 from the Ingress while /api/v1 works. What do you check?", a: "1) Confirm the Ingress rule's path and pathType (Prefix vs Exact) actually match /api/v2. 2) Check the backend Service named in the rule exists and has healthy endpoints (`kubectl get endpoints`). 3) Verify any rewrite-target annotation isn't stripping the path incorrectly. 4) Check the Ingress Controller logs for the request — NGINX logs will show whether it matched a rule and what upstream it tried. Often it's a pathType/rewrite mismatch or an empty Service endpoint list." },
       { q: "How would you implement canary routing (5% of traffic to a new version) with NGINX Ingress?", a: "Use NGINX Ingress canary annotations: create a second Ingress for the same host/path pointing to the canary Service with annotations 'nginx.ingress.kubernetes.io/canary: true' and 'canary-weight: 5'. NGINX then routes ~5% of requests to the canary backend and 95% to the stable one. You can also canary by header or cookie for internal testing before shifting weight — increasing the weight gradually as the canary proves healthy." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1109,7 +1097,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Ingress Controllers & Routing enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "13": {
     id: "13",
     title: "HPA & Network Policies",
@@ -1144,8 +1132,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What is the default pod-to-pod networking behavior in Kubernetes, and how do NetworkPolicies change it?", a: "By default Kubernetes networking is completely flat and permissive — ANY pod can reach ANY other pod on any port, across all namespaces. A NetworkPolicy changes this to a default-deny model FOR THE PODS IT SELECTS: once a NetworkPolicy selects a pod, only the explicitly allowed ingress/egress is permitted. This requires a network plugin that enforces policy (Azure Network Policy Manager, Calico, or Cilium) — without one, NetworkPolicy objects are silently ignored." },
       { q: "Write the intent of a NetworkPolicy that isolates a database tier. What does it allow/deny?", a: "A policy selecting podSelector: {tier: db} with policyTypes: [Ingress], allowing ingress only from pods matching {tier: api} on port 5432. Effect: the moment this policy exists, db pods reject ALL ingress except from api-labeled pods on 5432 — a compromised frontend, monitoring pod, or attacker pod in the cluster cannot open a connection to the database, implementing zero-trust micro-segmentation." },
       { q: "HPA is rapidly scaling up and down ('flapping'). How do you stabilize it?", a: "Tune the HPA's stabilization window and behavior policies: increase scaleDown stabilizationWindowSeconds (e.g., 300s) so it waits before scaling in, and cap scaleUp/scaleDown rates via the behavior.scaleDown/scaleUp policies (e.g., remove at most 10% of pods per minute). Also ensure the metric isn't noisy — averaging over a longer window and setting an appropriate target utilization (not too close to baseline) prevents the controller from overreacting to brief spikes." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1184,7 +1171,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, HPA & Network Policies enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "14": {
     id: "14",
     title: "Git Fundamentals & Gitflow",
@@ -1219,8 +1206,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What branch policies would you enforce on main in a production repo?", a: "Require pull request (no direct pushes), minimum reviewers (e.g., 2), all CI checks passing (build + unit tests + security/Trivy scan + lint), a linked work item for traceability, resolution of all PR comments, and optionally a 'reset votes on new changes' rule so a re-pushed PR must be re-approved. These gates ensure nothing unreviewed, broken, or untraceable reaches the release branch." },
       { q: "A teammate force-pushed and 'lost' commits. How do you recover them?", a: "Use `git reflog` — it records every position HEAD has pointed to locally, including commits orphaned by a force-push/reset. Find the lost commit's hash in the reflog and `git checkout <hash>` or `git branch recovery <hash>` to restore it. On the server side, Azure Repos/GitHub also keep the old ref for a window and may allow restoring via the API. The reflog is the first-line recovery tool for 'disappeared' local commits." },
       { q: "What is a squash merge and why might a team prefer it for PRs?", a: "A squash merge condenses ALL commits in a feature branch into a SINGLE commit on the target branch. Teams prefer it because main's history becomes one clean, meaningful commit per feature/PR (instead of 'wip', 'fix typo', 'address review' noise), making the history readable and `git revert` of an entire feature trivial. The trade-off is losing the granular per-commit history of the feature branch on main." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1259,7 +1245,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Git Fundamentals & Gitflow enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "15": {
     id: "15",
     title: "GitHub Actions",
@@ -1294,8 +1280,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How does dependency caching work in Actions and why does it matter at scale?", a: "actions/cache stores a directory (e.g., ~/.npm, ~/.m2) keyed on a hash of the lockfile (package-lock.json). On the next run, if the key matches, it restores the cache instead of re-downloading all dependencies. At scale (hundreds of builds/day) this cuts build time dramatically and reduces network/registry load — a cache hit can turn a 3-minute install into seconds." },
       { q: "How do you require a manual approval before a GitHub Actions job deploys to production?", a: "Use GitHub Environments: define a 'production' environment with required reviewers (and optional wait timer / branch restrictions). A job that references environment: production will PAUSE before running until a designated reviewer approves it in the UI. Environment-scoped secrets also become available only to jobs targeting that environment — combining approval gating with secret isolation." },
       { q: "A workflow secret is accidentally printed in logs. What are the risks and how does Actions mitigate it?", a: "Risk: anyone with read access to the run logs (including forks if misconfigured) could exfiltrate the secret. GitHub Actions auto-MASKS registered secrets in logs (replaces with ***), but transformations (base64, substrings) can defeat masking. Mitigations: rotate the exposed secret immediately, prefer OIDC over static secrets, restrict secret availability to specific environments, and never echo secrets or pass them through commands that transform them." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1334,7 +1319,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, GitHub Actions enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "16": {
     id: "16",
     title: "Azure Repos & Azure Pipelines",
@@ -1369,8 +1354,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What's the benefit of pipeline templates and how do they work?", a: "Templates let you define common pipeline logic ONCE (build, scan, deploy stages) in a shared YAML file/repo and reuse it across many service pipelines via extends: or template: references with parameters. Benefit: consistency and governance — security scans and deployment patterns are enforced uniformly across 200 services, and a fix to the template propagates everywhere, instead of 200 teams maintaining divergent copy-pasted pipelines." },
       { q: "How would you supply secrets (DB passwords, API keys) to a pipeline without hardcoding them?", a: "Use a Variable Group linked to Azure Key Vault: the Variable Group fetches secrets at runtime from Key Vault (the pipeline's Service Connection identity has Key Vault 'get' permission), exposing them as pipeline variables that are masked in logs. Secrets are managed/rotated in Key Vault centrally; the pipeline YAML only references variable names. For deploy-time secret injection into AKS, the Key Vault CSI driver is preferred over passing through the pipeline at all." },
       { q: "Self-hosted vs Microsoft-hosted agents — when would Jio use self-hosted?", a: "Microsoft-hosted agents are clean, ephemeral VMs Microsoft manages — zero maintenance but limited customization, capped concurrency, and no private-network access. Self-hosted agents (running on Jio's own VMs/AKS, often as scale-set agents) are needed when: builds must reach private resources (private ACR/DB behind a firewall, on-prem systems), require specialized/cached tooling or large dependency caches, demand higher concurrency than hosted limits, or must meet data-residency/compliance requirements keeping build infra inside Jio's network." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1409,7 +1393,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Azure Repos & Azure Pipelines enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "17": {
     id: "17",
     title: "Release Management & Gates",
@@ -1444,8 +1428,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Why is deploying during an active P1 incident risky, and how do you prevent it programmatically?", a: "Deploying during an active incident introduces a new variable that complicates root-cause analysis (was it the incident or the deploy?), can worsen the outage, and competes for the on-call team's attention. Prevent it with an automated gate that queries the incident management system's API before the prod stage — if any P1/P2 is open, the gate fails and the deploy is blocked until incidents clear (with a documented break-glass override for emergency hotfixes that ARE the fix)." },
       { q: "How does a feature flag complement deployment strategies for safe releases?", a: "Feature flags DECOUPLE deployment from release: code ships to production disabled behind a flag, so deploying carries no behavioral risk. You then 'release' by toggling the flag on — optionally for a small % of users (a canary at the application layer), and instantly 'roll back' the FEATURE by flipping the flag off without any redeploy. This lets teams merge/deploy continuously (trunk-based) while controlling exposure of incomplete or risky functionality independently." },
       { q: "Design the gate sequence for promoting a build from staging to production.", a: "1) Automated gate: staging smoke/integration tests all green. 2) Automated gate: security scan (Trivy) passed on the exact image being promoted. 3) Automated gate: 'no active P1 incident' + 'within approved change window'. 4) Human approval gate: release manager sign-off with linked change ticket. 5) Deploy as canary to prod (5%) with a post-deploy Azure Monitor gate on error rate/latency before full promotion. This chains automated safety checks with a human accountability checkpoint and progressive exposure." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1484,7 +1467,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Release Management & Gates enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "18": {
     id: "18",
     title: "Terraform Basics & State",
@@ -1519,8 +1502,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Explain the difference between terraform plan and terraform apply, and why plan matters in CI.", a: "`terraform plan` computes and DISPLAYS the changes Terraform would make (create/update/destroy) without changing anything — a dry run. `terraform apply` actually executes those changes. In CI, running plan on a PR and surfacing its output lets reviewers SEE the exact infrastructure impact (especially destructive changes like a resource replacement) before approving — preventing surprise deletions. Apply runs only after merge, ideally against the saved plan file for determinism." },
       { q: "A terraform apply was interrupted and now state is locked. How do you safely resolve it?", a: "First, confirm NO apply is actually still running (check the pipeline/other engineers) — force-unlocking during a live apply causes corruption. Once certain it's a stale lock from a crashed run, run `terraform force-unlock <LOCK_ID>` (the ID is shown in the error). Then run `terraform plan` to verify state integrity before re-applying. The caution is critical: force-unlock is safe only when you're sure the lock is orphaned." },
       { q: "How do you prevent secrets in Terraform state from being exposed?", a: "State can contain secrets (DB passwords, generated keys) in plaintext. Mitigations: (1) store state in an Azure Storage account with encryption-at-rest, private endpoint, and tight RBAC so only the pipeline identity and platform admins can read it; (2) avoid putting secrets in Terraform at all — reference Key Vault secrets at runtime via data sources or have apps fetch them via the CSI driver; (3) mark variables 'sensitive' to keep them out of plan/apply logs; (4) never commit state or .tfvars with secrets to git." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1559,7 +1541,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Terraform Basics & State enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "19": {
     id: "19",
     title: "Terraform Modules & Workspaces",
@@ -1594,8 +1576,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How do you provide different values (node count, SKU) per environment while reusing the same module?", a: "Parameterize the module with input variables and supply environment-specific values via tfvars files: dev.tfvars (node_count = 2, sku = Standard_D2s_v3) vs prod.tfvars (node_count = 30, sku = Standard_D4s_v5). Run `terraform apply -var-file=environments/prod.tfvars`. The MODULE/logic is identical and reviewed once; only the values differ — achieving DRY across environments while honoring their different sizing/cost needs." },
       { q: "How do modules compose — e.g., an AKS module needing a subnet from a network module?", a: "The network module declares an OUTPUT (output \"aks_subnet_id\"). The root config passes that output as an INPUT to the AKS module: module.aks's subnet_id = module.network.aks_subnet_id. Terraform's dependency graph ensures the network module applies first, then feeds its real subnet ID into the AKS module — composing infrastructure declaratively without hardcoding IDs or running separate applies in a fragile order." },
       { q: "Your team wants to roll out a new module version that adds a security feature, across 50 services, safely. How?", a: "Release the new module version (e.g., 2.4.0) and validate it in a non-prod consumer first. Then roll out progressively: open PRs bumping 'version =' for batches of services, each running `terraform plan` so reviewers see exactly what the new version changes (ideally non-destructive/additive). Stagger prod applies, monitor, and keep the ability to revert the version pin if an issue appears. This treats infra upgrades like code releases — versioned, reviewed, progressive — rather than a risky big-bang change." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1634,7 +1615,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Terraform Modules & Workspaces enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "20": {
     id: "20",
     title: "Bicep & ARM Templates",
@@ -1669,8 +1650,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "When would you choose Bicep over Terraform (and vice versa)?", a: "Choose Bicep when: you're Azure-only, want day-one support for brand-new Azure features (Bicep often supports them before the azurerm provider), prefer no state file to manage, and want the deepest native ARM integration. Choose Terraform when: you're multi-cloud or hybrid (AWS + Azure + SaaS providers), want a mature module ecosystem and consistent tooling across clouds, or your org has standardized on Terraform's workflow/state model. Many enterprises use both — Terraform for cross-cloud landing zones, Bicep for some Azure-native teams." },
       { q: "What are deployment scopes in ARM/Bicep and give an example of each.", a: "Scope determines WHERE resources are deployed: resourceGroup scope (most common — VMs, storage in an RG), subscription scope (create resource groups, assign policies/RBAC at subscription level), managementGroup scope (policies/RBAC across many subscriptions), and tenant scope (tenant-wide management groups). You set targetScope in Bicep and use the matching `az deployment <scope> create` command — e.g., a subscription-scoped Bicep file that creates RGs and assigns a security policy across them." },
       { q: "How does Bicep handle dependencies between resources, and how does that differ from ARM JSON?", a: "Bicep INFERS dependencies automatically: when one resource references another's property (e.g., a VM referencing a NIC's id via nic.id), Bicep adds the implicit dependency so ARM provisions them in the right order — no manual declaration needed. In raw ARM JSON, you often had to add explicit dependsOn arrays listing resource names, which was verbose and error-prone. Bicep's symbolic references make dependency management cleaner and less bug-prone, only needing explicit dependsOn for rare cases with no property reference." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1709,7 +1689,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Bicep & ARM Templates enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "21": {
     id: "21",
     title: "Entra ID & RBAC",
@@ -1744,8 +1724,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What problem does PIM (Privileged Identity Management) solve?", a: "PIM eliminates STANDING privileged access. Instead of admins permanently holding Owner/User Access Administrator (a huge attack surface — one compromised account = total control), PIM makes those roles 'eligible': the admin must ACTIVATE the role just-in-time, with MFA, a justification, optional approval, and a time limit (e.g., 4 hours, then auto-revoked). This means privileged permissions exist only briefly when actually needed and every activation is logged — drastically shrinking the window an attacker could exploit a privileged identity." },
       { q: "When would you create a custom RBAC role instead of using a built-in one?", a: "When built-in roles don't fit least-privilege — typically the gap is between Reader (too little) and Contributor (too much). For example, an 'AKS Operator' who should manage clusters but NOT create networking or delete resource groups: a custom role grants exactly the needed Microsoft.ContainerService/* actions and nothing else. Custom roles let you encode precise job functions, reducing blast radius versus handing out broad Contributor/Owner that includes permissions the person never needs." },
       { q: "An AKS pod needs to read a secret from Key Vault. Walk through the password-less identity flow.", a: "Use Workload Identity (or the CSI driver with a managed identity): the AKS cluster has OIDC issuer enabled; a Kubernetes ServiceAccount is federated to a user-assigned managed identity. That managed identity is granted a Key Vault access policy / 'Key Vault Secrets User' RBAC role on the vault. The pod, running under that ServiceAccount, receives a federated token, exchanges it with Entra ID for a managed-identity token, and calls Key Vault — all with NO secret stored in the pod, cluster, or code. Access is scoped to just that vault and auditable per identity." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1784,7 +1763,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Entra ID & RBAC enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "22": {
     id: "22",
     title: "Key Vault & CSI Driver",
@@ -1819,8 +1798,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How should Key Vault access be controlled, and what's the modern recommendation?", a: "Two models: legacy Access Policies (per-vault list of identities + permitted operations) and Azure RBAC (recommended) — assign roles like 'Key Vault Secrets User' (read secrets) or 'Key Vault Administrator' at the vault scope. RBAC is preferred because it's consistent with the rest of Azure's access model, supports PIM/conditional access, scales better, and integrates with management-group-level governance. Grant the narrowest role to specific managed identities, not broad access." },
       { q: "How do you rotate a database password stored in Key Vault with minimal disruption?", a: "Add a NEW version of the secret in Key Vault (Key Vault versions secrets). With the CSI driver's auto-rotation enabled (a poll interval), pods pick up the new value on the next sync without redeploy; the app should re-read the secret file (or reconnect) on rotation. Ideally use dual-credential rotation: provision the new DB credential, publish it to Key Vault, let apps roll onto it, then retire the old credential — so there's no window where the live password is invalid. The whole rotation is centralized and audited in Key Vault, never touching code." },
       { q: "Why should you enable soft-delete and purge protection on a production Key Vault?", a: "Soft-delete retains deleted vaults/secrets for a recovery period instead of immediate permanent deletion — protecting against accidental or malicious deletion of critical secrets/keys (which could otherwise make encrypted data permanently unrecoverable). Purge protection goes further: it BLOCKS permanent purge even by admins until the retention period elapses, defeating an attacker (or mistake) that tries to delete-then-purge to destroy keys. For production vaults holding encryption keys, both are essential to avoid catastrophic, irreversible data loss." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1859,7 +1837,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Key Vault & CSI Driver enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "23": {
     id: "23",
     title: "Azure Storage (Blobs, Files, Tiers)",
@@ -1894,8 +1872,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "For an Azure service accessing Storage, why prefer managed identity + RBAC over a SAS or account key?", a: "Managed identity + a data-plane RBAC role (e.g., 'Storage Blob Data Reader') means NO credential is stored anywhere — Azure issues/rotates tokens automatically, access is scoped per-identity to specific containers, every access is auditable in Entra/Storage logs, and you revoke by removing the role assignment. SAS tokens still must be generated/distributed and can leak; account keys are all-powerful and painful to rotate. For resource-to-resource access, managed identity is the secure, low-maintenance standard." },
       { q: "A blob in Archive tier needs to be read urgently. What happens and how long does it take?", a: "Archive is OFFLINE storage — you can't read a blob directly from it. You must first 'rehydrate' it by changing its tier to Hot or Cool, which can take HOURS (standard priority up to ~15 hours; high priority faster for smaller blobs but costs more). This latency is the trade-off for Archive's cheap storage. The lesson: only Archive data you're confident won't be needed quickly, and for time-sensitive retrieval keep it in Cool/Cold instead — or set high-priority rehydration if the cost is justified." },
       { q: "How would you design storage for an application with hot recent data and large cold historical data, minimizing cost?", a: "Use a single Blob container with a lifecycle management policy: keep recent data in Hot for fast access; auto-transition to Cool after ~30 days of no access (cheaper storage, still online), to Cold/Archive after ~90-180 days for rarely-touched historical data, and auto-delete past the retention requirement. Pair with appropriate redundancy (ZRS/GZRS for critical, LRS for reproducible). Access recent data via the app's managed identity, and if historical data must be served externally, generate scoped short-lived SAS URLs. This matches storage cost to actual access patterns automatically." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -1934,7 +1911,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Azure Storage (Blobs, Files, Tiers) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "24": {
     id: "24",
     title: "Azure Monitor & Alerts",
@@ -1969,8 +1946,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What does it mean to alert on symptoms/SLOs rather than infrastructure metrics, and why is it better?", a: "Symptom/SLO-based alerting fires on what USERS actually experience — error rate, latency, availability against an SLO/error budget — rather than on internal causes like high CPU or memory. It's better because: (1) it cuts alert fatigue (a CPU spike that doesn't hurt users shouldn't page anyone), (2) it catches problems regardless of cause (any root cause that breaks the SLO fires the alert), and (3) it aligns alerting with business impact. Infra metrics are still collected for DIAGNOSIS, but the paging alerts are tied to user-facing symptoms." },
       { q: "How can Azure Monitor reduce on-call toil through auto-remediation?", a: "Configure an alert's Action Group to trigger an automated action — an Azure Automation Runbook, Logic App, or Function — that performs the known fix before (or instead of) paging a human: e.g., scale out a VMSS/AKS node pool when latency rises, restart a wedged service, or clear a full disk. The human is paged only if auto-remediation doesn't resolve the condition within a window. This handles well-understood, repetitive incidents automatically, reserving human attention for novel problems and reducing 3 AM pages for things a script can fix." },
       { q: "Design an alerting strategy for a checkout API to balance coverage and alert fatigue.", a: "Tier it: (1) PAGING alerts on user-facing SLO breaches only — error rate above error-budget burn rate, p99 latency > target, availability drop — using dynamic thresholds to handle seasonality. (2) TICKET/WARNING alerts (Teams, non-paging) on leading indicators — rising 4xx, dependency latency creeping up — for proactive investigation. (3) Auto-remediation runbooks for known conditions (scale out) that only escalate to a page if unresolved. (4) Suppress/group correlated alerts so one outage doesn't fire 50 pages. The principle: page humans only for things that are urgent, actionable, and user-impacting; everything else is a ticket or automated." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2009,7 +1985,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Azure Monitor & Alerts enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "25": {
     id: "25",
     title: "Log Analytics & KQL",
@@ -2044,8 +2020,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How would you use KQL to find whether a recent deployment caused an error spike?", a: "Query the app/request table for the error rate over time and visually/temporally correlate with deployment events from AzureActivity. E.g., summarize 5xx counts by bin(TimeGenerated, 5m) and render a timechart, then query AzureActivity for OperationName related to the deployment in the same window — or JOIN them on time. If the 5xx spike begins right at the deployment timestamp, that's strong evidence the release caused the regression, justifying a rollback. This deploy-vs-error correlation is a core SRE triage pattern." },
       { q: "How do you control Log Analytics costs at scale?", a: "Cost is driven mostly by data INGESTION (GB/day) and retention. Controls: (1) use the Basic Logs tier for high-volume, low-value verbose logs (cheaper ingestion, limited query) and Analytics tier only where you need full query/alerting; (2) set per-TABLE retention — keep critical audit logs long, drop noisy debug logs after days; (3) filter/transform at ingestion (Data Collection Rules) to drop unneeded fields/rows before they're billed; (4) sample very high-volume telemetry in Application Insights; (5) archive cold data to cheaper storage. Tuning ingestion per table is the biggest lever." },
       { q: "What is a log-based (scheduled query) alert and a trade-off versus a metric alert?", a: "A log-based alert runs a KQL query on a schedule (e.g., every 5 min) and fires if the result crosses a threshold (e.g., row count > N) — enabling alerting on complex, correlated, or parsed conditions metrics can't express. Trade-off: it evaluates on an interval (not real-time like metrics), so there's inherent detection latency equal to the query frequency + ingestion delay, and it costs more (query execution + log ingestion). Use metric alerts for fast, simple numeric conditions; log alerts when the condition genuinely requires KQL's expressiveness." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2084,7 +2059,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Log Analytics & KQL enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "26": {
     id: "26",
     title: "Helm & Package Management",
@@ -2119,8 +2094,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How do you deploy the same chart to multiple environments with different configuration?", a: "Keep one chart with sensible defaults in values.yaml, then maintain per-environment override files: `helm upgrade --install myapp ./chart -f values-prod.yaml` for prod (30 replicas, prod image, strict limits) vs `-f values-dev.yaml` for dev (2 replicas, latest image). Only the differing values live in the env files; the chart logic stays single-sourced and reviewed once. You can also use --set for one-off overrides (like the CI-provided image tag: --set image.tag=$GIT_SHA), which is common in pipelines." },
       { q: "What does it mean to store Helm charts as OCI artifacts in ACR, and what's the benefit?", a: "Helm 3 supports the OCI standard, so charts can be pushed/pulled like container images: `helm push myapp-1.2.0.tgz oci://jioacr.azurecr.io/helm`. The benefit is UNIFICATION — charts live in the same registry (ACR) as your container images, inheriting the same RBAC/managed-identity auth, geo-replication, retention policies, and audit. No separate chart-repo infrastructure (like ChartMuseum) to run/secure; one registry governs both images and the charts that deploy them." },
       { q: "A `helm upgrade` left the release in a failed/pending state. How do you recover?", a: "First inspect: `helm status <release>` and `helm history <release>` to see revisions and the failure. If the upgrade is stuck pending (e.g., interrupted), you may need `helm rollback <release> <last-good-revision>` to return to a known-good state, or for a stuck pending-install, uninstall/reinstall. Check the underlying K8s objects (`kubectl get events`, pod statuses) for the real cause — often a bad image, failing probe, or invalid manifest from a templating error. Fix the root cause (values/template), then upgrade again. Helm's history makes returning to the last working revision straightforward while you debug." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2159,7 +2133,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Helm & Package Management enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "27": {
     id: "27",
     title: "ArgoCD & GitOps",
@@ -2194,8 +2168,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How does environment promotion and rollback work in a GitOps model?", a: "Promotion is a GIT operation: to promote a build from staging to prod, you open a PR that updates the prod environment's manifest/overlay (e.g., bump the image tag in the prod Kustomize overlay). After review and merge, ArgoCD detects the change and syncs prod to the new state. Rollback is equally Git-native: `git revert` the offending commit (or point the overlay back to the prior tag), and ArgoCD reconciles the cluster back. Every deploy and rollback is thus a reviewed, audited, revertible Git change — no out-of-band kubectl." },
       { q: "What is the 'app-of-apps' pattern in ArgoCD?", a: "App-of-apps is a pattern where a single root ArgoCD Application points to a Git directory containing the definitions of MANY other ArgoCD Applications. ArgoCD syncs the root, which creates/manages all the child Applications declaratively. This bootstraps and manages an entire fleet/environment from one entry point — onboarding a new microservice or whole environment becomes adding a child Application manifest to Git, rather than manually creating Applications in the ArgoCD UI. It makes the GitOps setup itself declarative and version-controlled." },
       { q: "When might you NOT enable auto-sync/self-heal, and what's the trade-off?", a: "You might disable auto-sync/self-heal for sensitive production environments where you want a HUMAN to explicitly trigger the sync after reviewing the diff (manual sync), or during incident response/debugging when an engineer needs to make a temporary live change without ArgoCD immediately reverting it. Trade-off: manual sync means drift can persist and deploys aren't automatic (slower, relies on someone clicking sync), but you gain a deliberate control point and the ability to make emergency live changes. Many teams auto-sync non-prod and require manual sync (or PR + auto-sync) for prod to balance speed with control." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2234,7 +2207,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, ArgoCD & GitOps enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "28": {
     id: "28",
     title: "Cost Management (FinOps) & Policy",
@@ -2269,8 +2242,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How would you use tags + Azure Policy to enable accurate cost chargeback?", a: "Define mandatory tags (CostCenter, BusinessUnit, Environment) and enforce them with an Azure Policy DENY effect at the management-group scope so NO resource can be created without them (or Append to apply a default). Because every resource is now tagged, Azure Cost Management can group/filter spend by those tags, producing per-business-unit chargeback reports. Without enforced tagging, a chunk of spend is 'untagged'/unattributable, breaking chargeback — the Deny policy guarantees 100% tag coverage, which is the foundation of accurate cost allocation." },
       { q: "What is DeployIfNotExists and why is it powerful for governance?", a: "DeployIfNotExists (DINE) is an Azure Policy effect that, when it finds a resource missing a required related configuration, AUTOMATICALLY deploys that configuration via an ARM template remediation. Example: a policy that ensures every resource has diagnostic settings sending logs to a central Log Analytics workspace — if a new resource lacks it, DINE auto-creates the diagnostic setting. It's powerful because governance becomes SELF-ENFORCING and self-healing at scale: you don't rely on every team remembering to configure logging/security baselines — the policy guarantees and remediates compliance automatically across thousands of resources, including ones created in the future." },
       { q: "Your monthly Azure bill spiked unexpectedly. Walk through how you'd investigate.", a: "1) Open Cost Management cost analysis and group by RESOURCE GROUP / SERVICE / TAG to find WHERE the spike is concentrated. 2) Add a time filter to pinpoint WHEN it started, then correlate with deployments/changes (a new region, a scaled-up cluster, a runaway autoscale, an accidentally-Hot storage tier, egress charges). 3) Check for anomalies — orphaned resources (unattached disks, idle public IPs), a misconfigured autoscaler, or a dev resource left running. 4) Use Azure Advisor cost recommendations for right-sizing/RI opportunities. 5) Set/adjust a BUDGET alert so the next spike is caught early. 6) Remediate (scale down, delete orphans, fix tier/policy) and, if it's a recurring pattern, add a guardrail Policy or autoscale cap to prevent recurrence." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2309,7 +2281,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Cost Management (FinOps) & Policy enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "29": {
     id: "29",
     title: "Chaos Engineering (Azure Chaos Studio)",
@@ -2344,8 +2316,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Give examples of fault types you'd inject and what each validates.", a: "Pod/instance kill — validates that replicas + rescheduling + PodDisruptionBudgets keep the service up. Availability Zone failure — validates zone-redundant deployment and failover. Network latency/packet loss — validates timeouts, retries, and circuit breakers handle a slow/degraded dependency gracefully (not cascade). CPU/memory pressure — validates resource limits, HPA scaling, and graceful degradation. Dependency outage (e.g., a downstream API/DB down) — validates fallbacks, caching, and that one failing dependency doesn't take down the whole system. Each targets a specific resilience assumption you want to prove or disprove." },
       { q: "What is a Game Day and what does it test beyond the system itself?", a: "A Game Day is a scheduled, team-wide exercise simulating a major incident (often via chaos fault injection) to rehearse the FULL response. Beyond the technical system's resilience, it tests the HUMANS and PROCESS: Do the alerts actually fire and page the right people? Are the runbooks accurate and findable? Does on-call know the escalation path? Is incident communication (status updates, comms channels) effective? Do people know how to roll back? Game Days frequently reveal that the system survived but the response was chaotic — stale runbooks, alert gaps, unclear ownership — which is exactly the kind of thing you want to fix in a drill, not a real outage." },
       { q: "How do you safely introduce chaos engineering into an organization that's never done it?", a: "Start small and build trust: (1) Begin in NON-PRODUCTION with low-risk faults (kill a single pod) and a tight, observed blast radius. (2) Always run hypothesis-driven experiments with clear steady-state metrics and automatic abort/rollback. (3) Fix the weaknesses you find and SHOW the value (an outage prevented) to build organizational buy-in. (4) Gradually expand fault scope and complexity, and only move to production once you've proven the safety mechanisms and the system survives in staging. (5) Establish Game Days as a regular practice. The key is incremental confidence and never injecting faults you don't have monitoring and a kill-switch for — chaos engineering done recklessly causes the outages it's meant to prevent." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2384,7 +2355,7 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Chaos Engineering (Azure Chaos Studio) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
   "30": {
     id: "30",
     title: "Production Architecture Game Day",
@@ -2419,8 +2390,7 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Why include the human/team response in a Game Day, not just the technical failover?", a: "Because real incidents are resolved (or prolonged) by PEOPLE following process under pressure — and that's frequently the weakest link. A system can fail over perfectly while the response is chaotic: stale or missing runbooks, alerts that don't fire or page the wrong team, unclear escalation/ownership, poor incident communication, and engineers unsure how to execute or verify failover. A Game Day stresses both the architecture AND the socio-technical response, revealing gaps like 'the runbook references a deleted dashboard' or 'nobody knew who owns the DB failover' — exactly the failures you must fix in a drill rather than discover live, since RTO depends on humans executing correctly and quickly." },
       { q: "After a Game Day reveals a service that didn't fail over correctly, how do you handle the findings?", a: "Treat every finding as a tracked remediation item with a clear OWNER, priority, and DEADLINE — not just a note. Root-cause why it failed (e.g., the service had only single-zone replicas, a missing PodDisruptionBudget, a hardcoded zone-specific endpoint, or a too-slow manual DB failover step). Prioritize by risk/impact, fix it, and ideally RE-TEST in the next exercise to confirm the fix works. Capture systemic patterns (e.g., 'several services lack multi-zone config') and address them via guardrails — a Policy or a hardened Helm base chart default — so new services inherit resilience. The Game Day's value is realized only if findings convert into measurable, verified improvements year over year." },
       { q: "Design a high-level resilient production architecture for JioMart checkout that survives a zone outage with near-zero RPO.", a: "Front Door (global L7, health-probe routing + WAF) -> Application Gateway/AGIC in the region. AKS cluster with node pools spread across all 3 AZs, checkout deployed with multiple replicas, PodDisruptionBudgets, HPA, and anti-affinity so replicas don't co-locate in one zone. State: PostgreSQL Flexible Server with zone-redundant HA (synchronous standby in another zone for near-zero RPO, auto-promotion on failure) and ZRS/GZRS storage. Redis with zone redundancy for sessions. Secrets via Key Vault + CSI. Observability via Azure Monitor/Log Analytics with SLO-based alerts, and the whole thing defined in Terraform so it's reproducible. For regional disaster, add a paired-region warm standby with geo-replicated data and Front Door failover. Validate it all annually with a Game Day measuring actual RTO/RPO against targets." }
-    ]
-  },
+    ],
     quiz: [
       {
         id: "q1",
@@ -2459,5 +2429,5 @@ export const modulesData: Record<string, ModuleContent> = {
         explanation: "In modern DevOps, Production Architecture Game Day enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
       }
     ]
-  }
+  },
 };
