@@ -73,7 +73,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Auditing user access logs in /var/log/auth.log via Log Analytics.", "Automating password rotation and enforcing 90-day expiry policies."],
     troubleshooting: [{"issue": "User cannot run sudo", "solution": "Verify the user is added to the 'sudo' or 'wheel' group using the 'id' command or 'visudo' configuration."}],
     architecture: {
-      description: "Standard single VM deployment using Azure Virtual Network and secured via Network Security Group.",
+      description: "The architecture centers around an isolated Azure Virtual Network (VNet) acting as a secure boundary. A public IP is attached to the Virtual Machine to allow external SSH access, but traffic is heavily filtered by a Network Security Group (NSG) which acts as a stateful firewall. The VM itself utilizes Premium SSD Managed Disks for high IOPS performance, creating a highly reliable and secure baseline compute environment.",
       nodes: ["Internet", "NSG (inbound 22/80)", "VNET (10.0.0.0/16)", "Subnet (10.0.1.0/24)", "VM (Standard_B2s)", "OS Disk (Premium SSD 30 GB)"],
       connections: [
         "Internet → NSG",
@@ -160,7 +160,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Monitoring cron job execution success via Anacron or centralized monitoring.", "Offloading compressed logs to Azure Blob Storage for long-term retention."],
     troubleshooting: [{"issue": "Script fails with 'Permission denied'", "solution": "Ensure the script is executable (chmod +x) and the cron job runs as a user with write permissions to the log directory."}],
     architecture: {
-      description: "Serverless web hosting using blob storage static website endpoints, globally accelerated by Azure CDN.",
+      description: "This architecture employs a serverless approach to web hosting, completely eliminating compute management. An Azure Storage Account is configured to serve static HTML/JS/CSS assets directly to users. To ensure global scale and sub-second loading times regardless of the user's geographic location, an Azure Content Delivery Network (CDN) caches these static assets at edge nodes across the world.",
       nodes: ["User Browser", "HTTPS Connection", "Azure CDN (global POP)", "Storage Account ($web)"],
       connections: [
         "User Browser → HTTPS Connection",
@@ -227,7 +227,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Enforcing branch protection rules on 'main' to require approvals.", "Periodically purging stale and merged feature branches."],
     troubleshooting: [{"issue": "Rebase conflict", "solution": "Manually resolve conflicts in the file, 'git add' the resolved file, and run 'git rebase --continue'. Never use 'git commit' during a rebase."}],
     architecture: {
-      description: "PaaS web hosting environment featuring zero-downtime blue-green deployments via staging slots.",
+      description: "This PaaS architecture utilizes Azure App Service to provide fully managed web hosting. The key innovation is the use of Deployment Slots (Blue and Green environments) attached to the same App Service Plan. This allows developers to deploy new code to a staging slot, warm up the application, and then perform an instant swap of the VIP (Virtual IP) to route live user traffic to the new version with zero downtime.",
       nodes: ["Internet Traffic", "Azure App Service Router", "Production Slot", "Staging Slot", "Application Insights"],
       connections: [
         "Internet Traffic → App Service Router",
@@ -295,7 +295,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Scanning Docker images for CVEs using Trivy.", "Pruning unused images and layers to reclaim disk space."],
     troubleshooting: [{"issue": "Container exits immediately", "solution": "Check if the ENTRYPOINT or CMD process is running in the foreground. If the main process dies, the container terminates."}],
     architecture: {
-      description: "Terraform remote state architecture managing an Azure deployment.",
+      description: "The infrastructure is entirely codified using HashiCorp Configuration Language (HCL) within Terraform. The state file, which tracks the mapping between the configuration and real-world Azure resources, is securely locked and stored remotely in an Azure Storage Account. This prevents concurrent execution conflicts and provides a highly resilient, version-controlled architecture pipeline.",
       nodes: ["Terraform CLI", "azurerm provider", "Azure Blob Storage (tfstate)", "Azure Resource Group", "VNET", "NSG", "VM"],
       connections: [
         "Terraform CLI → azurerm provider",
@@ -370,7 +370,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Managing persistent database volumes across container restarts.", "Updating image tags to test new releases safely."],
     troubleshooting: [{"issue": "Containers cannot communicate", "solution": "Verify they are on the same custom bridge network and using the correct service names for DNS resolution, not 'localhost'."}],
     architecture: {
-      description: "Secure containerization lifecycle from multi-stage local build to vulnerability scanning and ACR registry storage.",
+      description: "The application architecture shifts from running directly on the host OS to running inside isolated Linux containers. The Docker engine packages the Node.js application alongside its exact dependencies into a lightweight image. This immutable image is then pushed to a private Azure Container Registry (ACR), establishing a secure, centralized artifact repository that guarantees environmental consistency.",
       nodes: ["Source Code", "Docker Multi-stage Build", "Azure Container Registry", "Trivy Security Scanner", "Azure Container Instances"],
       connections: [
         "Source Code → Docker Multi-stage Build",
@@ -440,7 +440,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Monitoring pipeline execution times and optimizing caching.", "Managing GitHub Actions Runner scaling during peak sprint times."],
     troubleshooting: [{"issue": "Pipeline fails on 'npm install'", "solution": "Check package-lock.json integrity and verify if the runner has access to private npm registries."}],
     architecture: {
-      description: "End-to-end continuous integration and deployment pipeline targeting Azure App Service.",
+      description: "The continuous integration and delivery architecture relies on GitHub Actions as the orchestration engine. Upon code merge, a hosted runner spins up, authenticates to Azure via secure OpenID Connect (OIDC), builds the Docker container, and securely pushes it to ACR. The pipeline then triggers a webhook to Azure App Service, instructing it to pull the latest image and restart the web container automatically.",
       nodes: ["GitHub Repository", "GitHub Actions", "Trivy Scan", "Azure Container Registry", "App Service (Staging)", "App Service (Production)"],
       connections: [
         "GitHub Repository → GitHub Actions (Push event)",
@@ -522,7 +522,7 @@ export const projectsData: Record<string, Project> = {
       { issue: "Pods stuck in Pending", solution: "Check cluster autoscaler logs. Often caused by lack of available IP addresses in the Azure CNI subnet, requiring VNET expansion." }
     ],
     architecture: {
-      description: "A production-grade Azure Kubernetes Service architecture with advanced networking and autoscale capabilities.",
+      description: "This Kubernetes architecture is designed for enterprise-grade resilience. The AKS cluster utilizes Azure CNI for advanced networking, assigning a dedicated VNet IP to every single pod. Worker nodes are spread across multiple Azure Availability Zones to survive datacenter failures. Internally, a Horizontal Pod Autoscaler monitors CPU metrics and dynamically adds or removes application pods to match real-time user traffic.",
       nodes: ["Application Gateway (WAF)", "AGIC", "AKS Cluster (Azure CNI)", "System Node Pool", "User Node Pool (Autoscale)", "Managed Identity"],
       connections: [
         "Internet → Application Gateway (WAF)",
@@ -658,7 +658,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Upgrading ArgoCD controllers securely.", "Managing RBAC inside ArgoCD for different development teams."],
     troubleshooting: [{"issue": "ArgoCD App OutOfSync", "solution": "Check if someone manually modified resources via kubectl. ArgoCD will highlight the drift. Use 'Sync' to revert the cluster to the Git state."}],
     architecture: {
-      description: "Implementation of the GitOps pattern where a Git repository serves as the single source of truth for the cluster state.",
+      description: "This GitOps architecture flips the traditional push-based deployment model into a pull-based continuous reconciliation loop. The ArgoCD controller lives directly inside the Kubernetes cluster and continuously monitors a designated GitHub repository. When a developer merges a manifest change, ArgoCD detects the drift and automatically pulls the new state into the cluster, ensuring the live environment exactly matches Git at all times.",
       nodes: ["Git Repository (Config)", "ArgoCD Controller", "Kubernetes API", "Target Namespace"],
       connections: [
         "ArgoCD Controller → Git Repository (Polls for changes)",
@@ -726,7 +726,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Tuning alert thresholds to reduce alert fatigue.", "Managing Prometheus data retention and long-term storage (Thanos/Cortex)."],
     troubleshooting: [{"issue": "Metrics not appearing in Grafana", "solution": "Verify Prometheus ServiceMonitors are correctly matching labels of the target application pods."}],
     architecture: {
-      description: "A comprehensive monitoring solution using the kube-prometheus-stack Helm chart.",
+      description: "The observability architecture relies on a triad of open-source monitoring tools. Prometheus operates as a time-series database, actively scraping metric endpoints across all Kubernetes nodes and pods. Grafana queries this database to render real-time, highly visual dashboards. Meanwhile, Alertmanager evaluates threshold rules and routes critical alerts to external communication channels like Slack or Microsoft Teams.",
       nodes: ["AKS Cluster", "Prometheus Server", "AlertManager", "Grafana Dashboard", "Azure Monitor (Container Insights)"],
       connections: [
         "Prometheus Server → AKS Cluster (Scrapes metrics)",
@@ -801,7 +801,7 @@ export const projectsData: Record<string, Project> = {
       { issue: "Private Endpoint DNS Resolution Fails", solution: "Verify the Azure Private DNS Zone is linked to the Hub VNET or the custom DNS forwarder is correctly configured to forward queries to 168.63.129.16." }
     ],
     architecture: {
-      description: "A secure, scalable enterprise network topology deployed entirely via Terraform enforcing centralized egress traffic inspection.",
+      description: "The Hub and Spoke network topology creates a highly secure, centralized traffic inspection architecture. All inbound and outbound internet traffic is forced through an Azure Firewall residing in the central 'Hub' VNet. Spoke VNets, which house the actual application workloads, are peered to the Hub but isolated from each other. User Defined Routes (UDRs) ensure traffic cannot bypass the firewall, providing enterprise-grade perimeter security.",
       nodes: ["Hub VNET", "Azure Firewall", "Spoke VNET (Workloads)", "Private Endpoint (Key Vault)", "UDR (Route Table)"],
       connections: [
         "Spoke VNET → Hub VNET (VNET Peering)",
@@ -923,7 +923,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Reviewing Terraform Plans during PR approvals.", "Handling state file locks if a pipeline fails unexpectedly."],
     troubleshooting: [{"issue": "Accidental deployment to wrong workspace", "solution": "Enforce workspace validation inside the CI/CD pipeline before running 'terraform apply'."}],
     architecture: {
-      description: "An enterprise-grade deployment topology spanning multiple isolated environments with manual approval gates.",
+      description: "This multi-environment architecture isolates logical deployment stages (Dev, QA, Prod) using distinct Terraform Workspaces. Each workspace maintains its own isolated state file, ensuring changes in Dev cannot accidentally destroy Prod resources. GitHub Actions orchestrates the flow between these environments, utilizing Environment Protection Rules to pause the pipeline and demand explicit manual approval before executing the final Terraform Apply against Production.",
       nodes: ["Feature Branch", "Main Branch", "GitHub Actions", "Dev Environment", "QA Environment", "UAT Environment", "Production Environment"],
       connections: [
         "Feature Branch → Dev Environment (Auto-deploy on PR)",
@@ -1000,7 +1000,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Simulating zone failures via Chaos Engineering.", "Restoring ETCD backups via Velero during disaster recovery drills."],
     troubleshooting: [{"issue": "Node upgrades blocked by PDB", "solution": "Check if your PodDisruptionBudget is too strict (e.g., demanding 100% availability), which prevents Kubernetes from draining nodes."}],
     architecture: {
-      description: "A highly resilient Kubernetes cluster spread across availability zones with automated disaster recovery.",
+      description: "The workload architecture is hardened using advanced Kubernetes scheduler constraints. Topology Spread Constraints force the Kubernetes scheduler to distribute application pods evenly across multiple physical Availability Zones. Additionally, Pod Disruption Budgets (PDBs) are enforced to ensure that voluntary disruptions (like node upgrades) never take down more than a specified percentage of pods, guaranteeing maximum uptime.",
       nodes: ["AKS Control Plane", "System Node Pool (AZ 1,2,3)", "User Node Pool (Autoscaler)", "Pod Disruption Budget", "Velero Operator", "Azure Blob Storage (Backup)"],
       connections: [
         "AKS Control Plane → System Node Pool",
@@ -1067,7 +1067,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Updating Trivy CVE databases.", "Rolling back Helm releases using 'helm rollback' when automated tests fail."],
     troubleshooting: [{"issue": "Helm deployment fails due to existing resources", "solution": "Ensure resources weren't created manually. Use 'helm upgrade --force' cautiously or adopt ArgoCD for declarative management."}],
     architecture: {
-      description: "A mature, full-lifecycle CI/CD pipeline incorporating code quality, security scanning, and Helm deployments.",
+      description: "The packaging architecture abstracts complex Kubernetes YAML into reusable Helm templates. The application's configuration is separated into distinct `values.yaml` files for different environments. During the CI/CD pipeline, GitHub Actions executes `helm upgrade`, overriding the template variables dynamically. This allows a single standard chart to deploy identical microservices across multiple clusters efficiently.",
       nodes: ["GitHub Repo", "GitHub Actions", "SonarQube", "Trivy Scan", "ACR", "AKS (Staging)", "AKS (Production)"],
       connections: [
         "GitHub Repo → GitHub Actions",
@@ -1142,7 +1142,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Managing false positives in security scans via .checkov.yml skip rules.", "Rotating exposed secrets identified by GitLeaks."],
     troubleshooting: [{"issue": "Checkov blocks valid Terraform", "solution": "Add an inline comment '# checkov:skip=CKV_AZURE_1: Justification' to explicitly acknowledge the risk."}],
     architecture: {
-      description: "A 'Shift-Left' DevSecOps implementation ensuring infrastructure and code vulnerabilities are caught before merging.",
+      description: "This DevSecOps architecture weaves security checks directly into the continuous integration pipeline. Before any code is compiled or deployed, Checkov statically analyzes the Terraform code for cloud misconfigurations. Concurrently, Trivy scans the compiled Docker image for known CVEs. If either tool detects a critical vulnerability, the pipeline fails instantly, completely blocking insecure code from reaching the staging environment.",
       nodes: ["Pull Request", "GitLeaks (Secrets)", "Checkov (IaC)", "SonarQube (SAST)", "Trivy (Container)", "Approval Gate"],
       connections: [
         "Pull Request → GitLeaks (Blocks hardcoded secrets)",
@@ -1207,7 +1207,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Versioning Terraform modules strictly via Git tags.", "Publishing modules to a private Terraform Registry."],
     troubleshooting: [{"issue": "Module breaks downstream deployments", "solution": "Ensure semantic versioning. Do not introduce breaking changes to module inputs/outputs in a minor release."}],
     architecture: {
-      description: "A highly reusable Terraform architecture abstracting complex Azure resources into simple, callable modules.",
+      description: "The infrastructure composition architecture relies on centralized Terraform Modules. Instead of application teams writing custom, highly error-prone network configurations, they simply invoke a standardized, versioned module stored in a central repository. This module acts as a black box that accepts required variables (like region and sizing) and outputs pre-approved, compliant infrastructure configurations every time.",
       nodes: ["Root Module (main.tf)", "Networking Module", "AKS Module", "Compute Module", "Storage Module"],
       connections: [
         "Root Module → Networking Module (Passes CIDRs)",
@@ -1287,7 +1287,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Failing over traffic manually during regional outages.", "Ensuring database replication (e.g., CosmosDB) is keeping up across regions."],
     troubleshooting: [{"issue": "Traffic Manager routing to unhealthy region", "solution": "Verify the health probe path (/healthz) is returning HTTP 200 within the timeout window."}],
     architecture: {
-      description: "A globally distributed application spread across two Azure regions, load-balanced by Azure Traffic Manager.",
+      description: "This architecture achieves global resilience by deploying two identical technology stacks in geographically distant Azure regions. Azure Traffic Manager sits at the edge, utilizing DNS-based routing to direct users to the region with the lowest latency. At the data layer, Azure Cosmos DB provides global, multi-master replication, ensuring that if an entire region goes offline, the application fails over instantly without data loss.",
       nodes: ["User Request", "Azure Traffic Manager", "East US Region", "Central India Region", "East US AKS", "Central India AKS"],
       connections: [
         "User Request → Azure Traffic Manager (DNS Resolution)",
@@ -1365,7 +1365,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Extracting common Helm templates into a shared 'Library Chart'.", "Managing Helm release history to prevent ConfigMap bloat."],
     troubleshooting: [{"issue": "Helm upgrade times out", "solution": "Usually caused by pods failing to start (CrashLoopBackOff). Check pod logs during the upgrade."}],
     architecture: {
-      description: "Automated deployment pipeline taking a Docker image from ACR and deploying it to AKS using Helm.",
+      description: "The deployment standard architecture utilizes a 'Library' Helm chart to enforce organizational consistency. Rather than every microservice team maintaining their own bespoke Deployment and Service manifests, they inherit a centralized chart. This parent chart contains pre-configured best practices for readiness probes, resource requests, and security contexts, ensuring all deployed microservices adhere to identical reliability standards.",
       nodes: ["GitHub Repo", "GitHub Actions", "ACR", "AKS Cluster", "Helm Release"],
       connections: [
         "GitHub Repo → GitHub Actions (Triggers run)",
@@ -1423,7 +1423,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Updating reusable workflows without breaking consumer repositories.", "Managing centralized secrets (e.g., ACR credentials) at the GitHub Organization level."],
     troubleshooting: [{"issue": "Consumer repo cannot access reusable workflow", "solution": "Ensure the template repository settings allow access from other repositories within the organization."}],
     architecture: {
-      description: "An enterprise template repository providing centralized, standardized CI/CD workflows for downstream consumption.",
+      description: "The CI/CD scaling architecture utilizes GitHub Reusable Workflows to eliminate pipeline duplication. A centralized DevSecOps repository houses the master workflow definitions for building, testing, and deploying. The 100+ individual application repositories simply reference these master workflows. If a new security scanning step is required, it is added once to the master workflow, and immediately inherited by every application pipeline.",
       nodes: ["Template Repository", "Workflow Call", "App Repo 1", "App Repo 2", "App Repo 3"],
       connections: [
         "App Repo 1 → Workflow Call",
@@ -1487,7 +1487,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Automating certificate rotation inside Key Vault.", "Auditing Key Vault access logs to detect anomalous reads."],
     troubleshooting: [{"issue": "Pod fails to mount CSI volume", "solution": "Verify the Workload Identity has the 'Key Vault Secrets User' RBAC role assigned on the specific Key Vault."}],
     architecture: {
-      description: "A Zero Trust implementation replacing hardcoded secrets with Entra ID identities and mounting secrets via CSI drivers.",
+      description: "The identity architecture embraces a pure Zero Trust model using Azure Workload Identity. It completely eliminates the need to store passwords or connection strings inside application code or Kubernetes Secrets. Instead, a Kubernetes Service Account is federated with an Azure Managed Identity. The application pod requests a short-lived token from Azure Active Directory, which it uses to securely fetch real-time credentials from Azure Key Vault.",
       nodes: ["AKS Pod", "Workload Identity", "Azure Key Vault", "CSI Driver", "Azure RBAC"],
       connections: [
         "AKS Pod → Workload Identity",
@@ -1557,7 +1557,7 @@ export const projectsData: Record<string, Project> = {
     day2Operations: ["Tuning KQL Analytics Rules to reduce false positive alerts.", "Writing Logic Apps for automated threat response (SOAR)."],
     troubleshooting: [{"issue": "High log ingestion costs", "solution": "Filter out noisy logs (e.g., routine health checks) at the Diagnostic Settings level before they reach Log Analytics."}],
     architecture: {
-      description: "Cloud-native SIEM and XDR deployment for enterprise threat detection.",
+      description: "This Security Operations architecture centralizes telemetry from fragmented infrastructure components into a unified Azure Log Analytics Workspace. Diagnostic settings on AKS, Azure Firewall, and Key Vault are configured to stream their audit logs to this central repository in near real-time. Security analysts then write custom Kusto Query Language (KQL) rules to detect lateral movement, privilege escalation, and anomalous traffic patterns.",
       nodes: ["AKS Cluster", "Azure VMs", "Microsoft Defender (XDR)", "Log Analytics Workspace", "Microsoft Sentinel (SIEM)"],
       connections: [
         "AKS Cluster → Microsoft Defender (Container anomalies)",
