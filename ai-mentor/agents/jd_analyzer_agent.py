@@ -13,12 +13,13 @@ import json
 import os
 
 llm = AzureChatOpenAI(
-    azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
-    api_key=os.environ["AZURE_OPENAI_KEY"],
+    azure_endpoint=os.environ.get("HEADROOM_PROXY", os.environ.get("AZURE_OPENAI_ENDPOINT", "")),
+    api_key=os.environ.get("AZURE_OPENAI_KEY", ""),
     azure_deployment=os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4o"),
     api_version="2024-02-01",
     temperature=0,
     response_format={"type": "json_object"},
+    model_kwargs={"extra_headers": {"x-portkey-provider": "azure-openai"}} if os.environ.get("HEADROOM_PROXY") else {}
 )
 
 # Vikram's default skill baseline (loaded from DB in production)
