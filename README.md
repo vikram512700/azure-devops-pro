@@ -5,20 +5,21 @@
 A comprehensive, interactive Learning Platform designed to teach Azure Fundamentals, Enterprise DevOps, Production Architecture, and SRE best practices. Built specifically for engineers looking to master the GCC job market and transition into Senior Cloud/SRE roles.
 
 ## 🌟 Key Features
-- **30 Enterprise DevOps Modules**: Comprehensive learning tracks covering everything from Azure Fundamentals and Virtual Networks to advanced Kubernetes (AKS), Helm, ArgoCD, and Chaos Engineering.
-- **Interactive Labs**: Step-by-step simulated Azure CLI execution panels.
-- **Production Architecture**: Visual architectural diagrams mapping out complex cloud patterns.
+- **60+ Interactive Modules**: A massive curriculum spanning Linux, Git, Docker, Kubernetes, Azure, Terraform, and CI/CD.
+- **Smart Docs Portal**: Raw markdown notes dynamically rendered into a gorgeous "Study Book" UI.
+- **Intelligent Callouts**: Automated injection of Emerald Definition boxes, Real-Time Scenarios, and Tips across all chapters using our custom Markdown Engine.
+- **Blazing Fast AI Interviewer**: Chat-based mock interviews using `gemini-3.5-flash` with real-time UI text streaming for instant feedback.
+- **JD Analyzer**: Paste Job Descriptions to map your skills against real-world roles using AI.
 - **Dynamic Quiz Engine**: Test your knowledge on every module with AI-generated multiple-choice quizzes and earn XP.
 - **Global Search**: Instantly find modules using the `Ctrl+K` command palette.
-- **JD Analyzer**: Paste Job Descriptions to map your skills against real-world roles using AI.
-- **AI Interviewer**: Chat-based mock interviews to prepare for technical rounds.
 
 ## 🏗️ Architecture Stack
 The platform currently operates as a highly responsive, client-heavy architecture built for speed and seamless UX:
-- **Frontend Framework**: Next.js 14 (App Router) with TypeScript.
+- **Frontend Framework**: Next.js 14/16 (App Router) with TypeScript.
+- **Docs Engine**: React Markdown with dynamic HTML/DOM interception for custom components.
 - **Styling**: TailwindCSS & `shadcn/ui` (Radix UI primitives).
 - **State Management**: React Hooks & Local Storage for offline-first XP and module tracking.
-- **AI Integration**: Google Gemini API integration (executed directly from the client via user-provided API key).
+- **AI Integration**: Google Gemini API streaming (executed directly from the client via user-provided API key).
 
 ## 🚀 How to Run Locally
 
