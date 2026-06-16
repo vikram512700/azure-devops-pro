@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText, FolderGit2 } from "lucide-react";
-import { CommandMenu } from "@/components/CommandMenu";
+import dynamic from "next/dynamic";
+
+const CommandMenu = dynamic(() => import("@/components/CommandMenu").then(mod => mod.CommandMenu), { ssr: false });
 
 import type { DocCategory } from "@/lib/docs";
 

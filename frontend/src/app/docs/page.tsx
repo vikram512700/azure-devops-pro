@@ -3,7 +3,7 @@ import Link from "next/link";
 import { 
   Folder, Terminal, Code, GitBranch, Cloud, 
   Settings, Rocket, LineChart, ShieldCheck, Trophy, Bot,
-  Database, Network
+  Database, Network, FileText, ChevronRight
 } from "lucide-react";
 
 function getCategoryStyle(name: string) {
@@ -37,27 +37,55 @@ export default function DocsIndex() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {navigation.map((category) => {
           const { icon: Icon, color, bg } = getCategoryStyle(category.name);
-          const href = `/docs/${category.files[0]?.slug.join('/')}`;
+          const rootHref = `/docs/${category.files[0]?.slug.join('/')}`;
           
           return (
-            <Link 
+            <div 
               key={category.name} 
-              href={href}
-              className="group block p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+              className="group flex flex-col p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-300 shadow-lg"
             >
-              <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 shadow-sm ${bg} group-hover:scale-110 transition-transform duration-300`}>
-                <Icon className={`w-7 h-7 ${color}`} />
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 shadow-sm ${bg} group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className={`w-7 h-7 ${color}`} />
+                </div>
+                <div>
+                  <Link href={rootHref} className="text-xl font-bold text-white hover:text-blue-400 transition-colors">
+                    {category.name.replace(/_/g, ' ')}
+                  </Link>
+                  <p className="text-sm text-gray-400 font-medium mt-1">
+                    {category.files.length} {category.files.length === 1 ? 'Document' : 'Documents'}
+                  </p>
+                </div>
               </div>
-              <h2 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
-                {category.name.replace(/_/g, ' ')}
-              </h2>
-              <p className="text-sm text-gray-400 font-medium">
-                {category.files.length} {category.files.length === 1 ? 'Document' : 'Documents'}
-              </p>
-            </Link>
+
+              <div className="flex flex-col gap-2 flex-grow">
+                {category.files.slice(0, 4).map((file) => (
+                  <Link 
+                    key={file.path} 
+                    href={`/docs/${file.slug.join('/')}`}
+                    className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white/5 transition-colors group/link"
+                  >
+                    <FileText className="w-4 h-4 text-gray-500 group-hover/link:text-blue-400 shrink-0" />
+                    <span className="text-sm text-gray-300 group-hover/link:text-white truncate">
+                      {file.title}
+                    </span>
+                  </Link>
+                ))}
+                
+                {category.files.length > 4 && (
+                  <Link 
+                    href={rootHref}
+                    className="flex items-center gap-2 p-2.5 mt-2 text-sm text-blue-400/80 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                  >
+                    <span>+ {category.files.length - 4} more documents</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                )}
+              </div>
+            </div>
           );
         })}
       </div>
