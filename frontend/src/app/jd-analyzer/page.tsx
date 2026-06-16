@@ -30,12 +30,10 @@ export default function JDAnalyzerPage() {
       }
       
       const client = getGeminiClient(apiKey);
-      const model = client.getGenerativeModel({ 
-        model: "gemini-pro",
-        systemInstruction: JD_ANALYZER_PROMPT
-      });
+      const model = client.getGenerativeModel({ model: "gemini-pro" });
 
-      const result = await model.generateContent(jdText);
+      const fullPrompt = `${JD_ANALYZER_PROMPT}\n\nJob Description to Analyze:\n${jdText}`;
+      const result = await model.generateContent(fullPrompt);
       const responseText = result.response.text();
       
       // Extract JSON in case of markdown formatting

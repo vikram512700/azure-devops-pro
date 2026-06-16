@@ -36,18 +36,20 @@ export default function InterviewPage() {
         throw new Error("Please enter your Gemini API Key in the Dashboard Settings first.");
       }
       const client = getGeminiClient(apiKey);
-      const model = client.getGenerativeModel({ 
-        model: "gemini-pro",
-        systemInstruction: INTERVIEW_SYSTEM_PROMPT
-      });
+      const model = client.getGenerativeModel({ model: "gemini-pro" });
       
       const history = messages.map(m => ({
         role: m.role === 'ai' ? 'model' : 'user',
         parts: [{ text: m.text }]
       }));
 
+      let promptToSend = input;
+      if (history.length === 0) {
+        promptToSend = `SYSTEM INSTRUCTION: ${INTERVIEW_SYSTEM_PROMPT}\n\nUSER MESSAGE:\n${input}`;
+      }
+
       const chat = model.startChat({ history });
-      const result = await chat.sendMessage(input);
+      const result = await chat.sendMessage(promptToSend);
       const responseText = result.response.text();
 
       setMessages(prev => [...prev, { role: 'ai', text: responseText }]);
