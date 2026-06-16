@@ -17,7 +17,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           h1: ({ node, ...props }) => <h1 className="text-3xl font-extrabold tracking-tight text-white mt-8 mb-4 border-b border-white/10 pb-4" {...props} />,
           h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-white mt-8 mb-4" {...props} />,
           h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-gray-200 mt-6 mb-3" {...props} />,
-          p: ({ node, ...props }) => <p className="text-gray-300 leading-relaxed mb-4" {...props} />,
+          p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-4" {...props} />,
           ul: ({ node, ...props }) => <ul className="list-disc list-outside pl-6 space-y-2 text-gray-300 mb-4" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal list-outside pl-6 space-y-2 text-gray-300 mb-4" {...props} />,
           li: ({ node, ...props }) => <li className="pl-2" {...props} />,
