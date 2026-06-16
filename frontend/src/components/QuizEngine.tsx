@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,40 +11,9 @@ import { Trophy, CheckCircle2, XCircle } from "lucide-react";
 import { useProgress } from "@/hooks/useProgress";
 import confetti from "canvas-confetti";
 
-type Question = {
-  id: string;
-  text: string;
-  options: { id: string; text: string }[];
-  correctOptionId: string;
-  explanation: string;
-};
 
-const SAMPLE_QUESTIONS: Question[] = [
-  {
-    id: "q1",
-    text: "Which Azure service is used to isolate resources in a secure network boundary?",
-    options: [
-      { id: "a", text: "Azure ExpressRoute" },
-      { id: "b", text: "Azure Virtual Network (VNet)" },
-      { id: "c", text: "Azure Load Balancer" },
-      { id: "d", text: "Azure Active Directory" },
-    ],
-    correctOptionId: "b",
-    explanation: "Azure Virtual Network (VNet) is the fundamental building block for your private network in Azure.",
-  },
-  {
-    id: "q2",
-    text: "You need to prevent traffic from a specific IP address from accessing your VNet. What should you configure?",
-    options: [
-      { id: "a", text: "Network Security Group (NSG)" },
-      { id: "b", text: "Azure Firewall" },
-      { id: "c", text: "Azure Bastion" },
-      { id: "d", text: "Route Table" },
-    ],
-    correctOptionId: "a",
-    explanation: "NSGs allow you to filter network traffic to and from Azure resources in an Azure virtual network based on IP addresses, ports, and protocols.",
-  }
-];
+
+import { modulesData } from "@/data/modules";
 
 export function QuizEngine({ moduleId }: { moduleId: string }) {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
@@ -54,8 +24,19 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
 
   const { addXP, markModuleCompleted } = useProgress();
 
-  const currentQuestion = SAMPLE_QUESTIONS[currentQuestionIdx];
-  const progress = ((currentQuestionIdx) / SAMPLE_QUESTIONS.length) * 100;
+  const moduleData = modulesData[moduleId];
+  const questions = moduleData?.quiz || [];
+  
+  if (questions.length === 0) {
+    return (
+      <Card className="bg-white/[0.02] border-white/5 mt-8 p-8 text-center text-gray-400">
+        Quiz content is coming soon for this module.
+      </Card>
+    );
+  }
+
+  const currentQuestion = questions[currentQuestionIdx];
+  const progress = ((currentQuestionIdx) / questions.length) * 100;
 
   const handleSubmit = () => {
     if (!isAnswerSubmitted) {
@@ -65,7 +46,7 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
       }
     } else {
       // Go to next question
-      if (currentQuestionIdx < SAMPLE_QUESTIONS.length - 1) {
+      if (currentQuestionIdx < questions.length - 1) {
         setCurrentQuestionIdx(currentQuestionIdx + 1);
         setSelectedAnswer("");
         setIsAnswerSubmitted(false);
@@ -96,9 +77,20 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-6">Keep up the great work! Your progress has been saved to your profile.</p>
-          <Button onClick={() => window.location.reload()} className="bg-blue-600 hover:bg-blue-700">
-            Return to Dashboard
-          </Button>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+            <Link href="/dashboard" className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition-all duration-300">
+              Return to Dashboard
+            </Link>
+            {parseInt(moduleId) < 30 ? (
+              <Link href={`/module/${parseInt(moduleId) + 1}`} className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
+                Start Next Module
+              </Link>
+            ) : (
+              <Link href="/roadmap" className="px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:-translate-y-0.5">
+                View Roadmap
+              </Link>
+            )}
+          </div>
         </CardContent>
       </Card>
     );
@@ -109,7 +101,7 @@ export function QuizEngine({ moduleId }: { moduleId: string }) {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
-        <span>Question {currentQuestionIdx + 1} of {SAMPLE_QUESTIONS.length}</span>
+        <span>Question {currentQuestionIdx + 1} of {questions.length}</span>
         <span className="flex items-center gap-1 text-yellow-500 font-medium"><Trophy className="w-4 h-4"/> {score} XP</span>
       </div>
       <Progress value={progress} className="h-2 bg-white/5" indicatorClassName="bg-blue-500" />

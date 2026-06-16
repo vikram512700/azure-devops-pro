@@ -42,9 +42,9 @@ export default function Home() {
         {/* Feature Highlights */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-16 w-full max-w-4xl">
           <FeatureCard href="/roadmap" icon={<Cloud className="w-6 h-6 text-blue-400" />} title="Azure Mastery" desc="30 comprehensive learning tracks" />
-          <FeatureCard href="/module/1" icon={<Terminal className="w-6 h-6 text-emerald-400" />} title="Real Labs" desc="Hands-on production sandbox" />
-          <FeatureCard href="/interview" icon={<BrainCircuit className="w-6 h-6 text-purple-400" />} title="AI Mentor" desc="Personalized JD & interview prep" />
-          <FeatureCard href="/jd-analyzer" icon={<Rocket className="w-6 h-6 text-orange-400" />} title="SRE Focus" desc="Architecture & troubleshooting" />
+          <FeatureCard href="/module/1" icon={<Terminal className="w-6 h-6 text-emerald-400" />} title="Real Labs" desc="Hands-on production sandboxes" />
+          <FeatureCard href="/interview" icon={<BrainCircuit className="w-6 h-6 text-purple-400" />} title="AI Interviewer" desc="Simulated mock interviews" />
+          <FeatureCard href="/jd-analyzer" icon={<Rocket className="w-6 h-6 text-orange-400" />} title="JD Analyzer" desc="Match skills to job roles" />
         </div>
       </main>
     </div>

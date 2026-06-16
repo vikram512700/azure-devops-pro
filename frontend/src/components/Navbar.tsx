@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home } from "lucide-react";
+import { CommandMenu } from "@/components/CommandMenu";
 
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: Home },
@@ -49,6 +50,7 @@ export function Navbar() {
               </Link>
             );
           })}
+          <CommandMenu />
         </nav>
 
         {/* Mobile Nav */}

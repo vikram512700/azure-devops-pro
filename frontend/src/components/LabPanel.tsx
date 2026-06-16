@@ -28,17 +28,33 @@ export function LabPanel({ moduleId }: { moduleId?: string }) {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
+  const handleCopyAll = () => {
+    const allCode = steps.map(s => s.code).join('\n');
+    navigator.clipboard.writeText(allCode);
+    setCopiedIndex(-1);
+    setTimeout(() => setCopiedIndex(null), 2000);
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[80vh]">
       
       {/* Left: Instructions Panel */}
       <Card className="lg:col-span-2 bg-white/[0.02] border-white/5 flex flex-col h-full overflow-hidden">
         <CardHeader className="border-b border-white/5 bg-white/[0.01]">
-          <CardTitle className="text-lg text-white flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-orange-400" />
-            Sandbox Instructions
-          </CardTitle>
-          <CardDescription>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg text-white flex items-center gap-2">
+              <Terminal className="w-5 h-5 text-orange-400" />
+              Sandbox Instructions
+            </CardTitle>
+            <button 
+              onClick={handleCopyAll}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-xs font-medium text-gray-300 transition-all border border-white/10"
+            >
+              {copiedIndex === -1 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedIndex === -1 ? "Copied All" : "Copy All"}
+            </button>
+          </div>
+          <CardDescription className="mt-2">
             {lab.intro}
           </CardDescription>
         </CardHeader>

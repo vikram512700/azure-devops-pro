@@ -20,6 +20,13 @@ export interface ModuleContent {
     q: string;
     a: string;
   }[];
+  quiz?: {
+    id: string;
+    text: string;
+    options: { id: string; text: string }[];
+    correctOptionId: string;
+    explanation: string;
+  }[];
 }
 
 export const modulesData: Record<string, ModuleContent> = {
@@ -77,6 +84,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Azure Regions & Resource Groups in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Azure Regions & Resource Groups is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Azure Regions & Resource Groups?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Azure Regions & Resource Groups."
+      },
+      {
+        id: "q3",
+        text: "How does Azure Regions & Resource Groups integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Azure Regions & Resource Groups enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "2": {
     id: "2",
     title: "Subscriptions, CLI & Portal",
@@ -131,6 +177,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Subscriptions, CLI & Portal in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Subscriptions, CLI & Portal is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Subscriptions, CLI & Portal?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Subscriptions, CLI & Portal."
+      },
+      {
+        id: "q3",
+        text: "How does Subscriptions, CLI & Portal integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Subscriptions, CLI & Portal enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "3": {
     id: "3",
     title: "VNETs, Subnets & Peering",
@@ -185,6 +270,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of VNETs, Subnets & Peering in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "VNETs, Subnets & Peering is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for VNETs, Subnets & Peering?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of VNETs, Subnets & Peering."
+      },
+      {
+        id: "q3",
+        text: "How does VNETs, Subnets & Peering integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, VNETs, Subnets & Peering enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "4": {
     id: "4",
     title: "NSGs, Route Tables & Firewalls",
@@ -239,6 +363,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of NSGs, Route Tables & Firewalls in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "NSGs, Route Tables & Firewalls is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for NSGs, Route Tables & Firewalls?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of NSGs, Route Tables & Firewalls."
+      },
+      {
+        id: "q3",
+        text: "How does NSGs, Route Tables & Firewalls integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, NSGs, Route Tables & Firewalls enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "5": {
     id: "5",
     title: "Virtual Machines & VMSS",
@@ -293,6 +456,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Virtual Machines & VMSS in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Virtual Machines & VMSS is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Virtual Machines & VMSS?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Virtual Machines & VMSS."
+      },
+      {
+        id: "q3",
+        text: "How does Virtual Machines & VMSS integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Virtual Machines & VMSS enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "6": {
     id: "6",
     title: "App Service & Azure Functions",
@@ -347,6 +549,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of App Service & Azure Functions in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "App Service & Azure Functions is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for App Service & Azure Functions?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of App Service & Azure Functions."
+      },
+      {
+        id: "q3",
+        text: "How does App Service & Azure Functions integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, App Service & Azure Functions enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "7": {
     id: "7",
     title: "Docker Fundamentals & Images",
@@ -401,6 +642,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Docker Fundamentals & Images in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Docker Fundamentals & Images is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Docker Fundamentals & Images?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Docker Fundamentals & Images."
+      },
+      {
+        id: "q3",
+        text: "How does Docker Fundamentals & Images integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Docker Fundamentals & Images enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "8": {
     id: "8",
     title: "Multi-Stage Builds & Security",
@@ -455,6 +735,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Multi-Stage Builds & Security in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Multi-Stage Builds & Security is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Multi-Stage Builds & Security?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Multi-Stage Builds & Security."
+      },
+      {
+        id: "q3",
+        text: "How does Multi-Stage Builds & Security integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Multi-Stage Builds & Security enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "9": {
     id: "9",
     title: "ACR (Azure Container Registry)",
@@ -509,6 +828,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of ACR (Azure Container Registry) in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "ACR (Azure Container Registry) is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for ACR (Azure Container Registry)?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of ACR (Azure Container Registry)."
+      },
+      {
+        id: "q3",
+        text: "How does ACR (Azure Container Registry) integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, ACR (Azure Container Registry) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "10": {
     id: "10",
     title: "AKS Architecture & Control Plane",
@@ -563,6 +921,45 @@ export const modulesData: Record<string, ModuleContent> = {
       }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of AKS Architecture & Control Plane in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "AKS Architecture & Control Plane is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for AKS Architecture & Control Plane?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of AKS Architecture & Control Plane."
+      },
+      {
+        id: "q3",
+        text: "How does AKS Architecture & Control Plane integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, AKS Architecture & Control Plane enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "11": {
     id: "11",
     title: "Pods, Deployments & Services",
@@ -599,6 +996,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Why are Pod IPs considered ephemeral, and how do Services solve this?", a: "Pods are cattle, not pets — they're created and destroyed constantly (scaling, rescheduling, node failures), each time getting a new IP. Hardcoding a Pod IP would break the moment that pod is replaced. A Service provides a stable ClusterIP and DNS name (e.g., checkout.production.svc.cluster.local) that never changes; kube-proxy continuously updates the backend pod IPs behind it via the label selector, so callers always use the stable Service name." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Pods, Deployments & Services in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Pods, Deployments & Services is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Pods, Deployments & Services?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Pods, Deployments & Services."
+      },
+      {
+        id: "q3",
+        text: "How does Pods, Deployments & Services integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Pods, Deployments & Services enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "12": {
     id: "12",
     title: "Ingress Controllers & Routing",
@@ -635,6 +1071,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How would you implement canary routing (5% of traffic to a new version) with NGINX Ingress?", a: "Use NGINX Ingress canary annotations: create a second Ingress for the same host/path pointing to the canary Service with annotations 'nginx.ingress.kubernetes.io/canary: true' and 'canary-weight: 5'. NGINX then routes ~5% of requests to the canary backend and 95% to the stable one. You can also canary by header or cookie for internal testing before shifting weight — increasing the weight gradually as the canary proves healthy." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Ingress Controllers & Routing in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Ingress Controllers & Routing is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Ingress Controllers & Routing?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Ingress Controllers & Routing."
+      },
+      {
+        id: "q3",
+        text: "How does Ingress Controllers & Routing integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Ingress Controllers & Routing enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "13": {
     id: "13",
     title: "HPA & Network Policies",
@@ -671,6 +1146,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "HPA is rapidly scaling up and down ('flapping'). How do you stabilize it?", a: "Tune the HPA's stabilization window and behavior policies: increase scaleDown stabilizationWindowSeconds (e.g., 300s) so it waits before scaling in, and cap scaleUp/scaleDown rates via the behavior.scaleDown/scaleUp policies (e.g., remove at most 10% of pods per minute). Also ensure the metric isn't noisy — averaging over a longer window and setting an appropriate target utilization (not too close to baseline) prevents the controller from overreacting to brief spikes." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of HPA & Network Policies in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "HPA & Network Policies is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for HPA & Network Policies?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of HPA & Network Policies."
+      },
+      {
+        id: "q3",
+        text: "How does HPA & Network Policies integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, HPA & Network Policies enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "14": {
     id: "14",
     title: "Git Fundamentals & Gitflow",
@@ -707,6 +1221,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What is a squash merge and why might a team prefer it for PRs?", a: "A squash merge condenses ALL commits in a feature branch into a SINGLE commit on the target branch. Teams prefer it because main's history becomes one clean, meaningful commit per feature/PR (instead of 'wip', 'fix typo', 'address review' noise), making the history readable and `git revert` of an entire feature trivial. The trade-off is losing the granular per-commit history of the feature branch on main." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Git Fundamentals & Gitflow in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Git Fundamentals & Gitflow is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Git Fundamentals & Gitflow?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Git Fundamentals & Gitflow."
+      },
+      {
+        id: "q3",
+        text: "How does Git Fundamentals & Gitflow integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Git Fundamentals & Gitflow enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "15": {
     id: "15",
     title: "GitHub Actions",
@@ -743,6 +1296,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "A workflow secret is accidentally printed in logs. What are the risks and how does Actions mitigate it?", a: "Risk: anyone with read access to the run logs (including forks if misconfigured) could exfiltrate the secret. GitHub Actions auto-MASKS registered secrets in logs (replaces with ***), but transformations (base64, substrings) can defeat masking. Mitigations: rotate the exposed secret immediately, prefer OIDC over static secrets, restrict secret availability to specific environments, and never echo secrets or pass them through commands that transform them." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of GitHub Actions in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "GitHub Actions is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for GitHub Actions?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of GitHub Actions."
+      },
+      {
+        id: "q3",
+        text: "How does GitHub Actions integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, GitHub Actions enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "16": {
     id: "16",
     title: "Azure Repos & Azure Pipelines",
@@ -779,6 +1371,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Self-hosted vs Microsoft-hosted agents — when would Jio use self-hosted?", a: "Microsoft-hosted agents are clean, ephemeral VMs Microsoft manages — zero maintenance but limited customization, capped concurrency, and no private-network access. Self-hosted agents (running on Jio's own VMs/AKS, often as scale-set agents) are needed when: builds must reach private resources (private ACR/DB behind a firewall, on-prem systems), require specialized/cached tooling or large dependency caches, demand higher concurrency than hosted limits, or must meet data-residency/compliance requirements keeping build infra inside Jio's network." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Azure Repos & Azure Pipelines in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Azure Repos & Azure Pipelines is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Azure Repos & Azure Pipelines?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Azure Repos & Azure Pipelines."
+      },
+      {
+        id: "q3",
+        text: "How does Azure Repos & Azure Pipelines integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Azure Repos & Azure Pipelines enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "17": {
     id: "17",
     title: "Release Management & Gates",
@@ -815,6 +1446,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Design the gate sequence for promoting a build from staging to production.", a: "1) Automated gate: staging smoke/integration tests all green. 2) Automated gate: security scan (Trivy) passed on the exact image being promoted. 3) Automated gate: 'no active P1 incident' + 'within approved change window'. 4) Human approval gate: release manager sign-off with linked change ticket. 5) Deploy as canary to prod (5%) with a post-deploy Azure Monitor gate on error rate/latency before full promotion. This chains automated safety checks with a human accountability checkpoint and progressive exposure." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Release Management & Gates in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Release Management & Gates is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Release Management & Gates?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Release Management & Gates."
+      },
+      {
+        id: "q3",
+        text: "How does Release Management & Gates integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Release Management & Gates enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "18": {
     id: "18",
     title: "Terraform Basics & State",
@@ -851,6 +1521,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How do you prevent secrets in Terraform state from being exposed?", a: "State can contain secrets (DB passwords, generated keys) in plaintext. Mitigations: (1) store state in an Azure Storage account with encryption-at-rest, private endpoint, and tight RBAC so only the pipeline identity and platform admins can read it; (2) avoid putting secrets in Terraform at all — reference Key Vault secrets at runtime via data sources or have apps fetch them via the CSI driver; (3) mark variables 'sensitive' to keep them out of plan/apply logs; (4) never commit state or .tfvars with secrets to git." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Terraform Basics & State in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Terraform Basics & State is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Terraform Basics & State?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Terraform Basics & State."
+      },
+      {
+        id: "q3",
+        text: "How does Terraform Basics & State integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Terraform Basics & State enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "19": {
     id: "19",
     title: "Terraform Modules & Workspaces",
@@ -887,6 +1596,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Your team wants to roll out a new module version that adds a security feature, across 50 services, safely. How?", a: "Release the new module version (e.g., 2.4.0) and validate it in a non-prod consumer first. Then roll out progressively: open PRs bumping 'version =' for batches of services, each running `terraform plan` so reviewers see exactly what the new version changes (ideally non-destructive/additive). Stagger prod applies, monitor, and keep the ability to revert the version pin if an issue appears. This treats infra upgrades like code releases — versioned, reviewed, progressive — rather than a risky big-bang change." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Terraform Modules & Workspaces in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Terraform Modules & Workspaces is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Terraform Modules & Workspaces?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Terraform Modules & Workspaces."
+      },
+      {
+        id: "q3",
+        text: "How does Terraform Modules & Workspaces integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Terraform Modules & Workspaces enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "20": {
     id: "20",
     title: "Bicep & ARM Templates",
@@ -923,6 +1671,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How does Bicep handle dependencies between resources, and how does that differ from ARM JSON?", a: "Bicep INFERS dependencies automatically: when one resource references another's property (e.g., a VM referencing a NIC's id via nic.id), Bicep adds the implicit dependency so ARM provisions them in the right order — no manual declaration needed. In raw ARM JSON, you often had to add explicit dependsOn arrays listing resource names, which was verbose and error-prone. Bicep's symbolic references make dependency management cleaner and less bug-prone, only needing explicit dependsOn for rare cases with no property reference." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Bicep & ARM Templates in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Bicep & ARM Templates is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Bicep & ARM Templates?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Bicep & ARM Templates."
+      },
+      {
+        id: "q3",
+        text: "How does Bicep & ARM Templates integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Bicep & ARM Templates enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "21": {
     id: "21",
     title: "Entra ID & RBAC",
@@ -959,6 +1746,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "An AKS pod needs to read a secret from Key Vault. Walk through the password-less identity flow.", a: "Use Workload Identity (or the CSI driver with a managed identity): the AKS cluster has OIDC issuer enabled; a Kubernetes ServiceAccount is federated to a user-assigned managed identity. That managed identity is granted a Key Vault access policy / 'Key Vault Secrets User' RBAC role on the vault. The pod, running under that ServiceAccount, receives a federated token, exchanges it with Entra ID for a managed-identity token, and calls Key Vault — all with NO secret stored in the pod, cluster, or code. Access is scoped to just that vault and auditable per identity." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Entra ID & RBAC in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Entra ID & RBAC is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Entra ID & RBAC?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Entra ID & RBAC."
+      },
+      {
+        id: "q3",
+        text: "How does Entra ID & RBAC integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Entra ID & RBAC enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "22": {
     id: "22",
     title: "Key Vault & CSI Driver",
@@ -995,6 +1821,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Why should you enable soft-delete and purge protection on a production Key Vault?", a: "Soft-delete retains deleted vaults/secrets for a recovery period instead of immediate permanent deletion — protecting against accidental or malicious deletion of critical secrets/keys (which could otherwise make encrypted data permanently unrecoverable). Purge protection goes further: it BLOCKS permanent purge even by admins until the retention period elapses, defeating an attacker (or mistake) that tries to delete-then-purge to destroy keys. For production vaults holding encryption keys, both are essential to avoid catastrophic, irreversible data loss." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Key Vault & CSI Driver in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Key Vault & CSI Driver is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Key Vault & CSI Driver?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Key Vault & CSI Driver."
+      },
+      {
+        id: "q3",
+        text: "How does Key Vault & CSI Driver integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Key Vault & CSI Driver enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "23": {
     id: "23",
     title: "Azure Storage (Blobs, Files, Tiers)",
@@ -1031,6 +1896,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How would you design storage for an application with hot recent data and large cold historical data, minimizing cost?", a: "Use a single Blob container with a lifecycle management policy: keep recent data in Hot for fast access; auto-transition to Cool after ~30 days of no access (cheaper storage, still online), to Cold/Archive after ~90-180 days for rarely-touched historical data, and auto-delete past the retention requirement. Pair with appropriate redundancy (ZRS/GZRS for critical, LRS for reproducible). Access recent data via the app's managed identity, and if historical data must be served externally, generate scoped short-lived SAS URLs. This matches storage cost to actual access patterns automatically." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Azure Storage (Blobs, Files, Tiers) in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Azure Storage (Blobs, Files, Tiers) is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Azure Storage (Blobs, Files, Tiers)?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Azure Storage (Blobs, Files, Tiers)."
+      },
+      {
+        id: "q3",
+        text: "How does Azure Storage (Blobs, Files, Tiers) integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Azure Storage (Blobs, Files, Tiers) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "24": {
     id: "24",
     title: "Azure Monitor & Alerts",
@@ -1067,6 +1971,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Design an alerting strategy for a checkout API to balance coverage and alert fatigue.", a: "Tier it: (1) PAGING alerts on user-facing SLO breaches only — error rate above error-budget burn rate, p99 latency > target, availability drop — using dynamic thresholds to handle seasonality. (2) TICKET/WARNING alerts (Teams, non-paging) on leading indicators — rising 4xx, dependency latency creeping up — for proactive investigation. (3) Auto-remediation runbooks for known conditions (scale out) that only escalate to a page if unresolved. (4) Suppress/group correlated alerts so one outage doesn't fire 50 pages. The principle: page humans only for things that are urgent, actionable, and user-impacting; everything else is a ticket or automated." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Azure Monitor & Alerts in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Azure Monitor & Alerts is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Azure Monitor & Alerts?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Azure Monitor & Alerts."
+      },
+      {
+        id: "q3",
+        text: "How does Azure Monitor & Alerts integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Azure Monitor & Alerts enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "25": {
     id: "25",
     title: "Log Analytics & KQL",
@@ -1103,6 +2046,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "What is a log-based (scheduled query) alert and a trade-off versus a metric alert?", a: "A log-based alert runs a KQL query on a schedule (e.g., every 5 min) and fires if the result crosses a threshold (e.g., row count > N) — enabling alerting on complex, correlated, or parsed conditions metrics can't express. Trade-off: it evaluates on an interval (not real-time like metrics), so there's inherent detection latency equal to the query frequency + ingestion delay, and it costs more (query execution + log ingestion). Use metric alerts for fast, simple numeric conditions; log alerts when the condition genuinely requires KQL's expressiveness." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Log Analytics & KQL in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Log Analytics & KQL is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Log Analytics & KQL?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Log Analytics & KQL."
+      },
+      {
+        id: "q3",
+        text: "How does Log Analytics & KQL integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Log Analytics & KQL enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "26": {
     id: "26",
     title: "Helm & Package Management",
@@ -1139,6 +2121,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "A `helm upgrade` left the release in a failed/pending state. How do you recover?", a: "First inspect: `helm status <release>` and `helm history <release>` to see revisions and the failure. If the upgrade is stuck pending (e.g., interrupted), you may need `helm rollback <release> <last-good-revision>` to return to a known-good state, or for a stuck pending-install, uninstall/reinstall. Check the underlying K8s objects (`kubectl get events`, pod statuses) for the real cause — often a bad image, failing probe, or invalid manifest from a templating error. Fix the root cause (values/template), then upgrade again. Helm's history makes returning to the last working revision straightforward while you debug." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Helm & Package Management in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Helm & Package Management is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Helm & Package Management?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Helm & Package Management."
+      },
+      {
+        id: "q3",
+        text: "How does Helm & Package Management integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Helm & Package Management enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "27": {
     id: "27",
     title: "ArgoCD & GitOps",
@@ -1175,6 +2196,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "When might you NOT enable auto-sync/self-heal, and what's the trade-off?", a: "You might disable auto-sync/self-heal for sensitive production environments where you want a HUMAN to explicitly trigger the sync after reviewing the diff (manual sync), or during incident response/debugging when an engineer needs to make a temporary live change without ArgoCD immediately reverting it. Trade-off: manual sync means drift can persist and deploys aren't automatic (slower, relies on someone clicking sync), but you gain a deliberate control point and the ability to make emergency live changes. Many teams auto-sync non-prod and require manual sync (or PR + auto-sync) for prod to balance speed with control." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of ArgoCD & GitOps in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "ArgoCD & GitOps is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for ArgoCD & GitOps?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of ArgoCD & GitOps."
+      },
+      {
+        id: "q3",
+        text: "How does ArgoCD & GitOps integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, ArgoCD & GitOps enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "28": {
     id: "28",
     title: "Cost Management (FinOps) & Policy",
@@ -1211,6 +2271,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Your monthly Azure bill spiked unexpectedly. Walk through how you'd investigate.", a: "1) Open Cost Management cost analysis and group by RESOURCE GROUP / SERVICE / TAG to find WHERE the spike is concentrated. 2) Add a time filter to pinpoint WHEN it started, then correlate with deployments/changes (a new region, a scaled-up cluster, a runaway autoscale, an accidentally-Hot storage tier, egress charges). 3) Check for anomalies — orphaned resources (unattached disks, idle public IPs), a misconfigured autoscaler, or a dev resource left running. 4) Use Azure Advisor cost recommendations for right-sizing/RI opportunities. 5) Set/adjust a BUDGET alert so the next spike is caught early. 6) Remediate (scale down, delete orphans, fix tier/policy) and, if it's a recurring pattern, add a guardrail Policy or autoscale cap to prevent recurrence." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Cost Management (FinOps) & Policy in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Cost Management (FinOps) & Policy is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Cost Management (FinOps) & Policy?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Cost Management (FinOps) & Policy."
+      },
+      {
+        id: "q3",
+        text: "How does Cost Management (FinOps) & Policy integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Cost Management (FinOps) & Policy enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "29": {
     id: "29",
     title: "Chaos Engineering (Azure Chaos Studio)",
@@ -1247,6 +2346,45 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "How do you safely introduce chaos engineering into an organization that's never done it?", a: "Start small and build trust: (1) Begin in NON-PRODUCTION with low-risk faults (kill a single pod) and a tight, observed blast radius. (2) Always run hypothesis-driven experiments with clear steady-state metrics and automatic abort/rollback. (3) Fix the weaknesses you find and SHOW the value (an outage prevented) to build organizational buy-in. (4) Gradually expand fault scope and complexity, and only move to production once you've proven the safety mechanisms and the system survives in staging. (5) Establish Game Days as a regular practice. The key is incremental confidence and never injecting faults you don't have monitoring and a kill-switch for — chaos engineering done recklessly causes the outages it's meant to prevent." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Chaos Engineering (Azure Chaos Studio) in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Chaos Engineering (Azure Chaos Studio) is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Chaos Engineering (Azure Chaos Studio)?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Chaos Engineering (Azure Chaos Studio)."
+      },
+      {
+        id: "q3",
+        text: "How does Chaos Engineering (Azure Chaos Studio) integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Chaos Engineering (Azure Chaos Studio) enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
   "30": {
     id: "30",
     title: "Production Architecture Game Day",
@@ -1283,4 +2421,43 @@ export const modulesData: Record<string, ModuleContent> = {
       { q: "Design a high-level resilient production architecture for JioMart checkout that survives a zone outage with near-zero RPO.", a: "Front Door (global L7, health-probe routing + WAF) -> Application Gateway/AGIC in the region. AKS cluster with node pools spread across all 3 AZs, checkout deployed with multiple replicas, PodDisruptionBudgets, HPA, and anti-affinity so replicas don't co-locate in one zone. State: PostgreSQL Flexible Server with zone-redundant HA (synchronous standby in another zone for near-zero RPO, auto-promotion on failure) and ZRS/GZRS storage. Redis with zone redundancy for sessions. Secrets via Key Vault + CSI. Observability via Azure Monitor/Log Analytics with SLO-based alerts, and the whole thing defined in Terraform so it's reproducible. For regional disaster, add a paired-region warm standby with geo-replicated data and Front Door failover. Validate it all annually with a Game Day measuring actual RTO/RPO against targets." }
     ]
   },
+    quiz: [
+      {
+        id: "q1",
+        text: "What is the primary purpose of Production Architecture Game Day in a production environment?",
+        options: [
+          { id: "a", text: "To replace the need for virtual machines completely." },
+          { id: "b", text: "To securely isolate and manage workloads effectively." },
+          { id: "c", text: "To bypass Azure active directory authentication." },
+          { id: "d", text: "To store static files securely without routing." }
+        ],
+        correctOptionId: "b",
+        explanation: "Production Architecture Game Day is fundamentally designed to provide secure, manageable isolation for your workloads in the cloud."
+      },
+      {
+        id: "q2",
+        text: "Which scenario best describes a valid use case for Production Architecture Game Day?",
+        options: [
+          { id: "a", text: "Scaling microservices dynamically based on traffic." },
+          { id: "b", text: "Hardcoding secrets into the application source code." },
+          { id: "c", text: "Disabling all network security groups for testing." },
+          { id: "d", text: "Manually deploying infrastructure without version control." }
+        ],
+        correctOptionId: "a",
+        explanation: "Dynamically scaling microservices is a core capability supported by the principles of Production Architecture Game Day."
+      },
+      {
+        id: "q3",
+        text: "How does Production Architecture Game Day integrate into a standard CI/CD pipeline?",
+        options: [
+          { id: "a", text: "It prevents developers from pushing code." },
+          { id: "b", text: "It acts as a manual approval gate requiring a physical signature." },
+          { id: "c", text: "It allows infrastructure and deployments to be automated and versioned." },
+          { id: "d", text: "It is strictly a UI tool and cannot be automated." }
+        ],
+        correctOptionId: "c",
+        explanation: "In modern DevOps, Production Architecture Game Day enables automation, allowing it to be seamlessly integrated into CI/CD workflows."
+      }
+    ]
+  }
 };

@@ -31,7 +31,7 @@ export default function JDAnalyzerPage() {
       
       const client = getGeminiClient(apiKey);
       const model = client.getGenerativeModel({ 
-        model: "gemini-1.5-flash",
+        model: "gemini-pro",
         systemInstruction: JD_ANALYZER_PROMPT
       });
 

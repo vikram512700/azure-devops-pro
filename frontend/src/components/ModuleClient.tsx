@@ -4,7 +4,9 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle2, Circle, BookOpen, Presentation, Database, Terminal, AlertTriangle, HelpCircle } from "lucide-react";
+import { CheckCircle2, Circle, BookOpen, Presentation, Database, Terminal, AlertTriangle, HelpCircle, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Link from "next/link";
 import { QuizEngine } from "@/components/QuizEngine";
 import { LabPanel } from "@/components/LabPanel";
 import { ArchitectureVisualizer } from "@/components/ArchitectureVisualizer";
@@ -42,8 +44,8 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
   return (
     <div className="min-h-screen bg-background flex flex-col md:flex-row">
       
-      {/* Sidebar Navigation */}
-      <aside className="w-full md:w-80 bg-white/[0.02] border-r border-white/5 flex-shrink-0 pt-20 md:min-h-screen">
+      {/* Desktop Sidebar Navigation */}
+      <aside className="hidden md:block w-80 bg-white/[0.02] border-r border-white/5 flex-shrink-0 pt-20 min-h-screen">
         <div className="p-6">
           <Badge variant="outline" className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20">Module {moduleId}</Badge>
           <h2 className="text-xl font-bold text-white mb-6">{moduleData.title}</h2>
@@ -69,6 +71,37 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
 
       {/* Main Content Area */}
       <main className="flex-1 p-6 md:p-12 pt-20 md:pt-24 max-w-6xl w-full">
+        {/* Mobile Header */}
+        <div className="md:hidden flex items-center justify-between mb-6 pb-4 border-b border-white/5">
+          <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/20">Module {moduleId}</Badge>
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="p-2 bg-white/5 rounded-md hover:bg-white/10 text-white">
+                <Menu className="w-5 h-5" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="left" className="bg-[#0a0a0a] border-r border-white/10 p-6">
+              <h2 className="text-xl font-bold text-white mb-6 mt-4">{moduleData.title}</h2>
+              <nav className="space-y-1">
+                {SECTIONS.map((section) => (
+                  <button 
+                    key={section.id} 
+                    onClick={() => setActiveTab(section.id)}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300
+                      ${activeTab === section.id ? 'bg-blue-600/10 text-blue-400 border border-blue-500/30' : 
+                        'text-gray-300 hover:bg-white/5 border border-transparent hover:border-white/10'}`}
+                  >
+                    {activeTab === section.id ? <CheckCircle2 className="w-5 h-5 text-blue-500" /> : 
+                     section.status === 'completed' ? <CheckCircle2 className="w-5 h-5 text-emerald-500" /> : 
+                     <Circle className="w-5 h-5 text-gray-700" />}
+                    <span className="flex-1 text-left">{section.title}</span>
+                  </button>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
@@ -173,17 +206,32 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
             <button
               onClick={goPrev}
               disabled={currentIndex === 0}
-              className="px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg border border-white/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              className={`px-6 py-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg border border-white/10 ${currentIndex === 0 ? 'opacity-40 cursor-not-allowed hover:translate-y-0' : ''}`}
             >
               Previous Section
             </button>
-            <button
-              onClick={goNext}
-              disabled={currentIndex === TAB_ORDER.length - 1}
-              className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-            >
-              {currentIndex === TAB_ORDER.length - 1 ? "All Sections Done" : "Next Section"}
-            </button>
+            {currentIndex < TAB_ORDER.length - 1 ? (
+              <button
+                onClick={goNext}
+                className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+              >
+                Next Section
+              </button>
+            ) : parseInt(moduleId) < 30 ? (
+              <Link
+                href={`/module/${parseInt(moduleId) + 1}`}
+                className="px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]"
+              >
+                Go to Next Module
+              </Link>
+            ) : (
+              <Link
+                href="/dashboard"
+                className="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(147,51,234,0.4)]"
+              >
+                Finish Curriculum
+              </Link>
+            )}
           </div>
         </Tabs>
       </main>

@@ -3,7 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Trophy, Target, Award, Settings2, Key, Shield, Medal, Crown, CheckCircle2 } from "lucide-react";
+import { BookOpen, Trophy, Target, Award, Settings2, Key, Shield, Medal, Crown, CheckCircle2, Download, Upload, Database } from "lucide-react";
+import { useRef } from "react";
 import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 import { useSettings } from "@/hooks/useSettings";
@@ -20,8 +21,26 @@ const MARKET_SKILLS = [
 ];
 
 export default function Dashboard() {
-  const { progress, isLoaded, unlockedBadges } = useProgress();
+  const { progress, isLoaded, unlockedBadges, exportProgress, importProgress } = useProgress();
   const { apiKey, saveApiKey, isLoaded: settingsLoaded } = useSettings();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = importProgress(event.target?.result as string);
+        if (result) {
+          alert("Progress imported successfully! Reloading...");
+          window.location.reload();
+        } else {
+          alert("Invalid progress file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
 
   const iconMap: Record<string, React.ReactNode> = {
     Shield: <Shield className="w-8 h-8 text-blue-400" />,
@@ -156,9 +175,31 @@ export default function Dashboard() {
                 </div>
                 {apiKey && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">API Key Saved</Badge>}
               </CardContent>
+            <Card className="bg-white/[0.02] border-white/[0.05] mt-6">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Database className="w-5 h-5 text-gray-400" />
+                  Data Management
+                </CardTitle>
+                <CardDescription>Backup your progress</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-xs text-muted-foreground">
+                  Your progress is saved locally. Export it to back it up or move between devices.
+                </p>
+                <div className="flex gap-2">
+                  <button onClick={exportProgress} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-md text-sm transition-all border border-white/10">
+                    <Download className="w-4 h-4" /> Export
+                  </button>
+                  <button onClick={() => fileInputRef.current?.click()} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-md text-sm transition-all border border-white/10">
+                    <Upload className="w-4 h-4" /> Import
+                  </button>
+                  <input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
+                </div>
+              </CardContent>
             </Card>
 
-            <h2 className="text-xl font-semibold text-white">Market Intel</h2>
+            <h2 className="text-xl font-semibold text-white mt-6 pt-4">Market Intel</h2>
             <Card className="bg-white/[0.02] border-white/[0.05]">
               <CardHeader>
                 <CardTitle className="text-lg">Hyderabad Top Skills</CardTitle>

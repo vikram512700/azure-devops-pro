@@ -63,6 +63,30 @@ export function useProgress() {
 
   const unlockedBadges = BADGES.filter(b => progress.xp >= b.threshold);
 
+  const exportProgress = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(progress));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "azure_devops_progress.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  const importProgress = (jsonString: string) => {
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (typeof parsed.xp === 'number' && Array.isArray(parsed.completedModules)) {
+        saveProgress(parsed);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      console.error("Failed to parse progress file", e);
+      return false;
+    }
+  };
+
   return {
     progress,
     isLoaded,
@@ -70,5 +94,7 @@ export function useProgress() {
     addXP,
     markModuleCompleted,
     isModuleCompleted,
+    exportProgress,
+    importProgress,
   };
 }

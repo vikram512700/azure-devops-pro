@@ -7,6 +7,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ModulePage({ params }: { params: { id: string } }) {
-  return <ModuleClient moduleId={params.id} />;
+import { use } from "react";
+
+export default function ModulePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  return <ModuleClient moduleId={id} />;
 }
