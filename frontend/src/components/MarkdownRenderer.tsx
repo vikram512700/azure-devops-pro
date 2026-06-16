@@ -30,11 +30,11 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               return (
                 <div className="mt-10 mb-4 bg-gradient-to-r from-blue-900/40 to-transparent border-l-4 border-blue-500 rounded-r-lg p-4 shadow-lg flex items-center gap-3">
                   <TerminalSquare className="w-6 h-6 text-blue-400 shrink-0" />
-                  <h3 className="text-xl font-bold text-blue-50 m-0 font-serif" {...props}>{children}</h3>
+                  <h3 className="text-xl font-bold text-blue-50 m-0 font-serif">{children}</h3>
                 </div>
               );
             }
-            return <h3 className="text-2xl font-semibold text-gray-200 mt-8 mb-4 font-serif" {...props}>{children}</h3>;
+            return <h3 className="text-2xl font-semibold text-gray-200 mt-8 mb-4 font-serif">{children}</h3>;
           },
           p: ({ node, children, ...props }) => {
             const text = getText(children);
@@ -44,14 +44,14 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-emerald-500/20 transition-all duration-500" />
                   <div className="flex gap-4 relative z-10">
                     <BookOpen className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
-                    <div className="text-emerald-50 text-lg leading-relaxed font-serif" {...props}>
+                    <div className="text-emerald-50 text-lg leading-relaxed font-serif">
                       {children}
                     </div>
                   </div>
                 </div>
               );
             }
-            return <div className="text-gray-300 leading-loose mb-6 font-serif text-lg" {...props}>{children}</div>;
+            return <div className="text-gray-300 leading-loose mb-6 font-serif text-lg">{children}</div>;
           },
           ul: ({ node, ...props }) => <ul className="list-disc list-outside pl-6 space-y-3 text-gray-300 mb-6 font-serif text-lg leading-loose" {...props} />,
           ol: ({ node, ...props }) => <ol className="list-decimal list-outside pl-6 space-y-3 text-gray-300 mb-6 font-serif text-lg leading-loose" {...props} />,
@@ -64,7 +64,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               return (
                 <div className="my-8 bg-amber-950/30 border border-amber-500/20 rounded-xl p-6 shadow-lg relative flex gap-4">
                   <Lightbulb className="w-6 h-6 text-amber-400 shrink-0 mt-1" />
-                  <div className="text-amber-100/90 text-lg leading-relaxed font-serif italic" {...props}>
+                  <div className="text-amber-100/90 text-lg leading-relaxed font-serif italic">
                     {children}
                   </div>
                 </div>

@@ -75,10 +75,8 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
         <div className="md:hidden flex items-center justify-between mb-6 pb-4 border-b border-white/5">
           <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/20">Module {moduleId}</Badge>
           <Sheet>
-            <SheetTrigger asChild>
-              <button className="p-2 bg-white/5 rounded-md hover:bg-white/10 text-white">
-                <Menu className="w-5 h-5" />
-              </button>
+            <SheetTrigger className="p-2 bg-white/5 rounded-md hover:bg-white/10 text-white">
+              <Menu className="w-5 h-5" />
             </SheetTrigger>
             <SheetContent side="left" className="bg-[#0a0a0a] border-r border-white/10 p-6">
               <h2 className="text-xl font-bold text-white mb-6 mt-4">{moduleData.title}</h2>
