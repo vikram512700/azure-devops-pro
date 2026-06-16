@@ -68,9 +68,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Resource Groups", "VNET", "NSG", "VM", "Azure CLI"],
     deliverables: ["Architecture diagram", "Deployment script", "NSG rule validation"],
     jdKeywords: ["Azure Virtual Machines", "NSG", "Resource Groups", "Azure CLI"],
-    businessContext: "The operations team needs a standardized baseline for managing user permissions securely across all Linux servers, ensuring compliance with ISO 27001 by implementing least privilege.",
-    costAnalysis: "Estimated Monthly Cost: $5.00 (Single B1s Burstable VM for testing).",
-    day2Operations: ["Auditing user access logs in /var/log/auth.log via Log Analytics.", "Automating password rotation and enforcing 90-day expiry policies."],
+    businessContext: "Migrating legacy, hard-to-maintain on-premise servers to Azure Virtual Machines reduces hardware CapEx and increases organizational agility, providing an immediate compute environment for monolithic applications.",
+    costAnalysis: "Utilizing Pay-As-You-Go compute pricing with Premium SSDs; applying Azure Hybrid Benefit can significantly reduce licensing costs. Auto-shutdown schedules are essential for non-production environments.",
+    day2Operations: [
+      "Resizing VM SKUs dynamically to match shifting workload demands.", "Creating and managing Azure Compute Gallery images for identical rollouts.", "Configuring Azure Backup policies for daily VM snapshots."
+    ],
     troubleshooting: [{"issue": "User cannot run sudo", "solution": "Verify the user is added to the 'sudo' or 'wheel' group using the 'id' command or 'visudo' configuration."}],
     architecture: {
       description: "The architecture centers around an isolated Azure Virtual Network (VNet) acting as a secure boundary. A public IP is attached to the Virtual Machine to allow external SSH access, but traffic is heavily filtered by a Network Security Group (NSG) which acts as a stateful firewall. The VM itself utilizes Premium SSD Managed Disks for high IOPS performance, creating a highly reliable and secure baseline compute environment.",
@@ -155,9 +157,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Storage Account", "Static Website", "Azure CDN", "Custom Domain"],
     deliverables: ["Storage Account", "CDN Profile", "Deployed index.html"],
     jdKeywords: ["Azure Storage", "CDN", "Static Site", "HTTPS"],
-    businessContext: "The development team requires automated shell scripts to rapidly rotate application logs on production web servers without manual intervention, preventing disk space exhaustion.",
-    costAnalysis: "Estimated Monthly Cost: $0 (Runs locally via cron on existing infrastructure).",
-    day2Operations: ["Monitoring cron job execution success via Anacron or centralized monitoring.", "Offloading compressed logs to Azure Blob Storage for long-term retention."],
+    businessContext: "Hosting static marketing assets directly on Azure Storage eliminates web server maintenance, providing an infinitely scalable, low-cost platform that survives sudden traffic spikes.",
+    costAnalysis: "Extremely cost-efficient. Billed purely on GBs stored and egress bandwidth. The addition of CDN caches content globally, drastically reducing egress data charges from the origin storage.",
+    day2Operations: [
+      "Purging CDN cache when new application versions are released.", "Configuring Custom Domains and managing SSL/TLS certificates.", "Monitoring bandwidth egress costs via Azure Cost Management."
+    ],
     troubleshooting: [{"issue": "Script fails with 'Permission denied'", "solution": "Ensure the script is executable (chmod +x) and the cron job runs as a user with write permissions to the log directory."}],
     architecture: {
       description: "This architecture employs a serverless approach to web hosting, completely eliminating compute management. An Azure Storage Account is configured to serve static HTML/JS/CSS assets directly to users. To ensure global scale and sub-second loading times regardless of the user's geographic location, an Azure Content Delivery Network (CDN) caches these static assets at edge nodes across the world.",
@@ -222,9 +226,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["App Service Plan", "Deployment Slots", "Autoscale", "App Insights"],
     deliverables: ["Linux App Service", "Staging Slot", "Production Swap"],
     jdKeywords: ["App Service", "Deployment Slots", "Blue-Green", "Application Insights"],
-    businessContext: "The enterprise is adopting GitOps and requires all developers to understand advanced branching, rebasing, and merge conflict resolution to maintain a clean history in the production repository.",
-    costAnalysis: "Estimated Monthly Cost: $0 (Using standard GitHub Free/Team tier).",
-    day2Operations: ["Enforcing branch protection rules on 'main' to require approvals.", "Periodically purging stale and merged feature branches."],
+    businessContext: "Eliminating downtime during software releases protects business revenue. Blue-Green deployments allow QA to test code in a live environment before users ever see it, minimizing rollback times.",
+    costAnalysis: "Requires App Service Premium or Standard tier to utilize Deployment Slots, doubling compute costs during the overlap period, but entirely offset by the prevention of production outages.",
+    day2Operations: [
+      "Scaling up the App Service Plan vertically during peak traffic seasons.", "Managing auto-scaling rules based on CPU and memory thresholds.", "Configuring custom domain bindings and renewing App Service Managed Certificates."
+    ],
     troubleshooting: [{"issue": "Rebase conflict", "solution": "Manually resolve conflicts in the file, 'git add' the resolved file, and run 'git rebase --continue'. Never use 'git commit' during a rebase."}],
     architecture: {
       description: "This PaaS architecture utilizes Azure App Service to provide fully managed web hosting. The key innovation is the use of Deployment Slots (Blue and Green environments) attached to the same App Service Plan. This allows developers to deploy new code to a staging slot, warm up the application, and then perform an instant swap of the VIP (Virtual IP) to route live user traffic to the new version with zero downtime.",
@@ -290,9 +296,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Terraform HCL", "State Management", "Variables", "Modules"],
     deliverables: ["tfstate backend", "main.tf", "variables.tf"],
     jdKeywords: ["Terraform", "IaC", "Remote State", "azurerm provider"],
-    businessContext: "The organization needs to containerize legacy Python applications to ensure parity between developer laptops, staging, and production environments, eliminating 'It works on my machine' syndrome.",
-    costAnalysis: "Estimated Monthly Cost: $15.00 (Azure Container Registry Basic SKU).",
-    day2Operations: ["Scanning Docker images for CVEs using Trivy.", "Pruning unused images and layers to reclaim disk space."],
+    businessContext: "Manual infrastructure provisioning leads to human error and 'snowflake' servers. Terraform codifies the infrastructure, allowing the business to reliably deploy identical environments in minutes, not weeks.",
+    costAnalysis: "Terraform itself is free and open-source. However, tracking Azure resource usage requires robust tagging strategies within the Terraform code to accurately allocate costs to different business units.",
+    day2Operations: [
+      "Upgrading Terraform provider versions across the codebase.", "Refactoring monolithic state files into smaller, manageable workspaces.", "Implementing tfsec to scan code for security vulnerabilities before applying."
+    ],
     troubleshooting: [{"issue": "Container exits immediately", "solution": "Check if the ENTRYPOINT or CMD process is running in the foreground. If the main process dies, the container terminates."}],
     architecture: {
       description: "The infrastructure is entirely codified using HashiCorp Configuration Language (HCL) within Terraform. The state file, which tracks the mapping between the configuration and real-world Azure resources, is securely locked and stored remotely in an Azure Storage Account. This prevents concurrent execution conflicts and provides a highly resilient, version-controlled architecture pipeline.",
@@ -365,9 +373,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Dockerfile", "Multi-stage builds", "ACR", "Container scanning"],
     deliverables: ["Dockerfile", "Azure Container Registry", "Trivy Scan Results"],
     jdKeywords: ["Docker", "ACR", "Container", "Multi-stage build", "Trivy"],
-    businessContext: "To deploy multi-tier applications reliably, developers need a unified docker-compose environment that links web frontends, backend APIs, and databases together locally before pushing to production.",
-    costAnalysis: "Estimated Monthly Cost: $0 (Runs locally on developer hardware).",
-    day2Operations: ["Managing persistent database volumes across container restarts.", "Updating image tags to test new releases safely."],
+    businessContext: "The 'it works on my machine' problem costs thousands of engineering hours. Containerization ensures the application runs identically on a developer laptop as it does in a high-compliance production server.",
+    costAnalysis: "Running containers natively in cloud services (like ACA or AKS) optimizes resource bin-packing, significantly reducing wasted compute resources compared to traditional VMs.",
+    day2Operations: [
+      "Scanning Docker images for CVEs using Trivy.", "Pruning unused images and layers to reclaim disk space.", "Updating base image tags to receive automatic OS security patches."
+    ],
     troubleshooting: [{"issue": "Containers cannot communicate", "solution": "Verify they are on the same custom bridge network and using the correct service names for DNS resolution, not 'localhost'."}],
     architecture: {
       description: "The application architecture shifts from running directly on the host OS to running inside isolated Linux containers. The Docker engine packages the Node.js application alongside its exact dependencies into a lightweight image. This immutable image is then pushed to a private Azure Container Registry (ACR), establishing a secure, centralized artifact repository that guarantees environmental consistency.",
@@ -435,9 +445,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["GitHub Actions", "CI/CD", "App Service", "Container Deployments"],
     deliverables: ["GitHub Actions Workflow", "Deployed App Service"],
     jdKeywords: ["GitHub Actions", "CI/CD"],
-    businessContext: "The engineering team needs to reduce deployment times from hours to minutes by automating the build, test, and push process into a CI/CD pipeline triggered on every commit.",
-    costAnalysis: "Estimated Monthly Cost: $0 (GitHub Actions free tier covers basic usage).",
-    day2Operations: ["Monitoring pipeline execution times and optimizing caching.", "Managing GitHub Actions Runner scaling during peak sprint times."],
+    businessContext: "Automated pipelines accelerate time-to-market. By instantly deploying code upon merge, the engineering team shifts from monthly error-prone releases to multiple confident deployments per day.",
+    costAnalysis: "GitHub Actions bills per minute for private repositories. Caching Docker layers and npm modules within the pipeline minimizes execution time and reduces runner costs.",
+    day2Operations: [
+      "Rotating Azure Service Principal credentials used by GitHub Actions.", "Optimizing pipeline caching to shave minutes off build times.", "Adding automated rollback steps if health checks fail post-deployment."
+    ],
     troubleshooting: [{"issue": "Pipeline fails on 'npm install'", "solution": "Check package-lock.json integrity and verify if the runner has access to private npm registries."}],
     architecture: {
       description: "The continuous integration and delivery architecture relies on GitHub Actions as the orchestration engine. Upon code merge, a hosted runner spins up, authenticates to Azure via secure OpenID Connect (OIDC), builds the Docker container, and securely pushes it to ACR. The pipeline then triggers a webhook to Azure App Service, instructing it to pull the latest image and restart the web container automatically.",
@@ -510,12 +522,10 @@ export const projectsData: Record<string, Project> = {
     skills: ["AKS", "Azure CNI", "ACR integration", "Ingress", "Managed Identity", "HPA", "PDB"],
     deliverables: ["AKS Cluster", "HPA Config", "Deployed Workloads", "Ingress Controller"],
     jdKeywords: ["AKS", "Kubernetes", "Ingress", "KEDA", "Managed Identity", "Azure CNI"],
-    businessContext: "The business is migrating monolithic applications to microservices. The platform must survive a zone failure, automatically scale during Black Friday events without manual intervention, and strictly adhere to least-privilege identity access to Azure services (No connection strings).",
-    costAnalysis: "Estimated Monthly Cost: $650. System Node Pool (2x D2s_v3): $137/mo, User Node Pool (Min 3x D4s_v3): $410/mo, SLA Uptime Tier: $73/mo, Standard Load Balancer: $30/mo.",
+    businessContext: "A highly scalable microservices platform is required to support millions of concurrent users. AKS provides a managed Kubernetes control plane, drastically reducing operational overhead while offering massive compute density.",
+    costAnalysis: "You pay for the underlying VM nodes, not the AKS control plane (unless using Uptime SLA). Optimizing node sizing and utilizing Spot instances for stateless workloads can cut costs by 60%.",
     day2Operations: [
-      "Performing zero-downtime Kubernetes version upgrades via surge node upgrades.",
-      "Monitoring CPU/Memory saturation points to adjust HPA thresholds.",
-      "Rotating certificates for the NGINX Ingress Controller via cert-manager."
+      "Upgrading the AKS cluster Kubernetes version.", "Scaling the node pool dynamically using Cluster Autoscaler.", "Rotating TLS certificates stored in Kubernetes Secrets."
     ],
     troubleshooting: [
       { issue: "SNAT Port Exhaustion", solution: "When out-bound connections fail, verify SNAT allocation. Fix by migrating to Managed NAT Gateway instead of default outbound Load Balancer." },
@@ -653,9 +663,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["ArgoCD", "GitOps", "App-of-Apps", "Rollback"],
     deliverables: ["ArgoCD Deployment", "GitOps Repository", "Automated Sync"],
     jdKeywords: ["ArgoCD", "GitOps", "Helm", "Sync", "Rollback"],
-    businessContext: "The enterprise requires strict configuration management for Kubernetes clusters. GitOps ensures that the cluster state exactly matches the Git repository, preventing ad-hoc unauthorized changes.",
-    costAnalysis: "Estimated Monthly Cost: $0 (ArgoCD is open-source; runs on existing AKS cluster).",
-    day2Operations: ["Upgrading ArgoCD controllers securely.", "Managing RBAC inside ArgoCD for different development teams."],
+    businessContext: "Direct manual access to production clusters is a security risk. GitOps mandates that Git is the only source of truth, establishing an immutable audit trail of who changed what, and when.",
+    costAnalysis: "ArgoCD requires dedicated compute resources within the cluster (typically 2-3 pods). However, the reduction in downtime caused by configuration drift easily justifies the minor compute footprint.",
+    day2Operations: [
+      "Upgrading the ArgoCD controller via Helm.", "Configuring Single Sign-On (SSO) with Azure AD for the ArgoCD UI.", "Managing multi-cluster deployments using ArgoCD App of Apps pattern."
+    ],
     troubleshooting: [{"issue": "ArgoCD App OutOfSync", "solution": "Check if someone manually modified resources via kubectl. ArgoCD will highlight the drift. Use 'Sync' to revert the cluster to the Git state."}],
     architecture: {
       description: "This GitOps architecture flips the traditional push-based deployment model into a pull-based continuous reconciliation loop. The ArgoCD controller lives directly inside the Kubernetes cluster and continuously monitors a designated GitHub repository. When a developer merges a manifest change, ArgoCD detects the drift and automatically pulls the new state into the cluster, ensuring the live environment exactly matches Git at all times.",
@@ -721,9 +733,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Prometheus", "Grafana", "KQL", "AlertManager"],
     deliverables: ["kube-prometheus-stack", "Custom Dashboard", "Alert Rules"],
     jdKeywords: ["Prometheus", "Grafana", "Alerting"],
-    businessContext: "Operations requires deep visibility into microservice performance and automated alerting for SLA breaches (e.g., latency spikes, high error rates) to maintain 99.9% uptime.",
-    costAnalysis: "Estimated Monthly Cost: $50-$100 (Azure Managed Prometheus & Grafana compute).",
-    day2Operations: ["Tuning alert thresholds to reduce alert fatigue.", "Managing Prometheus data retention and long-term storage (Thanos/Cortex)."],
+    businessContext: "Without observability, the engineering team is blind to production outages. A robust monitoring stack allows the business to detect and resolve latency spikes before customers notice.",
+    costAnalysis: "Storing highly granular time-series data locally can consume expensive SSD storage. Configuring metric retention policies and utilizing remote-write to cheaper storage prevents uncontrolled costs.",
+    day2Operations: [
+      "Writing custom PromQL queries for newly deployed microservices.", "Updating Grafana dashboards as application architectures evolve.", "Tuning Alertmanager routing rules to prevent alert fatigue."
+    ],
     troubleshooting: [{"issue": "Metrics not appearing in Grafana", "solution": "Verify Prometheus ServiceMonitors are correctly matching labels of the target application pods."}],
     architecture: {
       description: "The observability architecture relies on a triad of open-source monitoring tools. Prometheus operates as a time-series database, actively scraping metric endpoints across all Kubernetes nodes and pods. Grafana queries this database to render real-time, highly visual dashboards. Meanwhile, Alertmanager evaluates threshold rules and routes critical alerts to external communication channels like Slack or Microsoft Teams.",
@@ -789,12 +803,10 @@ export const projectsData: Record<string, Project> = {
     skills: ["Hub-Spoke", "Azure Firewall", "Terraform", "Private Endpoints", "UDR", "Azure Policy"],
     deliverables: ["Hub VNET", "Spoke VNET", "Azure Firewall", "Private Endpoints"],
     jdKeywords: ["Landing Zone", "Hub-Spoke", "Private Endpoint", "Azure Firewall", "Terraform", "IaC"],
-    businessContext: "The enterprise requires strict network isolation and deep packet inspection for all egress traffic to comply with SOC2 and PCI-DSS standards. Unregulated public internet access from production workloads is strictly forbidden.",
-    costAnalysis: "Estimated Monthly Cost: $1,150. Azure Firewall Standard ($912/mo), VNET Peering ($0.01/GB), Private Endpoints ($7.30/mo + data processed).",
+    businessContext: "Enterprise security policies require all network traffic to be deeply inspected. The Hub and Spoke model centralizes the Azure Firewall, drastically simplifying network peering and enforcing organizational compliance.",
+    costAnalysis: "Azure Firewall Premium is a significant fixed monthly cost. Centralizing it in the Hub prevents having to deploy firewalls in every Spoke, providing massive economies of scale for the enterprise.",
     day2Operations: [
-      "Reviewing Azure Firewall Threat Intelligence alerts in Log Analytics.",
-      "Scaling VNET address spaces without breaking peering.",
-      "Updating UDRs when deploying new Network Virtual Appliances (NVAs)."
+      "Updating Firewall network rules to allow new application egress traffic.", "Adding new Spoke VNets and establishing peering relationships.", "Analyzing Firewall diagnostic logs for dropped packets."
     ],
     troubleshooting: [
       { issue: "Asymmetric Routing", solution: "Ensure return traffic passes through the firewall by explicitly defining UDRs on gateway subnets or using Azure Route Server." },
@@ -918,9 +930,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Multi-env", "GitOps", "Pipeline gates", "Terraform Workspaces"],
     deliverables: ["Terraform Workspaces", "GitHub Actions Environments", "Approval Gates"],
     jdKeywords: ["Multi-env", "GitOps", "Pipeline gates"],
-    businessContext: "To achieve compliance, the enterprise mandates strict isolation between Dev, QA, and Production environments, driven by the same Terraform code but utilizing separate state files and variables.",
-    costAnalysis: "Estimated Monthly Cost: Multiplied by number of environments. Requires precise tagging for cost center billing.",
-    day2Operations: ["Reviewing Terraform Plans during PR approvals.", "Handling state file locks if a pipeline fails unexpectedly."],
+    businessContext: "Safely promoting code from Dev to QA to Prod requires identical infrastructure. Terraform Workspaces isolate state files, preventing a configuration mistake in testing from accidentally destroying the production database.",
+    costAnalysis: "Requires managing multiple state files in Azure Storage, but the cost is negligible. The true ROI comes from eliminating manual environment drift and reducing mean-time-to-recovery (MTTR).",
+    day2Operations: [
+      "Running Terraform state migrations when refactoring modules.", "Applying specific tfvars files securely via CI/CD pipelines.", "Locking down workspace access using Azure RBAC."
+    ],
     troubleshooting: [{"issue": "Accidental deployment to wrong workspace", "solution": "Enforce workspace validation inside the CI/CD pipeline before running 'terraform apply'."}],
     architecture: {
       description: "This multi-environment architecture isolates logical deployment stages (Dev, QA, Prod) using distinct Terraform Workspaces. Each workspace maintains its own isolated state file, ensuring changes in Dev cannot accidentally destroy Prod resources. GitHub Actions orchestrates the flow between these environments, utilizing Environment Protection Rules to pause the pipeline and demand explicit manual approval before executing the final Terraform Apply against Production.",
@@ -995,9 +1009,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Multi-node pools", "Cluster autoscaler", "PDB", "Velero backup", "Zone spread"],
     deliverables: ["Zonal Node Pools", "Pod Disruption Budget", "Velero Backup Schedule"],
     jdKeywords: ["HA", "Cluster Autoscaler", "PodDisruptionBudget", "Multi-AZ", "Velero"],
-    businessContext: "The primary e-commerce application cannot afford downtime during patching or zone outages. The architecture demands multi-AZ resilience and automated pod disruption budgets.",
-    costAnalysis: "Estimated Monthly Cost: $1,200 (Multi-node pools spread across 3 AZs).",
-    day2Operations: ["Simulating zone failures via Chaos Engineering.", "Restoring ETCD backups via Velero during disaster recovery drills."],
+    businessContext: "When a cloud provider datacenter goes offline, the application must survive. Advanced scheduling forces Kubernetes to distribute workloads across physical zones, ensuring a seamless user experience during catastrophic outages.",
+    costAnalysis: "Spreading workloads across zones introduces inter-zone data transfer costs. Architectures must balance high-availability requirements with the bandwidth costs of cross-zone communication.",
+    day2Operations: [
+      "Tuning Pod Disruption Budgets (PDBs) before executing cluster node upgrades.", "Applying node affinities to ensure GPU workloads only land on specialized nodes.", "Cordoning and draining nodes for maintenance."
+    ],
     troubleshooting: [{"issue": "Node upgrades blocked by PDB", "solution": "Check if your PodDisruptionBudget is too strict (e.g., demanding 100% availability), which prevents Kubernetes from draining nodes."}],
     architecture: {
       description: "The workload architecture is hardened using advanced Kubernetes scheduler constraints. Topology Spread Constraints force the Kubernetes scheduler to distribute application pods evenly across multiple physical Availability Zones. Additionally, Pod Disruption Budgets (PDBs) are enforced to ensure that voluntary disruptions (like node upgrades) never take down more than a specified percentage of pods, guaranteeing maximum uptime.",
@@ -1062,9 +1078,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["SonarQube", "Trivy", "Docker", "Helm", "AKS"],
     deliverables: ["Full Pipeline", "Code Quality Gate", "Security Gate", "Helm Deployment"],
     jdKeywords: ["End-to-End", "SonarQube", "Trivy", "Helm"],
-    businessContext: "A unified DevSecOps pipeline is required to scan code, build containers, run vulnerability checks, and deploy via Helm to AKS—all entirely automated.",
-    costAnalysis: "Estimated Monthly Cost: $150 (SonarQube Cloud, GitHub Actions minutes).",
-    day2Operations: ["Updating Trivy CVE databases.", "Rolling back Helm releases using 'helm rollback' when automated tests fail."],
+    businessContext: "Managing hundreds of YAML files manually leads to deployment drift. Helm abstracts configuration into reusable templates, allowing the business to rapidly spin up identical microservices with minimal boilerplate.",
+    costAnalysis: "Helm is free and open-source. Using an Azure Container Registry (ACR) to store OCI-compliant Helm charts consolidates storage costs and simplifies version management.",
+    day2Operations: [
+      "Rolling back a failed deployment instantly using 'helm rollback'.", "Updating chart dependencies when upstream architectures change.", "Extracting hardcoded values into dynamic templates."
+    ],
     troubleshooting: [{"issue": "Helm deployment fails due to existing resources", "solution": "Ensure resources weren't created manually. Use 'helm upgrade --force' cautiously or adopt ArgoCD for declarative management."}],
     architecture: {
       description: "The packaging architecture abstracts complex Kubernetes YAML into reusable Helm templates. The application's configuration is separated into distinct `values.yaml` files for different environments. During the CI/CD pipeline, GitHub Actions executes `helm upgrade`, overriding the template variables dynamically. This allows a single standard chart to deploy identical microservices across multiple clusters efficiently.",
@@ -1137,9 +1155,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Checkov", "Trivy", "GitLeaks", "SonarQube", "Shift-Left"],
     deliverables: ["Security Pipeline", "Checkov Report", "GitLeaks Integration"],
     jdKeywords: ["DevSecOps", "Trivy", "Checkov", "SAST", "Secret Scanning"],
-    businessContext: "Security teams mandate 'Shift-Left' principles, requiring all IaC and Dockerfiles to be scanned for misconfigurations and hardcoded secrets before they are merged into the main branch.",
-    costAnalysis: "Estimated Monthly Cost: $0 (Using open-source Checkov, Trivy, and GitLeaks).",
-    day2Operations: ["Managing false positives in security scans via .checkov.yml skip rules.", "Rotating exposed secrets identified by GitLeaks."],
+    businessContext: "Discovering security vulnerabilities after deployment leads to costly incidents. Integrating security scans into the CI/CD pipeline ensures non-compliant infrastructure or vulnerable images never reach production.",
+    costAnalysis: "Tools like Checkov and Trivy are open-source. The primary cost is pipeline execution minutes. Catching a misconfigured open firewall in code saves the company millions in potential data breach fines.",
+    day2Operations: [
+      "Updating Trivy vulnerability databases to detect zero-day exploits.", "Writing custom Checkov Python policies for organizational compliance.", "Managing vulnerability exceptions and false positives."
+    ],
     troubleshooting: [{"issue": "Checkov blocks valid Terraform", "solution": "Add an inline comment '# checkov:skip=CKV_AZURE_1: Justification' to explicitly acknowledge the risk."}],
     architecture: {
       description: "This DevSecOps architecture weaves security checks directly into the continuous integration pipeline. Before any code is compiled or deployed, Checkov statically analyzes the Terraform code for cloud misconfigurations. Concurrently, Trivy scans the compiled Docker image for known CVEs. If either tool detects a critical vulnerability, the pipeline fails instantly, completely blocking insecure code from reaching the staging environment.",
@@ -1202,9 +1222,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Terraform Modules", "DRY", "Outputs", "Variables"],
     deliverables: ["Networking Module", "Compute Module", "AKS Module", "Root Configuration"],
     jdKeywords: ["Terraform Modules", "IaC", "Reusable Architecture"],
-    businessContext: "To prevent code duplication, the platform team must build a reusable Terraform Module library that application teams can consume to provision standardized, secure infrastructure instantly.",
-    costAnalysis: "Estimated Monthly Cost: N/A (Module library doesn't incur direct Azure costs).",
-    day2Operations: ["Versioning Terraform modules strictly via Git tags.", "Publishing modules to a private Terraform Registry."],
+    businessContext: "Application teams shouldn't need to be cloud networking experts. By providing pre-approved, centralized Terraform modules, the central platform team enforces security guardrails while accelerating developer velocity.",
+    costAnalysis: "Reduces organizational engineering costs by preventing duplicate work. A single team maintains the module, and 50 teams consume it, maximizing engineering ROI.",
+    day2Operations: [
+      "Releasing semantic version tags (v1.2.0) for module updates.", "Deprecating older module versions safely.", "Writing automated Terratest scripts to validate module behavior."
+    ],
     troubleshooting: [{"issue": "Module breaks downstream deployments", "solution": "Ensure semantic versioning. Do not introduce breaking changes to module inputs/outputs in a minor release."}],
     architecture: {
       description: "The infrastructure composition architecture relies on centralized Terraform Modules. Instead of application teams writing custom, highly error-prone network configurations, they simply invoke a standardized, versioned module stored in a central repository. This module acts as a black box that accepts required variables (like region and sizing) and outputs pre-approved, compliant infrastructure configurations every time.",
@@ -1282,9 +1304,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Traffic Manager", "Multi-region", "Terraform Workspaces"],
     deliverables: ["East US Deployment", "Central India Deployment", "Traffic Manager Profile"],
     jdKeywords: ["Multi-region", "Active-Active", "Traffic Manager"],
-    businessContext: "The global application requires an active-active deployment across two disparate regions (East US, Central India) to guarantee 99.99% availability and low latency for global users.",
-    costAnalysis: "Estimated Monthly Cost: $3,000+ (Duplicating infrastructure across two regions, plus Traffic Manager costs).",
-    day2Operations: ["Failing over traffic manually during regional outages.", "Ensuring database replication (e.g., CosmosDB) is keeping up across regions."],
+    businessContext: "For mission-critical financial or healthcare applications, a single region outage cannot cause downtime. Multi-region architectures utilize Traffic Manager and Cosmos DB to provide instantaneous global failover.",
+    costAnalysis: "Deploying identical infrastructure in two regions doubles compute costs. Cosmos DB multi-master writes also incur premium charges, requiring a strict cost-benefit analysis for the business.",
+    day2Operations: [
+      "Executing disaster recovery (DR) simulation drills.", "Tuning Traffic Manager routing weights for localized traffic.", "Monitoring Cosmos DB replication lag and Request Unit (RU) consumption."
+    ],
     troubleshooting: [{"issue": "Traffic Manager routing to unhealthy region", "solution": "Verify the health probe path (/healthz) is returning HTTP 200 within the timeout window."}],
     architecture: {
       description: "This architecture achieves global resilience by deploying two identical technology stacks in geographically distant Azure regions. Azure Traffic Manager sits at the edge, utilizing DNS-based routing to direct users to the region with the lowest latency. At the data layer, Azure Cosmos DB provides global, multi-master replication, ensuring that if an entire region goes offline, the application fails over instantly without data loss.",
@@ -1360,9 +1384,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["GitHub Actions", "Helm", "AKS", "ACR"],
     deliverables: ["Helm Workflow", "Deployed Chart"],
     jdKeywords: ["GitHub Actions", "CI/CD", "Helm", "AKS deployment"],
-    businessContext: "The team needs to standardize AKS deployments using Helm charts injected dynamically by GitHub Actions, ensuring all microservices follow the same templating standard.",
-    costAnalysis: "Estimated Monthly Cost: $0 (Assumes existing AKS/ACR).",
-    day2Operations: ["Extracting common Helm templates into a shared 'Library Chart'.", "Managing Helm release history to prevent ConfigMap bloat."],
+    businessContext: "Maintaining distinct deployment YAML for dozens of microservices creates a maintenance nightmare. A 'Library' Helm chart enforces standardized readiness probes, resource limits, and security contexts across the enterprise.",
+    costAnalysis: "Significantly lowers technical debt. Standardization reduces the time required for SREs to troubleshoot anomalous microservices, directly impacting operational costs.",
+    day2Operations: [
+      "Propagating new organizational security contexts into the Library chart.", "Versioning the chart semantic releases.", "Linting charts locally using 'helm lint'."
+    ],
     troubleshooting: [{"issue": "Helm upgrade times out", "solution": "Usually caused by pods failing to start (CrashLoopBackOff). Check pod logs during the upgrade."}],
     architecture: {
       description: "The deployment standard architecture utilizes a 'Library' Helm chart to enforce organizational consistency. Rather than every microservice team maintaining their own bespoke Deployment and Service manifests, they inherit a centralized chart. This parent chart contains pre-configured best practices for readiness probes, resource requests, and security contexts, ensuring all deployed microservices adhere to identical reliability standards.",
@@ -1418,9 +1444,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["workflow_call", "Reusable Workflows", "Secrets Management"],
     deliverables: ["Central Template Repo", "Consumer Workflow"],
     jdKeywords: ["Reusable workflows", "GitHub Actions templates", "DRY"],
-    businessContext: "With 100+ microservices, the organization cannot maintain 100 separate GitHub Actions YAML files. A central repository of reusable workflows must be established to enforce compliance.",
-    costAnalysis: "Estimated Monthly Cost: $0.",
-    day2Operations: ["Updating reusable workflows without breaking consumer repositories.", "Managing centralized secrets (e.g., ACR credentials) at the GitHub Organization level."],
+    businessContext: "Managing 100 duplicate CI/CD pipelines is a massive security risk. Reusable workflows allow the platform team to inject mandated security scans and compliance checks centrally, enforcing organizational standards effortlessly.",
+    costAnalysis: "Reduces pipeline maintenance costs drastically. Updating a deployment script in one central repository immediately updates the pipeline for every consuming application team.",
+    day2Operations: [
+      "Managing runner matrices for parallel execution.", "Rotating organization-wide secrets required by the central workflows.", "Optimizing composite actions to reduce execution time."
+    ],
     troubleshooting: [{"issue": "Consumer repo cannot access reusable workflow", "solution": "Ensure the template repository settings allow access from other repositories within the organization."}],
     architecture: {
       description: "The CI/CD scaling architecture utilizes GitHub Reusable Workflows to eliminate pipeline duplication. A centralized DevSecOps repository houses the master workflow definitions for building, testing, and deploying. The 100+ individual application repositories simply reference these master workflows. If a new security scanning step is required, it is added once to the master workflow, and immediately inherited by every application pipeline.",
@@ -1482,9 +1510,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Managed Identity", "Key Vault CSI", "RBAC", "Private Endpoints"],
     deliverables: ["User-Assigned Identity", "Key Vault", "CSI SecretProviderClass"],
     jdKeywords: ["Zero Trust", "Managed Identity", "Key Vault CSI", "RBAC"],
-    businessContext: "Zero Trust mandates that applications must not use hardcoded passwords or connection strings. All secrets must be dynamically retrieved from Azure Key Vault using Managed Identities.",
-    costAnalysis: "Estimated Monthly Cost: $10 (Azure Key Vault standard tier operations).",
-    day2Operations: ["Automating certificate rotation inside Key Vault.", "Auditing Key Vault access logs to detect anomalous reads."],
+    businessContext: "Storing static database passwords in Kubernetes Secrets is a critical vulnerability. Workload Identity eliminates secrets entirely by allowing applications to natively authenticate to Azure using dynamic, short-lived tokens.",
+    costAnalysis: "Azure Workload Identity and Azure Key Vault integrate seamlessly and cost pennies per 10,000 transactions, providing massive security benefits for virtually zero cost.",
+    day2Operations: [
+      "Auditing Key Vault access logs for anomalous reads.", "Configuring pod-managed identities via Service Account annotations.", "Rotating backend database credentials automatically using Key Vault."
+    ],
     troubleshooting: [{"issue": "Pod fails to mount CSI volume", "solution": "Verify the Workload Identity has the 'Key Vault Secrets User' RBAC role assigned on the specific Key Vault."}],
     architecture: {
       description: "The identity architecture embraces a pure Zero Trust model using Azure Workload Identity. It completely eliminates the need to store passwords or connection strings inside application code or Kubernetes Secrets. Instead, a Kubernetes Service Account is federated with an Azure Managed Identity. The application pod requests a short-lived token from Azure Active Directory, which it uses to securely fetch real-time credentials from Azure Key Vault.",
@@ -1552,9 +1582,11 @@ export const projectsData: Record<string, Project> = {
     skills: ["Microsoft Defender", "Microsoft Sentinel", "KQL", "Threat Hunting"],
     deliverables: ["Defender Plans", "Sentinel Workspace", "KQL Alert Rule"],
     jdKeywords: ["Microsoft Defender", "Sentinel", "KQL", "SIEM"],
-    businessContext: "Security Operations Center (SOC) requires real-time alerting for suspicious activities across the AKS cluster and network, funneling telemetry into Microsoft Sentinel for incident response.",
-    costAnalysis: "Estimated Monthly Cost: $200+ (Log Analytics ingestion and Microsoft Defender for Cloud plans).",
-    day2Operations: ["Tuning KQL Analytics Rules to reduce false positive alerts.", "Writing Logic Apps for automated threat response (SOAR)."],
+    businessContext: "Fragmented logs across dozens of services make threat hunting impossible. Centralizing logs into Azure Monitor allows Security Operations Center (SOC) teams to instantly detect and correlate anomalous attack patterns.",
+    costAnalysis: "Log Analytics Workspace ingestion and retention costs can skyrocket. Dropping low-value debug logs and utilizing basic logs for high-volume telemetry prevents massive billing surprises.",
+    day2Operations: [
+      "Writing custom KQL alerts for failed login spikes.", "Configuring data export rules to cheaper Azure Storage for 7-year compliance retention.", "Integrating Sentinel for automated threat response."
+    ],
     troubleshooting: [{"issue": "High log ingestion costs", "solution": "Filter out noisy logs (e.g., routine health checks) at the Diagnostic Settings level before they reach Log Analytics."}],
     architecture: {
       description: "This Security Operations architecture centralizes telemetry from fragmented infrastructure components into a unified Azure Log Analytics Workspace. Diagnostic settings on AKS, Azure Firewall, and Key Vault are configured to stream their audit logs to this central repository in near real-time. Security analysts then write custom Kusto Query Language (KQL) rules to detect lateral movement, privilege escalation, and anomalous traffic patterns.",

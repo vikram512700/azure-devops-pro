@@ -100,7 +100,7 @@ export default function ProjectClient({ project }: { project: Project }) {
           <TabsTrigger value="architecture" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Architecture</TabsTrigger>
           <TabsTrigger value="business" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Business & Cost</TabsTrigger>
           <TabsTrigger value="steps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Execution</TabsTrigger>
-          <TabsTrigger value="day2" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Day 2 & Troubleshooting</TabsTrigger>
+          <TabsTrigger value="day2" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Production Runbook</TabsTrigger>
           <TabsTrigger value="interview" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-blue-500 rounded-none px-6 py-3">Interview Prep</TabsTrigger>
         </TabsList>
 
@@ -302,7 +302,7 @@ export default function ProjectClient({ project }: { project: Project }) {
         <TabsContent value="day2" className="animate-in fade-in slide-in-from-bottom-2 space-y-8">
           {project.day2Operations && project.day2Operations.length > 0 ? (
             <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
-              <h3 className="text-xl font-bold text-white mb-4">Day 2 Operations</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Standard Operating Procedures (SOPs)</h3>
               <ul className="space-y-4">
                 {project.day2Operations.map((op, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-300">
@@ -318,7 +318,7 @@ export default function ProjectClient({ project }: { project: Project }) {
 
           {project.troubleshooting && project.troubleshooting.length > 0 && (
             <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
-              <h3 className="text-xl font-bold text-white mb-4">Common Failures & Troubleshooting</h3>
+              <h3 className="text-xl font-bold text-white mb-4">Incident Response</h3>
               <div className="grid gap-4">
                 {project.troubleshooting.map((ts, i) => (
                   <div key={i} className="bg-red-950/20 border border-red-500/20 rounded-xl p-6">
