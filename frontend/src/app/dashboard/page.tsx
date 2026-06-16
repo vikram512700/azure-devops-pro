@@ -18,6 +18,9 @@ const MARKET_SKILLS = [
   { name: "CI/CD Pipelines", demand: 82, moduleId: "16", projectId: "p6" },
   { name: "Docker", demand: 75, moduleId: "7", projectId: "p5" },
   { name: "Landing Zone", demand: 70, moduleId: "22", projectId: "p10" },
+  { name: "GitOps / ArgoCD", demand: 65, moduleId: "27", projectId: "p8" },
+  { name: "Zero Trust Security", demand: 60, moduleId: "21", projectId: "p19" },
+  { name: "Observability", demand: 55, moduleId: "24", projectId: "p9" },
 ];
 
 export default function Dashboard() {
