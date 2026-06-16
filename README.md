@@ -1,6 +1,6 @@
 # Azure DevOps & AI Learning Platform 🚀
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Open_in_GitHub_Pages-blue?style=for-the-badge&logo=github)](https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Open_in_GitHub_Pages-blue?style=for-the-badge&logo=github)](https://vikram512700.github.io/azure-devops-pro/)
 
 A comprehensive, interactive Learning Platform designed to teach Azure Fundamentals, Enterprise DevOps, Production Architecture, and SRE best practices. Built specifically for engineers looking to master the GCC job market and transition into Senior Cloud/SRE roles.
 
