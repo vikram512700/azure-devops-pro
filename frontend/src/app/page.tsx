@@ -41,10 +41,10 @@ export default function Home() {
 
         {/* Feature Highlights */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-16 w-full max-w-4xl">
-          <FeatureCard icon={<Cloud className="w-6 h-6 text-blue-400" />} title="Azure Mastery" desc="10 comprehensive learning tracks" />
-          <FeatureCard icon={<Terminal className="w-6 h-6 text-emerald-400" />} title="Real Labs" desc="Hands-on production sandbox" />
-          <FeatureCard icon={<BrainCircuit className="w-6 h-6 text-purple-400" />} title="AI Mentor" desc="Personalized JD & interview prep" />
-          <FeatureCard icon={<Rocket className="w-6 h-6 text-orange-400" />} title="SRE Focus" desc="Architecture & troubleshooting" />
+          <FeatureCard href="/roadmap" icon={<Cloud className="w-6 h-6 text-blue-400" />} title="Azure Mastery" desc="30 comprehensive learning tracks" />
+          <FeatureCard href="/module/1" icon={<Terminal className="w-6 h-6 text-emerald-400" />} title="Real Labs" desc="Hands-on production sandbox" />
+          <FeatureCard href="/interview" icon={<BrainCircuit className="w-6 h-6 text-purple-400" />} title="AI Mentor" desc="Personalized JD & interview prep" />
+          <FeatureCard href="/jd-analyzer" icon={<Rocket className="w-6 h-6 text-orange-400" />} title="SRE Focus" desc="Architecture & troubleshooting" />
         </div>
       </main>
     </div>
@@ -59,14 +59,14 @@ function SparklesIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-function FeatureCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function FeatureCard({ icon, title, desc, href }: { icon: React.ReactNode; title: string; desc: string; href: string }) {
   return (
-    <div className="flex flex-col items-center p-6 space-y-3 rounded-2xl bg-white/[0.03] border border-white/[0.05] backdrop-blur-sm hover:bg-white/[0.06] transition-colors">
-      <div className="p-3 rounded-full bg-white/[0.05]">
+    <Link href={href} className="flex flex-col items-center p-6 space-y-3 rounded-2xl bg-white/[0.03] border border-white/[0.05] backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/[0.15] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 cursor-pointer group">
+      <div className="p-3 rounded-full bg-white/[0.05] group-hover:bg-white/[0.1] transition-colors">
         {icon}
       </div>
       <h3 className="font-semibold text-white">{title}</h3>
       <p className="text-sm text-center text-muted-foreground">{desc}</p>
-    </div>
+    </Link>
   )
 }
