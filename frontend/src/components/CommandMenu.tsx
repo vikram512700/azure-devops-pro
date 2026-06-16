@@ -11,9 +11,10 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { modulesData } from "@/data/modules";
-import { BookOpen, Terminal, Rocket, Search } from "lucide-react";
+import { BookOpen, Terminal, Rocket, Search, FileText } from "lucide-react";
+import type { DocCategory } from "@/lib/docs";
 
-export function CommandMenu() {
+export function CommandMenu({ docsNavigation = [] }: { docsNavigation?: DocCategory[] }) {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
@@ -51,34 +52,55 @@ export function CommandMenu() {
       </button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search modules..." />
+        <CommandInput placeholder="Type a command or search modules & docs..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
+          
           <CommandGroup heading="Tools">
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard"))}>
+            <CommandItem value="dashboard tools" onSelect={() => runCommand(() => router.push("/dashboard"))}>
               <Rocket className="mr-2 h-4 w-4" />
               <span>Dashboard</span>
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/interview"))}>
+            <CommandItem value="ai interviewer mock interview" onSelect={() => runCommand(() => router.push("/interview"))}>
               <Terminal className="mr-2 h-4 w-4" />
               <span>AI Interviewer</span>
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/jd-analyzer"))}>
+            <CommandItem value="jd analyzer resume" onSelect={() => runCommand(() => router.push("/jd-analyzer"))}>
               <BookOpen className="mr-2 h-4 w-4" />
               <span>JD Analyzer</span>
             </CommandItem>
           </CommandGroup>
-          <CommandGroup heading="Learning Modules">
+
+          {docsNavigation.length > 0 && (
+            <CommandGroup heading="Curriculum Docs">
+              {docsNavigation.flatMap(category => 
+                category.files.map(file => (
+                  <CommandItem
+                    key={file.path}
+                    value={`docs ${category.name} ${file.title}`}
+                    onSelect={() => runCommand(() => router.push(`/docs/${file.slug.join('/')}`))}
+                  >
+                    <FileText className="mr-2 h-4 w-4 text-emerald-400" />
+                    <span>{category.name.replace(/_/g, ' ')}: {file.title}</span>
+                  </CommandItem>
+                ))
+              )}
+            </CommandGroup>
+          )}
+
+          <CommandGroup heading="Interactive Labs">
             {modulesArray.map((mod) => (
               <CommandItem
                 key={mod.id}
+                value={`module ${mod.id} ${mod.title}`}
                 onSelect={() => runCommand(() => router.push(`/module/${mod.id}`))}
               >
                 <BookOpen className="mr-2 h-4 w-4 text-blue-400" />
-                <span>Module {mod.id}: {mod.title}</span>
+                <span>Interactive Lab {mod.id}: {mod.title}</span>
               </CommandItem>
             ))}
           </CommandGroup>
+
         </CommandList>
       </CommandDialog>
     </>

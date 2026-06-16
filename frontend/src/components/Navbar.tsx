@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText } from "lucide-react";
 import { CommandMenu } from "@/components/CommandMenu";
 
+import type { DocCategory } from "@/lib/docs";
+
 const NAV_ITEMS = [
   { href: "/", label: "Home", icon: Home },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -16,7 +18,7 @@ const NAV_ITEMS = [
   { href: "/market-trends", label: "Trends", icon: TrendingUp },
 ];
 
-export function Navbar() {
+export function Navbar({ docsNavigation = [] }: { docsNavigation?: DocCategory[] }) {
   const pathname = usePathname();
 
   return (
@@ -51,7 +53,7 @@ export function Navbar() {
               </Link>
             );
           })}
-          <CommandMenu />
+          <CommandMenu docsNavigation={docsNavigation} />
         </nav>
 
         {/* Mobile Nav */}
