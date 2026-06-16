@@ -50,10 +50,21 @@ export default function InterviewPage() {
       }
 
       const chat = model.startChat({ history });
-      const result = await chat.sendMessage(promptToSend);
-      const responseText = result.response.text();
-
-      setMessages(prev => [...prev, { role: 'ai', text: responseText }]);
+      const result = await chat.sendMessageStream(promptToSend);
+      
+      setIsTyping(false);
+      setMessages(prev => [...prev, { role: 'ai', text: "" }]);
+      
+      let fullText = "";
+      for await (const chunk of result.stream) {
+        const chunkText = chunk.text();
+        fullText += chunkText;
+        setMessages(prev => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1].text = fullText;
+          return newMessages;
+        });
+      }
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
       setMessages(prev => [...prev, { role: 'ai', text: "Error: " + message }]);
