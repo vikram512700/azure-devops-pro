@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Mic, Send, Bot, User, StopCircle } from "lucide-react";
 import { useSettings } from "@/hooks/useSettings";
 import { getGeminiClient, INTERVIEW_SYSTEM_PROMPT } from "@/lib/gemini";
+import ReactMarkdown from "react-markdown";
 
 export default function InterviewPage() {
   const [messages, setMessages] = useState<{ role: 'ai' | 'user', text: string }[]>([
@@ -102,7 +103,15 @@ export default function InterviewPage() {
                   ? 'bg-white/5 border border-white/10 text-gray-200' 
                   : 'bg-purple-600 text-white'
               }`}>
-                <p className="leading-relaxed">{msg.text}</p>
+                {msg.role === 'ai' ? (
+                  <div className="prose prose-invert max-w-none prose-p:leading-relaxed prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-headings:text-white prose-a:text-blue-400">
+                    <ReactMarkdown>
+                      {msg.text}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="leading-relaxed">{msg.text}</p>
+                )}
               </div>
             </div>
           ))}
