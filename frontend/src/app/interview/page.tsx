@@ -38,7 +38,8 @@ export default function InterviewPage() {
       const client = getGeminiClient(apiKey);
       const model = client.getGenerativeModel({ model: "gemini-pro" });
       
-      const history = messages.map(m => ({
+      // Filter out the initial UI greeting from the API history
+      const history = messages.slice(1).map(m => ({
         role: m.role === 'ai' ? 'model' : 'user',
         parts: [{ text: m.text }]
       }));
