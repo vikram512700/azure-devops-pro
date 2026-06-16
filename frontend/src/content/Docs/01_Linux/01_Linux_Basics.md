@@ -1,5 +1,8 @@
 # 🐧 01 — Linux Basics
 
+
+**Definition:** Linux is a family of open-source Unix-like operating systems based on the Linux kernel. In DevOps, it is the foundational infrastructure layer that powers the vast majority of servers, containers, and cloud environments.
+
 ## 📌 1. Linux Filesystem Hierarchy
 
 ```

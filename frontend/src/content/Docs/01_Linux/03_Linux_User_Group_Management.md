@@ -1,5 +1,8 @@
 # 🐧 03 — User & Group Management
 
+
+**Definition:** User and Group Management is the process of controlling identity-based access to a Linux system. It allows administrators to enforce the principle of least privilege by grouping users and granting scoped permissions.
+
 ## 📌 1. Key System Files
 
 ```

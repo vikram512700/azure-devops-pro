@@ -1,5 +1,8 @@
 # 🐧 09 — Linux Security Hardening
 
+
+**Definition:** Security Hardening is the process of reducing a system's vulnerability surface by disabling unnecessary services, configuring firewalls, enforcing password policies, and applying security patches.
+
 ## 📌 1. SSH Hardening
 
 ```bash

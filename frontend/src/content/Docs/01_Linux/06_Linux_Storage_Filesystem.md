@@ -1,5 +1,8 @@
 # 🐧 06 — Storage & Filesystem Management
 
+
+**Definition:** Storage and Filesystem management involves partitioning disks, formatting volumes, and mounting filesystems. In cloud environments, it translates to attaching block storage (EBS/Managed Disks) and expanding volumes without downtime.
+
 ## 📌 1. Disk Usage and Space
 
 ```bash

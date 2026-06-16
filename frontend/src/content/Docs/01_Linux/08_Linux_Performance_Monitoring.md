@@ -1,5 +1,8 @@
 # 🐧 08 — Performance Monitoring & Troubleshooting
 
+
+**Definition:** Performance Monitoring is the continuous observation of system resources (CPU, RAM, Disk I/O, Network). Proactive monitoring helps DevOps engineers identify bottlenecks before they cause application downtime.
+
 ## 📌 1. System Overview — Quick Snapshot
 
 ```bash
