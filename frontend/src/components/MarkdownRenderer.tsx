@@ -3,6 +3,14 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
+import { TerminalSquare, BookOpen, Lightbulb } from 'lucide-react';
+
+const getText = (children: any): string => {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) return children.map(getText).join('');
+  if (children?.props?.children) return getText(children.props.children);
+  return '';
+};
 
 interface MarkdownRendererProps {
   content: string;
@@ -14,18 +22,60 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          h1: ({ node, ...props }) => <h1 className="text-3xl font-extrabold tracking-tight text-white mt-8 mb-4 border-b border-white/10 pb-4" {...props} />,
-          h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-white mt-8 mb-4" {...props} />,
-          h3: ({ node, ...props }) => <h3 className="text-xl font-semibold text-gray-200 mt-6 mb-3" {...props} />,
-          p: ({ node, ...props }) => <div className="text-gray-300 leading-relaxed mb-4" {...props} />,
-          ul: ({ node, ...props }) => <ul className="list-disc list-outside pl-6 space-y-2 text-gray-300 mb-4" {...props} />,
-          ol: ({ node, ...props }) => <ol className="list-decimal list-outside pl-6 space-y-2 text-gray-300 mb-4" {...props} />,
-          li: ({ node, ...props }) => <li className="pl-2" {...props} />,
-          a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-400/30 hover:decoration-blue-400" {...props} />,
-          strong: ({ node, ...props }) => <strong className="font-semibold text-white" {...props} />,
-          blockquote: ({ node, ...props }) => (
-            <blockquote className="border-l-4 border-blue-500/50 bg-blue-500/5 px-4 py-3 rounded-r-lg text-gray-300 my-6 italic" {...props} />
-          ),
+          h1: ({ node, ...props }) => <h1 className="text-4xl font-extrabold tracking-tight text-white mt-10 mb-6 border-b border-white/10 pb-4 font-serif" {...props} />,
+          h2: ({ node, ...props }) => <h2 className="text-3xl font-bold text-blue-100 mt-10 mb-5 font-serif" {...props} />,
+          h3: ({ node, children, ...props }) => {
+            const text = getText(children);
+            if (text.includes("Real-Time") || text.includes("Scenario")) {
+              return (
+                <div className="mt-10 mb-4 bg-gradient-to-r from-blue-900/40 to-transparent border-l-4 border-blue-500 rounded-r-lg p-4 shadow-lg flex items-center gap-3">
+                  <TerminalSquare className="w-6 h-6 text-blue-400 shrink-0" />
+                  <h3 className="text-xl font-bold text-blue-50 m-0 font-serif" {...props}>{children}</h3>
+                </div>
+              );
+            }
+            return <h3 className="text-2xl font-semibold text-gray-200 mt-8 mb-4 font-serif" {...props}>{children}</h3>;
+          },
+          p: ({ node, children, ...props }) => {
+            const text = getText(children);
+            if (text.trim().startsWith("Definition:") || text.trim().startsWith("**Definition:**")) {
+              return (
+                <div className="my-8 bg-emerald-950/30 border border-emerald-500/20 rounded-xl p-6 shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-emerald-500/20 transition-all duration-500" />
+                  <div className="flex gap-4 relative z-10">
+                    <BookOpen className="w-6 h-6 text-emerald-400 shrink-0 mt-1" />
+                    <div className="text-emerald-50 text-lg leading-relaxed font-serif" {...props}>
+                      {children}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return <div className="text-gray-300 leading-loose mb-6 font-serif text-lg" {...props}>{children}</div>;
+          },
+          ul: ({ node, ...props }) => <ul className="list-disc list-outside pl-6 space-y-3 text-gray-300 mb-6 font-serif text-lg leading-loose" {...props} />,
+          ol: ({ node, ...props }) => <ol className="list-decimal list-outside pl-6 space-y-3 text-gray-300 mb-6 font-serif text-lg leading-loose" {...props} />,
+          li: ({ node, ...props }) => <li className="pl-2 marker:text-blue-500" {...props} />,
+          a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-400/30 hover:decoration-blue-400 font-medium" {...props} />,
+          strong: ({ node, ...props }) => <strong className="font-bold text-white tracking-wide" {...props} />,
+          blockquote: ({ node, children, ...props }) => {
+            const text = getText(children);
+            if (text.includes("[!TIP]") || text.includes("Pro Tip:")) {
+              return (
+                <div className="my-8 bg-amber-950/30 border border-amber-500/20 rounded-xl p-6 shadow-lg relative flex gap-4">
+                  <Lightbulb className="w-6 h-6 text-amber-400 shrink-0 mt-1" />
+                  <div className="text-amber-100/90 text-lg leading-relaxed font-serif italic" {...props}>
+                    {children}
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <blockquote className="border-l-4 border-blue-500/50 bg-blue-500/5 px-6 py-4 rounded-r-lg text-gray-300 my-8 italic font-serif text-lg leading-loose shadow-sm" {...props}>
+                {children}
+              </blockquote>
+            );
+          },
           code: ({ node, inline, className, children, ...props }: any) => {
             if (inline) {
               return (

@@ -32,7 +32,7 @@ export default async function DocPage({ params }: PageProps) {
   }
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-5xl mx-auto bg-[#0d1117]/50 p-8 md:p-12 rounded-2xl border border-white/5 shadow-2xl relative z-10 backdrop-blur-sm">
       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
         <span>Docs</span>
         <ChevronRight className="w-4 h-4" />
