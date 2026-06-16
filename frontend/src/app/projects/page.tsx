@@ -120,7 +120,12 @@ export default function ProjectsHub() {
                   {project.difficulty}
                 </span>
                 <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                <p className="text-sm text-gray-400 line-clamp-2">{project.subtitle}</p>
+                <p className="text-sm font-semibold text-blue-400 mb-2">{project.subtitle}</p>
+                {project.overview && (
+                  <p className="text-sm text-gray-400 line-clamp-3 leading-relaxed">
+                    {project.overview}
+                  </p>
+                )}
               </div>
 
               <div className="flex-1">

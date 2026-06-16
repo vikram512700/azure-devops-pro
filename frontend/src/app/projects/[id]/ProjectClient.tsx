@@ -105,6 +105,15 @@ export default function ProjectClient({ project }: { project: Project }) {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-8 animate-in fade-in slide-in-from-bottom-2">
+          {project.overview && (
+            <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-6">
+              <h3 className="text-xl font-bold text-white mb-4">Project Overview</h3>
+              <p className="text-gray-300 leading-relaxed text-lg">
+                {project.overview}
+              </p>
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <div>
