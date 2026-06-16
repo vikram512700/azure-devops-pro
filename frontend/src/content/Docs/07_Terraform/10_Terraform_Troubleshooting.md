@@ -1,5 +1,8 @@
 # ☁️ 10 — Terraform Troubleshooting & Recovery
 
+
+**Definition:** Troubleshooting Terraform involves interpreting error messages, handling state lock conflicts, resolving drift, and safely tearing down broken deployments using targeted commands.
+
 ## 📌 1. Debug Logging
 
 ```bash

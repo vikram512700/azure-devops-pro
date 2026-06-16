@@ -1,5 +1,8 @@
 # 🐧 05 — Linux Networking
 
+
+**Definition:** Linux Networking encompasses the tools and configurations required to manage network interfaces, routing, firewall rules, and DNS resolving. It is the backbone of connecting applications, databases, and external clients.
+
 ## 📌 1. Network Interface Management
 
 ```bash

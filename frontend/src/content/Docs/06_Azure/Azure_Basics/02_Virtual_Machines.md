@@ -1,5 +1,8 @@
 # 🖥️ Azure Virtual Machines
 
+
+**Definition:** Azure Virtual Machines provide on-demand, scalable computing resources. They are the backbone of Infrastructure as a Service (IaaS), running legacy applications and custom environments.
+
 ### 🎯 For DevOps Beginners — Simple Notes with Real Examples
 
 ______________________________________________________________________

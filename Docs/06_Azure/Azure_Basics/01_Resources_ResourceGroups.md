@@ -1,5 +1,8 @@
 # 📦 Azure Resources, Resource Groups & Resource Manager
 
+
+**Definition:** Azure Resource Groups are logical containers that hold related resources for an Azure solution. They dictate the lifecycle, permissions, and deployment grouping of your cloud infrastructure.
+
 ### 🎯 For DevOps Beginners — Simple Notes with Real Examples
 
 ______________________________________________________________________

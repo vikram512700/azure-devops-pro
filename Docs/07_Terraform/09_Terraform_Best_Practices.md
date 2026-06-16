@@ -1,5 +1,8 @@
 # ☁️ 09 — Terraform Best Practices
 
+
+**Definition:** Terraform Best Practices involve structuring code logically, using variables/locals effectively, locking provider versions, and securing state files to maintain enterprise-grade IaC.
+
 ## 📌 1. Project Structure Standards
 
 ### 🔹 Recommended File Layout

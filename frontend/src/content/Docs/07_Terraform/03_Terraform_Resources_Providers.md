@@ -1,5 +1,8 @@
 # ☁️ 03 — Resources, Providers & Meta-Arguments
 
+
+**Definition:** Providers are plugins that allow Terraform to interact with cloud APIs (like Azure or AWS), while Resources represent the actual infrastructure objects (like a VM or VNet) being provisioned.
+
 ## 📌 1. Resource Block Anatomy
 
 ```hcl

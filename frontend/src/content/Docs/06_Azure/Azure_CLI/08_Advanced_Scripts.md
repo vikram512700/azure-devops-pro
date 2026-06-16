@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 8: Advanced & Real-Time Scripts
 
+
+**Definition:** Advanced Azure CLI scripting combines JMESPath queries, bash logic, and Azure commands to automate complex, multi-stage infrastructure deployments and cleanup routines.
+
 ## 📌 1. Infrastructure as Code with CLI Scripts
 
 ### 🔹 Full Environment Setup Script

@@ -1,5 +1,8 @@
 # 🐙 03 — Git Remote Operations
 
+
+**Definition:** Remote Operations (clone, fetch, pull, push) synchronize your local repository with a remote server (like GitHub or GitLab). This is the foundation of team collaboration and CI/CD triggers.
+
 ## 📌 1. Cloning a Repository
 
 ```bash

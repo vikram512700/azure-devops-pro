@@ -1,5 +1,8 @@
 # ☁️ 04 — Terraform State Management
 
+
+**Definition:** Terraform State is the database mapping your HCL code to real-world cloud resources. Proper state management (especially remote state) is the most critical aspect of using Terraform in a team.
+
 ## 📌 1. What is Terraform State?
 
 The state file (`terraform.tfstate`) is Terraform's source of truth — it maps your HCL configuration to real Azure resources.

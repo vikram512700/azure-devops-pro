@@ -1,5 +1,8 @@
 # 🐙 07 — Git Workflows for DevOps
 
+
+**Definition:** Git Workflows (like GitFlow, GitHub Flow, or Trunk-Based Development) define the organizational rules for how teams collaborate, branch, and release software into production.
+
 ## 📌 1. Overview of Common Workflows
 
 | Workflow | Best For | Release Cadence |

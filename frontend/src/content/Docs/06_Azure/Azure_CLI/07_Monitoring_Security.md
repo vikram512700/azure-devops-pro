@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 7: Monitoring, Security & IAM
 
+
+**Definition:** CLI commands for Azure Monitor and Security Center allow engineers to programmatically query logs, set alerts, and audit the compliance state of the entire cloud environment.
+
 ## 📌 1. Azure Monitor & Log Analytics
 
 ```bash

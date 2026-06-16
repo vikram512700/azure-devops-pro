@@ -1,5 +1,8 @@
 # 🔒 Advanced Azure Networking
 
+
+**Definition:** Advanced Azure Networking involves Application Gateways, ExpressRoute, and VPNs, which enable complex traffic routing, load balancing, and hybrid cloud connectivity.
+
 ### 🎯 For DevOps Beginners — App Gateway, WAF, Load Balancer, DNS, Firewall, Peering, VPN
 
 ______________________________________________________________________

@@ -1,5 +1,8 @@
 # ☁️ 01 — Terraform Basics
 
+
+**Definition:** Terraform is an open-source Infrastructure as Code (IaC) tool by HashiCorp. It allows you to define, provision, and manage cloud infrastructure using a declarative configuration language.
+
 ## 📌 1. What is Terraform?
 
 Terraform is an **Infrastructure as Code (IaC)** tool by HashiCorp that lets you define, provision, and manage cloud infrastructure using a declarative configuration language (HCL).

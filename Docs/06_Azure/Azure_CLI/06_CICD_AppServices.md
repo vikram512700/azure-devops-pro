@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 6: CI/CD, DevOps & App Services
 
+
+**Definition:** App Services managed via CLI allow for seamless Platform as a Service (PaaS) deployments, making it incredibly easy to ship web apps and APIs directly from CI/CD pipelines.
+
 ## 📌 1. Azure DevOps CLI
 
 ```bash

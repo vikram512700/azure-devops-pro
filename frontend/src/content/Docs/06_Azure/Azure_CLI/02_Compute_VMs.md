@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 2: Compute & Virtual Machines
 
+
+**Definition:** Managing Azure Compute via CLI allows DevOps engineers to programmatically spin up, configure, and tear down Virtual Machines and Scale Sets in seconds.
+
 ## 📌 1. Create a Virtual Machine
 
 ```bash

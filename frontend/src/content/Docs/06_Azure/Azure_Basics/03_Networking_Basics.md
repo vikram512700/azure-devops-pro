@@ -1,5 +1,8 @@
 # 🌐 Azure Networking Basics
 
+
+**Definition:** Azure Networking Basics cover Virtual Networks (VNets), subnets, and Network Security Groups (NSGs). These establish the secure boundaries and communication pathways for your cloud resources.
+
 ### 🎯 For DevOps Beginners — VNet, Subnets, CIDR, Routes, NSG, ASG
 
 ______________________________________________________________________

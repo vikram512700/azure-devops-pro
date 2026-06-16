@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps Engineers - Part 1: Basics & Setup
 
+
+**Definition:** The Azure CLI is a set of cross-platform commands used to manage Azure resources directly from the terminal. It is heavily utilized in automation scripts and CI/CD pipelines.
+
 ## 📌 1. Installation
 
 ```bash

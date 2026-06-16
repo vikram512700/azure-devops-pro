@@ -1,5 +1,8 @@
 # ☁️ 02 — Terraform HCL Language (Beginner to Advanced)
 
+
+**Definition:** HashiCorp Configuration Language (HCL) is the human-readable language used by Terraform. It relies on blocks, arguments, and expressions to define resources logically and clearly.
+
 > **Who is this for?**
 > If you have never written code before — this file is for you.
 > We start from the very beginning: what is a variable, what is a string,

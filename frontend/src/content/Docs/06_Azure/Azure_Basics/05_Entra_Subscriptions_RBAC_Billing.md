@@ -1,5 +1,8 @@
 # 🔐 Azure Entra ID, Subscriptions, Access & Billing
 
+
+**Definition:** Microsoft Entra ID (formerly Azure AD) and Subscriptions form the identity and billing perimeter of your cloud. They enforce zero-trust security and cost-management isolation.
+
 ### 🎯 For DevOps Beginners — Who Are You? What Can You Do? Who Pays?
 
 ______________________________________________________________________

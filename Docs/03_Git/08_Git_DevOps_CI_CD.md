@@ -1,5 +1,8 @@
 # 🐙 08 — Git in DevOps CI/CD Pipelines
 
+
+**Definition:** In the context of CI/CD, Git acts as the definitive trigger for automation. Every push or merge event can automatically initiate build, test, and deployment pipelines.
+
 ## 📌 1. GitHub Actions — Full Pipeline
 
 ```yaml

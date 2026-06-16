@@ -1,5 +1,8 @@
 # ☁️ 06 — Azure Identity and Access Management (IAM)
 
+
+**Definition:** Identity and Access Management (IAM) through Role-Based Access Control (RBAC) ensures that users, groups, and applications have precisely the permissions they need—and nothing more.
+
 Identity is the **new perimeter**. In the cloud, there are no physical walls — your security boundary is defined entirely by *who* can access *what* and *when*. This guide covers everything you need to know about Azure's identity and access management ecosystem, from foundational authentication services to battle-tested RBAC best practices used by enterprise security teams worldwide.
 
 ---

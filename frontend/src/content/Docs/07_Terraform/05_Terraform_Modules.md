@@ -1,5 +1,8 @@
 # ☁️ 05 — Terraform Modules
 
+
+**Definition:** Terraform Modules are self-contained packages of Terraform configurations. They enable code reusability, standardize infrastructure patterns, and simplify complex deployments.
+
 ## 📌 1. What is a Module?
 
 A module is a **container for multiple resources** that are used together. Every Terraform configuration is technically a module (the root module). Child modules are reusable building blocks.

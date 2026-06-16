@@ -1,5 +1,8 @@
 # ☁️ 06 — Terraform with Azure — Production Examples
 
+
+**Definition:** The Terraform AzureRM provider is the official bridge between Terraform and Microsoft Azure, allowing engineers to define enterprise-grade Azure infrastructure entirely in code.
+
 ## 📌 1. Resource Naming Convention
 
 ```hcl

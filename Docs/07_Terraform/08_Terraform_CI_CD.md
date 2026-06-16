@@ -1,5 +1,8 @@
 # ☁️ 08 — Terraform in CI/CD Pipelines
 
+
+**Definition:** Running Terraform in CI/CD pipelines (like GitHub Actions or Azure DevOps) automates the plan and apply phases, ensuring infrastructure changes are peer-reviewed and deployed safely.
+
 ## 📌 1. GitHub Actions — Full Terraform Pipeline
 
 ```yaml

@@ -1,5 +1,8 @@
 # 🐧 07 — Shell Scripting for DevOps
 
+
+**Definition:** Shell Scripting is the art of automating repetitive Linux tasks by chaining commands together into executable text files. It is the original 'infrastructure as code' and is heavily used in CI/CD pipelines and startup scripts.
+
 ## 📌 1. Script Anatomy & Best Practices
 
 ```bash

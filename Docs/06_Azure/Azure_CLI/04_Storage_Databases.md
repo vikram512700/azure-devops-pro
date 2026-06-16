@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 4: Storage & Databases
 
+
+**Definition:** CLI automation for Azure Storage and Databases enables rapid provisioning of Blob containers, SQL databases, and CosmosDB instances, supporting scalable application backends.
+
 ## 📌 1. Storage Accounts
 
 ```bash

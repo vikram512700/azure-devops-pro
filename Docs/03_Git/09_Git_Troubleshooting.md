@@ -1,5 +1,8 @@
 # 🐙 09 — Git Troubleshooting & Performance
 
+
+**Definition:** Git Troubleshooting involves resolving merge conflicts, fixing detached HEAD states, and recovering lost commits—essential skills for keeping developer velocity high during complex integrations.
+
 ## 📌 1. Common Errors & Fixes
 
 ______________________________________________________________________

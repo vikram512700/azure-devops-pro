@@ -1,5 +1,8 @@
 # 🐙 06 — Advanced Git Commands
 
+
+**Definition:** Advanced Git commands like bisect, reflog, and cherry-pick give engineers surgical precision over the commit history, enabling rapid bug hunting and targeted feature deployments.
+
 ## 📌 1. git stash
 
 Stash saves your uncommitted changes and gives you a clean working tree.

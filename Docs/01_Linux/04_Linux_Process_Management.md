@@ -1,5 +1,8 @@
 # 🐧 04 — Process Management
 
+
+**Definition:** Process Management involves monitoring, controlling, and terminating active programs (processes) running on a Linux system. It is essential for troubleshooting high CPU/Memory usage and managing daemon states.
+
 ## 📌 1. Viewing Processes
 
 ```bash

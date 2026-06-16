@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 5: Containers & Kubernetes (AKS)
 
+
+**Definition:** The Azure CLI is the primary tool for deploying and managing Azure Kubernetes Service (AKS) clusters, handling everything from node pool scaling to credential retrieval.
+
 ## 📌 1. Azure Container Registry (ACR)
 
 ```bash

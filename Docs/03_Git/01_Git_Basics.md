@@ -1,5 +1,8 @@
 # 🐙 01 — Git Basics
 
+
+**Definition:** Git is a distributed version control system that tracks changes in source code during software development. In DevOps, it is the fundamental source of truth for Infrastructure as Code (IaC) and application deployments.
+
 ## 📌 1. Installation & Verification
 
 ```bash

@@ -1,5 +1,8 @@
 # 🐙 04 — Merging, Rebasing & Cherry-Pick
 
+
+**Definition:** Merging and Rebasing are techniques used to integrate changes from one branch into another. While merging preserves history, rebasing rewrites it for a cleaner, linear commit history.
+
 ## 📌 1. Merge Strategies
 
 ### 🔹 Fast-Forward Merge

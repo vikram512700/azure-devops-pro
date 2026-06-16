@@ -1,5 +1,8 @@
 # 🐙 05 — Undoing Changes
 
+
+**Definition:** Undoing changes (revert, reset, checkout) provides mechanisms to safely roll back mistakes in code. Mastering these commands is crucial for recovering from bad deployments or corrupted states.
+
 ## 📌 Decision Tree
 
 ```

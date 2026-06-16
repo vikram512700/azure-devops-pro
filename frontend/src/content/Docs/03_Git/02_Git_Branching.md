@@ -1,5 +1,8 @@
 # 🐙 02 — Git Branching
 
+
+**Definition:** Git Branching allows developers to diverge from the main line of development and continue to do work without messing with that main line. It enables parallel feature development and safe experimentation.
+
 ## 📌 1. Understanding Branches
 
 A branch is a lightweight movable pointer to a commit. `HEAD` is a special pointer that tells Git which branch you're currently on.

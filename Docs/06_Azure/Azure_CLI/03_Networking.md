@@ -1,5 +1,8 @@
 # ☁️ Azure CLI for DevOps - Part 3: Networking
 
+
+**Definition:** Azure CLI Networking commands automate the creation of VNets, subnets, and firewalls, ensuring network infrastructure can be deployed consistently and reproducibly.
+
 ## 📌 1. Virtual Networks (VNet)
 
 ```bash

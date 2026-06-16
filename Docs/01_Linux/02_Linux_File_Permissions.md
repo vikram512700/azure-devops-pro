@@ -1,5 +1,8 @@
 # 🐧 02 — Linux File Permissions
 
+
+**Definition:** Linux File Permissions are a core security mechanism that determines who can read, write, or execute files and directories. Properly managing these permissions is critical for securing servers and isolating applications.
+
 ## 📌 1. Understanding Permission Bits
 
 ```

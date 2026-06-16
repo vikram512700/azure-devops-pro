@@ -1,5 +1,8 @@
 # ☁️ 07 — Workspaces & Environment Management
 
+
+**Definition:** Terraform Workspaces allow you to manage multiple environments (like dev, staging, prod) using the exact same configuration code by isolating their state files.
+
 ## 📌 1. Terraform Workspaces
 
 Workspaces let you maintain **multiple state files** within the same configuration directory. Each workspace has its own `.tfstate`.
