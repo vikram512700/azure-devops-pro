@@ -11,9 +11,13 @@ export default function Home() {
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-600/20 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(99,102,241,0.12),transparent_30%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.05)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:radial-gradient(circle_at_center,black,transparent_82%)] opacity-70" />
+        <div className="absolute inset-0 opacity-[0.18] mix-blend-screen animate-[floatBackdrop_18s_ease-in-out_infinite]">
+          <DevOpsBackdrop />
+        </div>
       </div>
 
-      <main className="container max-w-7xl px-6 py-20 mx-auto flex flex-col gap-10">
+      <main className="relative z-10 container max-w-7xl px-6 py-20 mx-auto flex flex-col gap-10">
         <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
           <div className="flex flex-col gap-7">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)] backdrop-blur-md w-fit">
@@ -88,6 +92,54 @@ export default function Home() {
         </div>
       </main>
     </div>
+  );
+}
+
+function DevOpsBackdrop() {
+  return (
+    <svg viewBox="0 0 1200 800" className="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="devopsLine" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#60A5FA" stopOpacity="0.9" />
+          <stop offset="0.5" stopColor="#22D3EE" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#A78BFA" stopOpacity="0.85" />
+        </linearGradient>
+        <radialGradient id="nodeGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 400) rotate(90) scale(220 220)">
+          <stop stopColor="#93C5FD" stopOpacity="0.55" />
+          <stop offset="1" stopColor="#93C5FD" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <path className="animate-[dashFlow_22s_linear_infinite]" d="M120 560 C 260 360, 360 340, 520 460 S 820 610, 1040 260" stroke="url(#devopsLine)" strokeWidth="2.5" strokeDasharray="8 12" />
+      <path className="animate-[dashFlowReverse_28s_linear_infinite]" d="M160 220 C 310 170, 420 220, 560 320 S 870 500, 1100 180" stroke="url(#devopsLine)" strokeWidth="1.5" strokeDasharray="4 10" opacity="0.7" />
+      <circle cx="600" cy="400" r="220" fill="url(#nodeGlow)" className="animate-[pulseGlow_9s_ease-in-out_infinite]" />
+
+      <BackdropNode x={180} y={160} label="Docs" delay="0s" />
+      <BackdropNode x={360} y={250} label="Labs" delay="1s" />
+      <BackdropNode x={560} y={150} label="Projects" delay="0.4s" />
+      <BackdropNode x={820} y={250} label="Jobs" delay="1.4s" />
+      <BackdropNode x={980} y={160} label="AI" delay="0.8s" />
+      <BackdropNode x={250} y={520} label="Git" delay="1.8s" />
+      <BackdropNode x={520} y={600} label="AKS" delay="1.1s" />
+      <BackdropNode x={820} y={540} label="Terraform" delay="0.2s" />
+      <BackdropNode x={1040} y={470} label="Sentinel" delay="1.6s" />
+
+      <g opacity="0.8">
+        <circle cx="600" cy="400" r="66" stroke="rgba(96,165,250,0.75)" strokeWidth="2.5" />
+        <circle cx="600" cy="400" r="38" fill="rgba(15,23,42,0.8)" stroke="rgba(34,211,238,0.9)" strokeWidth="2" />
+        <path d="M582 396h36M600 378v36M586 384l28 32M614 384l-28 32" stroke="rgba(147,197,253,0.95)" strokeWidth="2" strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
+
+function BackdropNode({ x, y, label, delay }: { x: number; y: number; label: string; delay: string }) {
+  return (
+    <g style={{ animationDelay: delay }} className="animate-[nodePulse_7s_ease-in-out_infinite]">
+      <circle cx={x} cy={y} r="16" fill="rgba(15,23,42,0.65)" stroke="rgba(96,165,250,0.7)" strokeWidth="1.5" />
+      <circle cx={x} cy={y} r="6" fill="rgba(34,211,238,0.95)" />
+      <text x={x} y={y + 34} textAnchor="middle" fill="rgba(226,232,240,0.72)" fontSize="18" fontFamily="ui-sans-serif, system-ui">{label}</text>
+    </g>
   );
 }
 

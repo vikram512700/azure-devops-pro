@@ -32,6 +32,8 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
   ];
 
   const moduleData = modulesData[moduleId];
+  const finishLine = moduleData.finishLine ?? "Finish the module with a clear explanation of the concept, a working lab, and a story you can defend in interview.";
+  const productionImpact = moduleData.productionImpact ?? "This module matters because it changes how you design, operate, and troubleshoot real enterprise systems.";
 
   if (!moduleData) {
     return (
@@ -117,6 +119,33 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
             </TabsList>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-white/[0.02] border-white/5">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm text-gray-400 uppercase tracking-[0.18em]">Finish Line</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-200 leading-relaxed">
+                {finishLine}
+              </CardContent>
+            </Card>
+            <Card className="bg-white/[0.02] border-white/5">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm text-gray-400 uppercase tracking-[0.18em]">Why It Matters</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-200 leading-relaxed">
+                {productionImpact}
+              </CardContent>
+            </Card>
+            <Card className="bg-white/[0.02] border-white/5">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm text-gray-400 uppercase tracking-[0.18em]">Completion Signal</CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-gray-200 leading-relaxed">
+                You should be able to explain the concept to another engineer and map it to a real Azure design decision.
+              </CardContent>
+            </Card>
+          </div>
+
           <TabsContent value="theory" className="mt-0">
             <Card className="bg-white/[0.02] border-white/5 border border-l-4 border-l-blue-500">
               <CardHeader>
@@ -127,6 +156,10 @@ export function ModuleClient({ moduleId }: { moduleId: string }) {
                 <p>
                   <strong className="text-white">What is it?</strong><br />
                   {moduleData.theory.whatIsIt}
+                </p>
+                <p className="rounded-xl border border-blue-500/20 bg-blue-950/20 p-4">
+                  <strong className="text-white">Production takeaway:</strong><br />
+                  {productionImpact}
                 </p>
                 <p>
                   <strong className="text-white">Key Concepts:</strong>

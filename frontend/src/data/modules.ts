@@ -3,6 +3,8 @@ export interface ModuleContent {
   title: string;
   subtitle: string;
   description: string;
+  finishLine?: string;
+  productionImpact?: string;
   theory: {
     title: string;
     description: string;
@@ -35,6 +37,8 @@ export const modulesData: Record<string, ModuleContent> = {
     title: "Azure Regions & Resource Groups",
     subtitle: "Azure Fundamentals",
     description: "Geography, latency, HA design, and tagging strategy.",
+    finishLine: "You can explain why a region, resource group, and tag strategy matter before a single resource is deployed.",
+    productionImpact: "This module matters in production because every cloud decision starts with region choice, lifecycle boundaries, and governance. If you get this wrong, cost, compliance, and outage response all get harder later.",
     theory: {
       title: "Azure Regions & Resource Groups Theory",
       description: "How Azure organizes physical datacenters into regions, availability zones, and logical containers called resource groups.",
