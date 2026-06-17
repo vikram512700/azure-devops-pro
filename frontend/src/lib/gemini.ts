@@ -18,6 +18,8 @@ You MUST respond with a valid JSON object EXACTLY matching this schema, with no 
 {
   "match_score": 85,
   "summary": "A 2-sentence summary of how well the user's Azure DevOps roadmap aligns with this JD.",
+  "matched_skills": ["AKS", "Terraform", "CI/CD"],
+  "missing_skills": ["ArgoCD", "Python"],
   "learning_plan": [
     {
       "week": 1,
