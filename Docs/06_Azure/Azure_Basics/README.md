@@ -1,59 +1,26 @@
-# ☁️ Azure Basics — DevOps Notes
+# Azure Foundations
 
-### 🔹 Simple, short notes with real-world examples for DevOps Engineers
+This folder is the starting point for understanding Azure like an operator.
+It is written for people who need to manage identity, networking, compute, and governance the way a real platform team does.
 
-______________________________________________________________________
+## What This Folder Covers
+- Resources and resource groups
+- Virtual machines and networking
+- Entra ID, RBAC, subscriptions, and billing
+- IAM and access control
+- The basic shape of enterprise Azure environments
 
-## 📁 Files in This Folder
+## Real-World Lens
 
-| # | File | Topics Covered |
-|---|------|----------------|
-| 1 | [01_Resources_ResourceGroups.md](01_Resources_ResourceGroups.md) | Azure Resources, Resource Groups, Azure Resource Manager (ARM) |
-| 2 | [02_Virtual_Machines.md](02_Virtual_Machines.md) | Virtualization, Create VM, Connect VM, Deploy App, VMSS Autoscaling |
-| 3 | [03_Networking_Basics.md](03_Networking_Basics.md) | VNet, Subnets, CIDR, Route Tables, NSG, ASG |
-| 4 | [04_Advanced_Networking.md](04_Advanced_Networking.md) | App Gateway, WAF, Load Balancer, DNS, Azure Firewall, VNet Peering, VPN Gateway |
-| 5 | [05_Entra_Subscriptions_RBAC_Billing.md](05_Entra_Subscriptions_RBAC_Billing.md) | Entra ID, Subscriptions, Management Groups, RBAC, Policy, Cost Management |
+- Azure basics should feel like reading the map before entering the system.
+- Every resource should connect to a job, a risk, and a validation step.
+- The point is not naming services. The point is knowing how the platform is put together.
 
-______________________________________________________________________
-
-## 🗺️ Azure Learning Path
-
-```
-Step 1️⃣  → Understand Resources & Resource Groups (how Azure is organized)
-Step 2️⃣  → Learn Virtual Machines (your first cloud server)
-Step 3️⃣  → Learn Networking Basics (connect your resources privately)
-Step 4️⃣  → Learn Advanced Networking (expose apps safely to internet)
-Step 5️⃣  → Learn Entra ID & RBAC (who has access, billing, governance)
-```
+Azure content here should read like someone operating real cloud resources under cost, security, and governance pressure.
+Use the CLI and portal examples as if you are building or fixing platform work for a production team.
+Always connect the command to the resource, the risk, and the validation step.
 
 ______________________________________________________________________
 
-## 🔑 Key Concepts Cheat Sheet
+> In Azure, the command is only half the job. The other half is knowing which resource changed and how to verify it.
 
-| Concept | One-line Summary |
-|---------|-----------------|
-| **Resource** | Any Azure service you create (VM, DB, Storage...) |
-| **Resource Group** | A folder that holds related resources |
-| **ARM** | Azure's control plane — all requests go through it |
-| **VM** | A cloud computer — start in minutes, pay per hour |
-| **VMSS** | Auto add/remove VMs based on CPU/load |
-| **VNet** | Your private network in Azure |
-| **Subnet** | A section inside a VNet |
-| **NSG** | Firewall rules for a subnet or VM |
-| **ASG** | Group VMs by role for cleaner NSG rules |
-| **App Gateway** | Smart HTTP router + WAF (Layer 7) |
-| **Load Balancer** | Distribute TCP traffic across VMs (Layer 4) |
-| **VNet Peering** | Private connection between two Azure VNets |
-| **VPN Gateway** | Encrypted tunnel: Office ↔ Azure |
-| **Entra ID** | Azure's identity system (users, groups, apps) |
-| **Subscription** | Billing account — where resources are created |
-| **Management Group** | Folder for multiple subscriptions |
-| **RBAC** | Role-based access control — who can do what |
-| **Service Principal** | Non-human identity for apps/CI-CD pipelines |
-| **Managed Identity** | Azure-managed SP — no secrets to manage |
-| **Azure Policy** | Rules that enforce compliance automatically |
-| **Cost Management** | Monitor and control Azure spending |
-
-______________________________________________________________________
-
-> 💡 **Tip**: Each file ends with a **Quick Quiz** — test yourself before moving on!

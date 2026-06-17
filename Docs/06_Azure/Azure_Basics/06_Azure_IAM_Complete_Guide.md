@@ -1,5 +1,20 @@
-# ☁️ 06 — Azure Identity and Access Management (IAM)
+# Azure Identity and Access Management (IAM)
 
+## Real-World Lens
+
+- How this appears in production: on-call fixes, release work, access issues, scaling, or automation.
+- What to look for: the symptom, the cause, the safe fix, and the verification step.
+- What to remember for interviews: the tradeoff, the guardrail, and the observable result.
+
+## Why It Matters
+
+- This chapter is written to sound like a real system you have touched in a team.
+- Use the commands as a runbook, not just as syntax memorization.
+- Treat the troubleshooting notes as your first response during incidents.
+
+Azure content here should read like someone operating real cloud resources under cost, security, and governance pressure.
+Use the CLI and portal examples as if you are building or fixing platform work for a production team.
+Always connect the command to the resource, the risk, and the validation step.
 
 **Definition:** Identity and Access Management (IAM) through Role-Based Access Control (RBAC) ensures that users, groups, and applications have precisely the permissions they need—and nothing more.
 
@@ -405,5 +420,7 @@ Assigning a role at the root Management Group level gives access across your *en
         (The API app can fetch secrets, nothing else)
 ```
 
-> [!TIP]
-> **Pro Tip:** When building out your IAM structure, document it as code using Terraform's `azurerm_role_assignment` resource. This ensures your access control policies are version-controlled, peer-reviewed, and reproducible, just like your infrastructure!
+______________________________________________________________________
+
+> In Azure, the command is only half the job. The other half is knowing which resource changed and how to verify it.
+

@@ -1,5 +1,20 @@
-# 🐧 07 — Shell Scripting for DevOps
+# Shell Scripting for DevOps
 
+## Real-World Lens
+
+- How this appears in production: on-call fixes, release work, access issues, scaling, or automation.
+- What to look for: the symptom, the cause, the safe fix, and the verification step.
+- What to remember for interviews: the tradeoff, the guardrail, and the observable result.
+
+## Why It Matters
+
+- This chapter is written to sound like a real system you have touched in a team.
+- Use the commands as a runbook, not just as syntax memorization.
+- Treat the troubleshooting notes as your first response during incidents.
+
+Linux here is the shell you grab when a deployment is failing, a disk is full, or a service will not start.
+This chapter is about moving fast, checking the right signal, and fixing the issue without making it worse.
+Think in terms of access, processes, permissions, networking, and recovery.
 
 **Definition:** Shell Scripting is the art of automating repetitive Linux tasks by chaining commands together into executable text files. It is the original 'infrastructure as code' and is heavily used in CI/CD pipelines and startup scripts.
 
@@ -535,5 +550,5 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-> [!TIP]
-> **Pro Tip:** Practice these commands in a lab environment to build muscle memory!
+> Linux becomes valuable when you can recover a server, confirm the fix, and explain the change without guesswork.
+

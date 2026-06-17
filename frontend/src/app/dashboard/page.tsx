@@ -3,8 +3,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, Trophy, Target, Award, Settings2, Key, Shield, Medal, Crown, CheckCircle2, Download, Upload, Database } from "lucide-react";
-import { useRef } from "react";
+import { BookOpen, Trophy, Target, Award, Settings2, Key, Shield, Medal, Crown, CheckCircle2, Download, Upload, Database, Link2, ClipboardCheck } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { useProgress } from "@/hooks/useProgress";
 import { useSettings } from "@/hooks/useSettings";
@@ -27,6 +27,47 @@ export default function Dashboard() {
   const { progress, isLoaded, unlockedBadges, exportProgress, importProgress } = useProgress();
   const { apiKey, saveApiKey, isLoaded: settingsLoaded } = useSettings();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [syncLink, setSyncLink] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const toBase64Url = (value: string) =>
+    btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+
+  const fromBase64Url = (value: string) => {
+    const padded = value.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
+    return atob(padded);
+  };
+
+  // Handle ?sync= param on load — auto-import from URL
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const encoded = params.get("sync");
+    if (encoded) {
+      try {
+        const decoded = fromBase64Url(encoded);
+        const result = importProgress(decoded);
+        if (result) {
+          window.history.replaceState({}, "", window.location.pathname);
+          alert("Progress synced successfully from link!");
+          window.location.reload();
+        }
+      } catch { /* invalid param, ignore */ }
+    }
+  }, [importProgress]);
+
+  const generateSyncLink = () => {
+    const encoded = toBase64Url(JSON.stringify(progress));
+    const url = `${window.location.origin}${window.location.pathname}?sync=${encoded}`;
+    setSyncLink(url);
+  };
+
+  const copySyncLink = () => {
+    if (!syncLink) return;
+    navigator.clipboard.writeText(syncLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -201,6 +242,42 @@ export default function Dashboard() {
                   </button>
                   <input type="file" accept=".json" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/[0.02] border-white/[0.05]">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Link2 className="w-5 h-5 text-blue-400" />
+                  Sync Link
+                </CardTitle>
+                <CardDescription>Share progress between devices</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-xs text-muted-foreground">
+                  Generate a one-click link that transfers your full XP, modules, and project progress to any other device — no account needed.
+                </p>
+                <button
+                  onClick={generateSyncLink}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 rounded-md text-sm font-medium transition-all border border-blue-500/20"
+                >
+                  <Link2 className="w-4 h-4" /> Generate Sync Link
+                </button>
+                {syncLink && (
+                  <div className="space-y-2">
+                    <div className="bg-black/40 border border-white/10 rounded-md px-3 py-2 text-[10px] text-gray-500 font-mono break-all line-clamp-2">
+                      {syncLink}
+                    </div>
+                    <button
+                      onClick={copySyncLink}
+                      className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all border ${copied ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" : "bg-white/5 hover:bg-white/10 border-white/10 text-white"}`}
+                    >
+                      <ClipboardCheck className="w-4 h-4" />
+                      {copied ? "Copied!" : "Copy Link"}
+                    </button>
+                    <p className="text-[10px] text-gray-600">Open this link on any device to instantly restore your progress.</p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

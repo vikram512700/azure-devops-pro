@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText, FolderGit2 } from "lucide-react";
+import { LayoutDashboard, Map, Bot, FileSearch, TrendingUp, Home, BookText, FolderGit2, Newspaper } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const CommandMenu = dynamic(() => import("@/components/CommandMenu").then(mod => mod.CommandMenu), { ssr: false });
@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { href: "/docs", label: "Docs", icon: BookText },
   { href: "/interview", label: "AI Interview", icon: Bot },
   { href: "/jd-analyzer", label: "JD Analyzer", icon: FileSearch },
+  { href: "/jobs", label: "Jobs", icon: Newspaper },
   { href: "/market-trends", label: "Trends", icon: TrendingUp },
 ];
 
@@ -29,10 +30,10 @@ export function Navbar({ docsNavigation = [] }: { docsNavigation?: DocCategory[]
       <div className="h-full max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_12px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_20px_rgba(37,99,235,0.6)] transition-all">
+          <div className="w-8 h-8 shrink-0 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_12px_rgba(37,99,235,0.4)] group-hover:shadow-[0_0_20px_rgba(37,99,235,0.6)] transition-all">
             A
           </div>
-          <span className="text-white font-bold text-lg hidden sm:inline">Azure DevOps Pro</span>
+          <span className="text-white font-bold text-lg hidden lg:inline whitespace-nowrap">Azure DevOps Pro</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -45,7 +46,7 @@ export function Navbar({ docsNavigation = [] }: { docsNavigation?: DocCategory[]
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap",
                   isActive
                     ? "bg-blue-600/15 text-blue-400 shadow-[0_0_10px_rgba(37,99,235,0.15)]"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
